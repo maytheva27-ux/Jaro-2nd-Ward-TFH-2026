@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ward Temple & Family History — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy: #1B3A6B;
+  --navy-light: #243f6e;
+  --gold: #C9A84C;
+  --gold-light: #e8c97a;
+  --cream: #FBF8F3;
+  --white: #ffffff;
+  --text: #1a1a2e;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
+  --border: #e5e7eb;
+  --blue-50: #eff6ff;
+  --green-50: #f0fdf4;
+  --amber-50: #fffbeb;
+  --red-50: #fff1f2;
+  --purple-50: #faf5ff;
+  --teal-50: #f0fdfa;
+  --blue-600: #2563eb;
+  --green-600: #16a34a;
+  --amber-600: #d97706;
+  --red-600: #dc2626;
+  --purple-600: #9333ea;
+  --teal-600: #0d9488;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ─────────────────────────────────────────── */
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 220px;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-logo .temple-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+.sidebar-logo h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  color: var(--white);
+  line-height: 1.3;
+  font-weight: 600;
+}
+.sidebar-logo p {
+  font-size: 10px;
+  color: var(--gold);
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sidebar-nav { padding: 16px 12px; flex: 1; }
+
+.nav-section-label {
+  font-size: 9px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 8px 6px;
+  font-weight: 500;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+}
+.nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.nav-item.active { background: var(--gold); color: var(--navy); font-weight: 500; }
+.nav-item .nav-icon { font-size: 15px; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.5;
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────── */
+.main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── TOPBAR ──────────────────────────────────────────── */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar-left h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.topbar-left p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.topbar-controls { display: flex; align-items: center; gap: 10px; }
+
+.month-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+}
+.month-selector label {
+  font-size: 10px;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+.month-selector select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+.month-selector select option { background: var(--navy); }
+
+.view-toggle {
+  display: flex;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.view-toggle button {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-weight: 400;
+  transition: all 0.15s;
+}
+.view-toggle button.active { background: var(--navy); color: #fff; font-weight: 500; }
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--navy);
+}
+
+/* ── PAGE CONTENT ─────────────────────────────────────── */
+.page { padding: 24px 28px; display: none; }
+.page.active { display: block; }
+
+/* ── KPI STRIP ───────────────────────────────────────── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.kpi-card:hover { box-shadow: var(--shadow-md); }
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.kpi-card.blue::before { background: var(--blue-600); }
+.kpi-card.green::before { background: var(--green-600); }
+.kpi-card.amber::before { background: var(--amber-600); }
+.kpi-card.red::before { background: var(--red-600); }
+.kpi-card.purple::before { background: var(--purple-600); }
+.kpi-card.teal::before { background: var(--teal-600); }
+
+.kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-bottom: 6px; }
+.kpi-value { font-size: 28px; font-weight: 500; line-height: 1; margin-bottom: 4px; }
+.kpi-card.blue .kpi-value { color: var(--blue-600); }
+.kpi-card.green .kpi-value { color: var(--green-600); }
+.kpi-card.amber .kpi-value { color: var(--amber-600); }
+.kpi-card.red .kpi-value { color: var(--red-600); }
+.kpi-card.purple .kpi-value { color: var(--purple-600); }
+.kpi-card.teal .kpi-value { color: var(--teal-600); }
+.kpi-target { font-size: 10px; color: var(--text-light); }
+.kpi-delta { font-size: 11px; font-weight: 500; margin-top: 6px; }
+.kpi-delta.up { color: var(--green-600); }
+.kpi-delta.dn { color: var(--red-600); }
+.kpi-progress { height: 3px; background: var(--border); border-radius: 2px; margin-top: 10px; }
+.kpi-progress-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+
+/* ── CHART GRID ──────────────────────────────────────── */
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.chart-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; margin-bottom: 18px; }
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.card-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.card-body { padding: 14px 20px 18px; }
+
+.chart-container { position: relative; }
+
+/* ── LEGEND ──────────────────────────────────────────── */
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── SUBMITTER TABLE ─────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+.data-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.data-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+.data-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: #fafafa; }
+.data-table tr:hover td { background: var(--blue-50); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.badge-blue { background: var(--blue-50); color: var(--blue-600); }
+.badge-green { background: var(--green-50); color: var(--green-600); }
+.badge-amber { background: var(--amber-50); color: var(--amber-600); }
+.badge-red { background: var(--red-50); color: var(--red-600); }
+.badge-purple { background: var(--purple-50); color: var(--purple-600); }
+.badge-teal { background: var(--teal-50); color: var(--teal-600); }
+.badge-navy { background: var(--navy); color: var(--gold); }
+
+/* ── PROGRESS BARS ───────────────────────────────────── */
+.prog-list { display: flex; flex-direction: column; gap: 10px; }
+.prog-row { display: flex; align-items: center; gap: 10px; }
+.prog-name { font-size: 12px; font-weight: 500; width: 55px; flex-shrink: 0; color: var(--text); }
+.prog-bar { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
+.prog-val { font-size: 11px; width: 65px; text-align: right; color: var(--text-muted); flex-shrink: 0; }
+.prog-check { font-size: 11px; width: 14px; flex-shrink: 0; }
+
+/* ── YTD SUMMARY ROW ─────────────────────────────────── */
+.ytd-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.ytd-mini {
+  background: var(--navy);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  text-align: center;
+}
+.ytd-mini-label { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.ytd-mini-val { font-size: 20px; font-weight: 500; color: #fff; }
+.ytd-mini-sub { font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+/* ── SECTION HEADING ─────────────────────────────────── */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  margin-top: 4px;
+}
+.section-heading h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--navy);
+}
+.section-heading .divider { flex: 1; height: 1px; background: var(--border); }
+
+/* ── DATA ENTRY FORM ─────────────────────────────────── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color 0.15s;
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--navy); }
+.form-full { grid-column: 1 / -1; }
+.btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-light); }
+
+/* ── TOAST ───────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  border-left: 3px solid var(--gold);
+  box-shadow: var(--shadow-md);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── OVERLAY ─────────────────────────────────────────── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+}
+.overlay.show { display: block; }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hamburger { display: block; }
+  .chart-grid, .chart-grid-3 { grid-template-columns: 1fr; }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .page { padding: 16px; }
+  .topbar { padding: 12px 16px; }
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page.active { animation: fadeIn 0.25s ease; }
+.kpi-card { animation: fadeIn 0.3s ease both; }
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.10s; }
+.kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.kpi-card:nth-child(4) { animation-delay: 0.20s; }
+.kpi-card:nth-child(5) { animation-delay: 0.25s; }
+.kpi-card:nth-child(6) { animation-delay: 0.30s; }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="layout">
+
+<!-- ── SIDEBAR ─────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="temple-icon">⛪</div>
+    <h2>Ward Temple &amp;<br>Family History</h2>
+    <p>2026 Ministry</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <div class="nav-item active" onclick="navigate('dashboard', this)">
+      <span class="nav-icon">▣</span> Dashboard
+    </div>
+    <div class="nav-section-label">Tracking</div>
+    <div class="nav-item" onclick="navigate('submitters', this)">
+      <span class="nav-icon">✦</span> Temple Submitters
+    </div>
+    <div class="nav-item" onclick="navigate('getinvolved', this)">
+      <span class="nav-icon">◈</span> Get Involved
+    </div>
+    <div class="nav-item" onclick="navigate('familyhistory', this)">
+      <span class="nav-icon">❧</span> Family History
+    </div>
+    <div class="nav-section-label">Team</div>
+    <div class="nav-item" onclick="navigate('consultants', this)">
+      <span class="nav-icon">◉</span> Consultant KPIs
+    </div>
+    <div class="nav-item" onclick="navigate('meetings', this)">
+      <span class="nav-icon">◆</span> Monthly Meeting
+    </div>
+    <div class="nav-section-label">Records</div>
+    <div class="nav-item" onclick="navigate('templetrips', this)">
+      <span class="nav-icon">✶</span> Temple Trips
+    </div>
+    <div class="nav-item" onclick="navigate('entry', this)">
+      <span class="nav-icon">✚</span> Add Record
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    Ward Temple &amp; Family<br>History Ministry<br>Iloilo City Ward · 2026
+  </div>
+</aside>
+
+<!-- ── MAIN ────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-left">
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">All KPIs · 2026 Overview</p>
+      </div>
+    </div>
+    <div class="topbar-controls">
+      <div class="month-selector">
+        <label>Period</label>
+        <select id="monthSel" onchange="onMonthChange()">
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
+        </select>
+      </div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="active" onclick="setView('monthly', this)">Monthly</button>
+        <button onclick="setView('ytd', this)">YTD</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ DASHBOARD PAGE ══════════════════════════════ -->
+  <section class="page active" id="page-dashboard">
+
+    <!-- KPI STRIP -->
+    <div class="kpi-strip" id="kpiStrip"></div>
+
+    <!-- YTD STRIP -->
+    <div class="ytd-strip" id="ytdStrip"></div>
+
+    <!-- CHARTS ROW 1 -->
+    <div class="chart-grid-3">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="submitChartTitle">Temple name submitters — January</div>
+            <div class="card-subtitle">By organization</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="legend" id="submitLegend"></div>
+          <div class="chart-container" style="height:200px">
+            <canvas id="submitChart" aria-label="Bar chart of temple submitters by organization">Temple submitters by organization.</canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Organization split</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:180px">
+            <canvas id="pieChart" aria-label="Donut chart of submitter breakdown">Submitter breakdown.</canvas>
+          </div>
+          <div class="legend" id="pieLegend" style="margin-top:10px;justify-content:center"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW 2 -->
+    <div class="chart-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Get Involved — consultant progress</div>
+          <div class="card-subtitle" id="giProgressLabel">January · target 500/consultant</div>
+        </div>
+        <div class="card-body">
+          <div class="prog-list" id="progBars"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Get Involved trend — 2026</div>
+          <div class="card-subtitle">All consultants combined</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:200px">
+            <canvas id="trendChart" aria-label="Line chart showing monthly Get Involved trend">Get Involved monthly trend 2026.</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="chart-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">4th generation tracker</div>
+          <div class="card-subtitle">Target: 50 members/year</div>
+        </div>
+        <div class="card-body" style="padding-top:10px">
+          <table class="data-table" id="fhTable">
+            <thead><tr><th>Member</th><th>Org</th><th>Gen 4</th><th>Status</th><th>Consultant</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">YTD submitters by organization</div>
+          <div class="card-subtitle" id="ytdChartLabel">Jan – January 2026</div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:220px">
+            <canvas id="ytdBarChart" aria-label="Horizontal bar chart of YTD submitters by organization">YTD submitters by organization.</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ TEMPLE SUBMITTERS PAGE ══════════════════════ -->
+  <section class="page" id="page-submitters">
+    <div class="section-heading"><h2>Temple Name Submitters</h2><div class="divider"></div></div>
+    <div class="ytd-strip" id="subYtdStrip"></div>
+    <div class="card" style="margin-bottom:18px">
+      <div class="card-header" style="padding-bottom:14px">
+        <div class="card-title" id="subTableTitle">Monthly breakdown — January 2026</div>
+      </div>
+      <div class="card-body" style="padding-top:0;overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>New Members</th><th>Primary</th><th>YSA</th><th>Monthly Total</th><th>YTD Total</th><th>% of Target</th></tr>
+          </thead>
+          <tbody id="submitFullTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GET INVOLVED PAGE ════════════════════════════ -->
+  <section class="page" id="page-getinvolved">
+    <div class="section-heading"><h2>Get Involved Records</h2><div class="divider"></div></div>
+    <div class="ytd-strip" id="giYtdStrip"></div>
+    <div class="chart-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title" id="giPageTitle">Monthly Get Involved — January</div>
+        </div>
+        <div class="card-body">
+          <div class="prog-list" id="giPageBars"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">12-month trend per consultant</div></div>
+        <div class="card-body">
+          <div class="legend" id="giTrendLeg"></div>
+          <div class="chart-container" style="height:220px">
+            <canvas id="giTrendChart" aria-label="Line chart per consultant Get Involved trend">Per consultant Get Involved trend.</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Full year Get Involved — all consultants</div></div>
+      <div class="card-body" style="overflow-x:auto">
+        <table class="data-table" id="giFullTable">
+          <thead><tr><th>Consultant</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>TOTAL</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAMILY HISTORY PAGE ══════════════════════════ -->
+  <section class="page" id="page-familyhistory">
+    <div class="section-heading"><h2>Family History — 4 Generations</h2><div class="divider"></div></div>
+    <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:18px" id="fhKpis"></div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Member genealogy progress</div></div>
+      <div class="card-body" style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Member</th><th>Org</th><th>YSA</th><th>Gen 1</th><th>Gen 2</th><th>Gen 3</th><th>Gen 4</th><th>Gen 5+</th><th>4th Gen Done</th><th>New Entries</th><th>Consultant</th></tr></thead>
+          <tbody id="fhFullTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONSULTANT KPIS PAGE ════════════════════════ -->
+  <section class="page" id="page-consultants">
+    <div class="section-heading"><h2>Consultant KPIs</h2><div class="divider"></div></div>
+    <div class="kpi-strip" id="consKpiStrip" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:18px"></div>
+    <div class="card" style="margin-bottom:18px">
+      <div class="card-header">
+        <div class="card-title" id="consTableTitle">KPI performance — January 2026</div>
+      </div>
+      <div class="card-body" style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Consultant</th><th>Get Involved</th><th>vs Target</th><th>Temple Class</th><th>4th Gen Done</th><th>Names Submitted</th><th>Records Reviewed</th><th>Status</th></tr></thead>
+          <tbody id="consTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Get Involved comparison — selected month</div></div>
+      <div class="card-body">
+        <div class="chart-container" style="height:260px">
+          <canvas id="consBarChart" aria-label="Horizontal bar chart of consultant Get Involved">Consultant Get Involved comparison.</canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MEETINGS PAGE ════════════════════════════════ -->
+  <section class="page" id="page-meetings">
+    <div class="section-heading"><h2>Monthly Coordination Meeting</h2><div class="divider"></div></div>
+    <div style="background:var(--amber-50);border:1px solid #fcd34d;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px;font-size:13px;color:#92400e">
+      <strong>c/o Tatay</strong> — Monthly meeting attendance and action items tracker
+    </div>
+    <div class="card">
+      <div class="card-body" style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Date</th><th>Attendee</th><th>Role</th><th>Present</th><th>Topic</th><th>Action Item</th></tr></thead>
+          <tbody id="mtgTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TEMPLE TRIPS PAGE ════════════════════════════ -->
+  <section class="page" id="page-templetrips">
+    <div class="section-heading"><h2>Ward Temple Trips</h2><div class="divider"></div></div>
+    <div class="kpi-strip" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px" id="tripKpis"></div>
+    <div class="card">
+      <div class="card-body" style="overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Date</th><th>Attendee</th><th>Org</th><th>Living Ord.</th><th>Proxy Ord.</th><th>Name Cards</th><th>Consultant</th></tr></thead>
+          <tbody id="tripTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ADD RECORD PAGE ══════════════════════════════ -->
+  <section class="page" id="page-entry">
+    <div class="section-heading"><h2>Add New Record</h2><div class="divider"></div></div>
+    <div class="card" style="max-width:680px">
+      <div class="card-header" style="padding-bottom:16px">
+        <div class="card-title">Temple Name Submitter Entry</div>
+        <div class="card-subtitle">Data is saved locally in this browser session</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="f-name" placeholder="Sister / Bro. Name">
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="f-date" value="2026-01-01">
+          </div>
+          <div class="form-group">
+            <label>Organization</label>
+            <select id="f-org">
+              <option>EQ</option><option>RS</option><option>Youth</option>
+              <option>New Members</option><option>Primary</option><option>YSA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Consultant (Assisted By)</label>
+            <select id="f-cons">
+              <option>Rhea</option><option>Juna</option><option>May</option>
+              <option>Alpha</option><option>Jean</option><option>Nelida</option><option>Steph</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Get Involved (# entries)</label>
+            <input type="number" id="f-gi" placeholder="e.g. 1195" min="0">
+          </div>
+          <div class="form-group">
+            <label>Is New Member?</label>
+            <select id="f-newmember"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="form-group">
+            <label>Is YSA?</label>
+            <select id="f-ysa"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="form-group">
+            <label>Temple Name Submitted?</label>
+            <select id="f-submitted"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="form-group">
+            <label>4th Gen Completed?</label>
+            <select id="f-gen4"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="form-group">
+            <label>Attended Meeting?</label>
+            <select id="f-meeting"><option>No</option><option>Yes</option></select>
+          </div>
+          <div class="form-group form-full">
+            <label>Notes</label>
+            <textarea id="f-notes" rows="2" placeholder="Any additional notes..."></textarea>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class="btn btn-primary" onclick="submitRecord()">Save Record</button>
+          <button class="btn btn-gold" onclick="clearForm()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONS   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const ORGS   = ['EQ','RS','Youth','New Members','Primary','YSA'];
+const CONS   = ['Rhea','Juna','May','Alpha','Jean','Nelida','Steph'];
+const ORG_COLORS  = ['#2563eb','#16a34a','#d97706','#dc2626','#9333ea','#0d9488'];
+const CONS_COLORS = ['#1B3A6B','#2563eb','#16a34a','#C9A84C','#dc2626','#9333ea','#d97706'];
+
+const orgData = {
+  EQ:           [4,3,4,5,4,4,4,5,4,4,4,5],
+  RS:           [6,5,6,6,5,5,6,7,6,5,6,6],
+  Youth:        [2,2,3,2,3,2,3,3,2,3,3,3],
+  'New Members':[3,3,3,4,3,3,3,4,4,3,3,4],
+  Primary:      [1,1,1,1,1,1,1,1,1,1,1,1],
+  YSA:          [2,1,2,2,2,2,2,2,2,2,2,2],
+};
+const giData = {
+  Rhea:   [1195,800,750,900,850,780,820,910,870,760,800,850],
+  Juna:   [600,550,620,580,610,590,640,600,570,590,610,620],
+  May:    [750,700,680,720,690,710,740,760,730,700,720,750],
+  Alpha:  [520,480,510,530,500,490,540,520,510,500,530,520],
+  Jean:   [450,420,460,440,430,450,470,460,440,430,450,460],
+  Nelida: [380,360,390,370,380,395,400,380,370,360,380,390],
+  Steph:  [290,270,300,280,295,285,310,300,285,275,290,300],
+};
+const fhData = [
+  {name:'Sister Rhea Cruz',org:'RS',ysa:false,g:[4,4,4,4],g5:2,done:true,entries:5,by:'Rhea'},
+  {name:'Bro. Paul Mendoza',org:'EQ',ysa:false,g:[4,4,4,3],g5:0,done:false,entries:3,by:'May'},
+  {name:'Sis. Carla Yap',org:'YSA',ysa:true,g:[4,4,4,4],g5:1,done:true,entries:2,by:'Juna'},
+  {name:'Bro. James Lim',org:'Youth',ysa:false,g:[4,4,2,0],g5:0,done:false,entries:8,by:'Alpha'},
+  {name:'Sis. Nina Go',org:'RS',ysa:false,g:[4,4,4,4],g5:0,done:true,entries:0,by:'Jean'},
+  {name:'Bro. Roy Santos',org:'New Members',ysa:false,g:[4,3,0,0],g5:0,done:false,entries:12,by:'Nelida'},
+  {name:'Sis. Paz Reyes',org:'Primary',ysa:false,g:[4,4,4,4],g5:3,done:true,entries:4,by:'Steph'},
+];
+const mtgData = [
+  {date:'Jan 5',name:'Rhea Cruz',role:'Consultant',present:true,topic:'KPI Review Q1',action:'Submit reports by 15th'},
+  {date:'Jan 5',name:'Juna Reyes',role:'Consultant',present:true,topic:'Get Involved Update',action:'Push 500/month target'},
+  {date:'Jan 5',name:'May Oloroso',role:'Consultant',present:true,topic:'4th Gen Progress',action:'List pending families'},
+  {date:'Jan 5',name:'Alpha Santos',role:'Consultant',present:false,topic:'Temple Trip Planning',action:'Coordinate Feb trip'},
+  {date:'Jan 5',name:'Jean Lim',role:'Consultant',present:true,topic:'Temple Class',action:'Enroll 2 candidates'},
+  {date:'Jan 5',name:'Nelida Go',role:'Consultant',present:true,topic:'Records Review',action:'Reach 5K this month'},
+  {date:'Jan 5',name:'Steph Diaz',role:'Consultant',present:true,topic:'YSA Outreach',action:'Visit YSA group'},
+  {date:'Jan 5',name:'Tatay (Facilitator)',role:'Leadership',present:true,topic:'All KPIs Overview',action:'Follow up Jan 20'},
+];
+const tripData = [
+  {date:'Jan 10',name:'Bro. Mark Santos',org:'EQ',lo:true,po:false,nc:true,cons:'Rhea'},
+  {date:'Jan 10',name:'Sis. Ana Cruz',org:'RS',lo:true,po:true,nc:true,cons:'May'},
+  {date:'Jan 17',name:'Youth A',org:'Youth',lo:false,po:true,nc:true,cons:'Juna'},
+  {date:'Jan 24',name:'YSA B',org:'YSA',lo:true,po:false,nc:true,cons:'Alpha'},
+  {date:'Feb 7',name:'Sis. Beth Go',org:'Primary',lo:false,po:true,nc:false,cons:'Jean'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let curMonth = 0;
+let curView  = 'monthly';
+let charts   = {};
+let localRecords = JSON.parse(localStorage.getItem('wt_records') || '[]');
+
+// ── HELPERS ───────────────────────────────────────────────────────────
+const ytd = (arr, mi) => arr.slice(0, mi+1).reduce((a,b)=>a+b, 0);
+const totalMonth = mi => ORGS.reduce((a,o)=>a+orgData[o][mi], 0);
+const totalYTD   = mi => ORGS.reduce((a,o)=>a+ytd(orgData[o], mi), 0);
+const totalGI    = mi => CONS.reduce((a,c)=>a+giData[c][mi], 0);
+const totalGIYTD = mi => CONS.reduce((a,c)=>a+ytd(giData[c], mi), 0);
+
+function badge(text, type) {
+  return `<span class="badge badge-${type}">${text}</span>`;
+}
+function yno(v) { return v ? badge('Yes','green') : badge('No','red'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────
+const pageMeta = {
+  dashboard:    ['Dashboard','All KPIs · 2026 Overview'],
+  submitters:   ['Temple Submitters','Monthly & YTD breakdown'],
+  getinvolved:  ['Get Involved','Records reviewed per consultant'],
+  familyhistory:['Family History','4-generation genealogy tracker'],
+  consultants:  ['Consultant KPIs','Performance vs targets'],
+  meetings:     ['Monthly Meeting','Attendance c/o Tatay'],
+  templetrips:  ['Ward Temple Trips','Living & Proxy ordinances'],
+  entry:        ['Add Record','New submitter data entry'],
+};
+
+function navigate(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  const meta = pageMeta[id];
+  document.getElementById('pageTitle').textContent = meta[0];
+  document.getElementById('pageSubtitle').textContent = meta[1];
+  closeSidebar();
+  if(id==='dashboard') renderDashboard();
+  else if(id==='submitters') renderSubmitters();
+  else if(id==='getinvolved') renderGetInvolved();
+  else if(id==='familyhistory') renderFamilyHistory();
+  else if(id==='consultants') renderConsultants();
+  else if(id==='meetings') renderMeetings();
+  else if(id==='templetrips') renderTrips();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function onMonthChange() {
+  curMonth = +document.getElementById('monthSel').value;
+  renderAll();
+}
+function setView(v, btn) {
+  curView = v;
+  document.querySelectorAll('.view-toggle button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+function renderAll() {
+  const active = document.querySelector('.page.active');
+  if(!active) return;
+  const id = active.id.replace('page-','');
+  navigate(id, null);
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+  });
+}
+
+// ── KPI STRIP ─────────────────────────────────────────────────────────
+function renderKPIs() {
+  const mi = curMonth;
+  const mSub = totalMonth(mi);
+  const ytdSub = totalYTD(mi);
+  const prevSub = mi>0 ? totalMonth(mi-1) : null;
+  const diff = prevSub !== null ? mSub - prevSub : null;
+  const giM = totalGI(mi);
+  const giY = totalGIYTD(mi);
+  const fhDone = fhData.filter(r=>r.done).length;
+  const pctAnnual = Math.round(ytdSub/100*100);
+
+  const kpis = [
+    {lbl:'Monthly submitters', val:mSub, target:'~8/month', color:'blue', prog:Math.min(100,Math.round(mSub/8*100)), delta:diff},
+    {lbl:'YTD submitters', val:ytdSub, target:'100/year', color:'blue', sub:true, prog:pctAnnual},
+    {lbl:'Get Involved this month', val:giM.toLocaleString(), target:'Target: 3,500/month', color:'amber', prog:Math.min(100,Math.round(giM/3500*100))},
+    {lbl:'YTD Get Involved', val:giY.toLocaleString(), target:'Target: 6,000/year', color:'amber', sub:true, prog:Math.min(100,Math.round(giY/6000*100))},
+    {lbl:'4th gen completed', val:fhDone, target:'Target: 50/year', color:'green', prog:Math.min(100,Math.round(fhDone/50*100))},
+    {lbl:'Annual target progress', val:pctAnnual+'%', target:'Submitters vs 100/yr', color:'teal', prog:pctAnnual},
+  ];
+
+  const colors = {blue:'#2563eb',amber:'#d97706',green:'#16a34a',teal:'#0d9488'};
+  const strip = document.getElementById('kpiStrip');
+  strip.innerHTML = kpis.map((k,i)=>{
+    const deltaHtml = k.delta !== null && k.delta !== undefined
+      ? `<div class="kpi-delta ${k.delta>=0?'up':'dn'}">${k.delta>=0?'+':''}${k.delta} vs prev month</div>` : '';
+    return `<div class="kpi-card ${k.color}" style="animation-delay:${i*0.05}s">
+      <div class="kpi-label">${k.lbl}${k.sub?' <span style="font-size:9px;background:var(--navy);color:var(--gold);padding:1px 6px;border-radius:10px;margin-left:4px">YTD</span>':''}</div>
+      <div class="kpi-value">${k.val}</div>
+      <div class="kpi-target">${k.target}</div>
+      ${deltaHtml}
+      <div class="kpi-progress"><div class="kpi-progress-fill" style="width:${k.prog}%;background:${colors[k.color]}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── YTD STRIP ─────────────────────────────────────────────────────────
+function renderYTDStrip(containerId) {
+  const mi = curMonth;
+  const ytdSub = totalYTD(mi);
+  const ytdGI  = totalGIYTD(mi);
+  const pct    = Math.round(ytdSub/100*100);
+  const expected = Math.round(100*(mi+1)/12);
+  const ontrack = ytdSub >= expected;
+
+  const items = [
+    {lbl:'YTD Submitters', val:ytdSub, sub:`Jan – ${MONS[mi]}`},
+    {lbl:'YTD Get Involved', val:ytdGI.toLocaleString(), sub:'All consultants'},
+    {lbl:'% of Annual Target', val:pct+'%', sub:'Submitters vs 100'},
+    {lbl:'On Track?', val:ontrack?'YES':'NO', sub:`Expected ≥${expected}`},
+    {lbl:'Months Elapsed', val:mi+1, sub:'of 12'},
+    {lbl:'Remaining Target', val:Math.max(0,100-ytdSub), sub:'submitters needed'},
+  ];
+
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = items.map(x=>`<div class="ytd-mini">
+    <div class="ytd-mini-label">${x.lbl}</div>
+    <div class="ytd-mini-val">${x.val}</div>
+    <div class="ytd-mini-sub">${x.sub}</div>
+  </div>`).join('');
+}
+
+// ── SUBMIT CHART ──────────────────────────────────────────────────────
+function renderSubmitChart() {
+  const mi = curMonth;
+  const isYTD = curView === 'ytd';
+  const vals = ORGS.map(o => isYTD ? ytd(orgData[o], mi) : orgData[o][mi]);
+  document.getElementById('submitChartTitle').textContent =
+    `Temple name submitters — ${isYTD ? 'YTD Jan–'+MONS[mi] : MONTHS[mi]}`;
+
+  const leg = document.getElementById('submitLegend');
+  leg.innerHTML = ORGS.map((o,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${ORG_COLORS[i]}"></span>${o} <strong>${vals[i]}</strong></span>`).join('');
+
+  if(charts.submit) charts.submit.destroy();
+  charts.submit = new Chart(document.getElementById('submitChart'), {
+    type:'bar',
+    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS.map(c=>c+'CC'), borderColor:ORG_COLORS, borderWidth:1, borderRadius:6}]},
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11}}}}}
+  });
+}
+
+// ── PIE CHART ─────────────────────────────────────────────────────────
+function renderPie() {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  const vals = ORGS.map(o => isYTD ? ytd(orgData[o],mi) : orgData[o][mi]);
+  const leg = document.getElementById('pieLegend');
+  leg.innerHTML = ORGS.map((o,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${ORG_COLORS[i]}"></span>${o}</span>`).join('');
+  if(charts.pie) charts.pie.destroy();
+  charts.pie = new Chart(document.getElementById('pieChart'), {
+    type:'doughnut',
+    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS, borderWidth:2, borderColor:'#fff'}]},
+    options:{responsive:true, maintainAspectRatio:false, cutout:'60%',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed}`}}}}
+  });
+}
+
+// ── PROGRESS BARS ─────────────────────────────────────────────────────
+function renderProgBars(containerId, labelId) {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  const max = Math.max(...CONS.map(c => isYTD ? ytd(giData[c],mi) : giData[c][mi]));
+  const target = isYTD ? 500*(mi+1) : 500;
+
+  if(labelId) document.getElementById(labelId).textContent =
+    `${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]} · target ${target.toLocaleString()}/consultant`;
+
+  const el = document.getElementById(containerId);
+  el.innerHTML = CONS.map((c,i)=>{
+    const v = isYTD ? ytd(giData[c],mi) : giData[c][mi];
+    const pct = Math.round(v/max*100);
+    const ontrack = v >= target;
+    return `<div class="prog-row">
+      <div class="prog-name">${c}</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${CONS_COLORS[i]}"></div></div>
+      <div class="prog-val">${v.toLocaleString()} ${ontrack?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── TREND CHART ───────────────────────────────────────────────────────
+function renderTrend(canvasId, perConsultant) {
+  const mi = curMonth;
+  if(charts[canvasId]) charts[canvasId].destroy();
+
+  let datasets;
+  if(perConsultant) {
+    datasets = CONS.map((c,i)=>({
+      label:c, data:giData[c], borderColor:CONS_COLORS[i],
+      backgroundColor:CONS_COLORS[i]+'15', borderWidth:1.5,
+      pointRadius:ctx=>ctx.dataIndex===mi?5:2,
+      pointBackgroundColor:CONS_COLORS[i], tension:0.35, fill:false
+    }));
+  } else {
+    const combined = MONS.map((_,i)=>totalGI(i));
+    datasets = [{
+      label:'All consultants', data:combined, borderColor:'#1B3A6B',
+      backgroundColor:'#1B3A6B15', borderWidth:2, fill:true,
+      pointRadius:ctx=>ctx.dataIndex===mi?6:2,
+      pointBackgroundColor:ctx=>ctx.dataIndex===mi?'#C9A84C':'#1B3A6B',
+      tension:0.35
+    }];
+  }
+
+  charts[canvasId] = new Chart(document.getElementById(canvasId), {
+    type:'line',
+    data:{labels:MONS, datasets},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:perConsultant, position:'bottom', labels:{font:{size:10},boxWidth:8,padding:8}}},
+      scales:{x:{ticks:{autoSkip:false,font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
+              y:{min:0,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}}}}
+  });
+}
+
+// ── YTD BAR CHART ─────────────────────────────────────────────────────
+function renderYTDBar() {
+  const mi = curMonth;
+  const vals = ORGS.map(o=>ytd(orgData[o],mi));
+  document.getElementById('ytdChartLabel').textContent = `Jan – ${MONTHS[mi]} 2026`;
+  if(charts.ytdBar) charts.ytdBar.destroy();
+  charts.ytdBar = new Chart(document.getElementById('ytdBarChart'), {
+    type:'bar',
+    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS.map(c=>c+'BB'), borderColor:ORG_COLORS, borderWidth:1, borderRadius:6}]},
+    options:{indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{x:{min:0,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
+              y:{ticks:{font:{size:11}},grid:{display:false}}}}
+  });
+}
+
+// ── FAMILY HISTORY TABLE ──────────────────────────────────────────────
+function renderFHTable(tbodyId) {
+  const el = document.getElementById(tbodyId);
+  el.innerHTML = fhData.map(r=>{
+    const orgBadge = r.ysa ? badge(r.org,'teal') : badge(r.org,'blue');
+    const gen4Badge = r.done ? badge('Done ✓','green') : badge('In progress','amber');
+    return `<tr>
+      <td><strong>${r.name}</strong></td>
+      <td>${orgBadge}</td>
+      ${tbodyId==='fhFullTable'?`<td>${r.ysa?badge('Yes','teal'):badge('No','blue')}</td>`:''}
+      ${r.g.map(v=>`<td style="text-align:center">${v}/4</td>`).join('')}
+      ${tbodyId==='fhFullTable'?`<td style="text-align:center">${r.g5||'—'}</td>`:''}
+      <td>${gen4Badge}</td>
+      ${tbodyId==='fhFullTable'?`<td style="text-align:center">${r.entries}</td>`:''}
+      <td>${r.by}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── CONSULTANT TABLE ──────────────────────────────────────────────────
+function renderConsTable() {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  document.getElementById('consTableTitle').textContent =
+    `KPI performance — ${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]} 2026`;
+
+  const tbody = document.getElementById('consTable');
+  tbody.innerHTML = CONS.map((c,i)=>{
+    const gi = isYTD ? ytd(giData[c],mi) : giData[c][mi];
+    const target = isYTD ? 500*(mi+1) : 500;
+    const ontrack = gi >= target;
+    const tc = fhData.filter(r=>r.by===c&&r.done).length;
+    const ns = fhData.filter(r=>r.by===c).length;
+    const rr = gi;
+    return `<tr>
+      <td><strong>${c}</strong></td>
+      <td style="font-weight:500;color:${ontrack?'#16a34a':'#dc2626'}">${gi.toLocaleString()}</td>
+      <td>${ontrack?badge('On track','green'):badge('Below','amber')}</td>
+      <td style="text-align:center">${tc}<span style="color:#9ca3af">/10</span></td>
+      <td style="text-align:center">${Math.floor(tc/2)*3}<span style="color:#9ca3af">/50</span></td>
+      <td style="text-align:center">${ns}<span style="color:#9ca3af">/100</span></td>
+      <td style="text-align:center">${rr.toLocaleString()}<span style="color:#9ca3af">/5K</span></td>
+      <td>${gi>=500?badge('✓ Met','green'):badge('↓ Below','red')}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderConsBar() {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  const vals = CONS.map(c=> isYTD ? ytd(giData[c],mi) : giData[c][mi]);
+  if(charts.consBar) charts.consBar.destroy();
+  charts.consBar = new Chart(document.getElementById('consBarChart'), {
+    type:'bar', indexAxis:'y',
+    data:{labels:CONS, datasets:[{data:vals, backgroundColor:CONS_COLORS.map(c=>c+'CC'), borderColor:CONS_COLORS, borderWidth:1, borderRadius:5}]},
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+      scales:{x:{min:0,ticks:{font:{size:10}}}, y:{ticks:{font:{size:12}},grid:{display:false}}}}
+  });
+}
+
+// ── GI TREND PER CONSULTANT ───────────────────────────────────────────
+function renderGITrend() {
+  const leg = document.getElementById('giTrendLeg');
+  leg.innerHTML = CONS.map((c,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${CONS_COLORS[i]}"></span>${c}</span>`).join('');
+  renderTrend('giTrendChart', true);
+}
+
+// ── SUBMITTER FULL TABLE ──────────────────────────────────────────────
+function renderSubmitFullTable() {
+  const tbody = document.getElementById('submitFullTable');
+  const mi = curMonth;
+  tbody.innerHTML = MONS.map((m,i)=>{
+    const monthly = ORGS.reduce((a,o)=>a+orgData[o][i],0);
+    const ytdTotal = ORGS.reduce((a,o)=>a+ytd(orgData[o],i),0);
+    const pct = Math.round(ytdTotal/100*100);
+    const isSelected = i===mi;
+    return `<tr style="${isSelected?'background:#eff6ff!important;font-weight:500':''}" >
+      <td style="${isSelected?'color:#1B3A6B;font-weight:600':''}">
+        ${m} ${isSelected?badge('selected','navy'):''}
+      </td>
+      ${ORGS.map(o=>`<td style="text-align:center">${orgData[o][i]}</td>`).join('')}
+      <td style="text-align:center;font-weight:500;color:#2563eb">${monthly}</td>
+      <td style="text-align:center;font-weight:500;color:#0d9488">${ytdTotal}</td>
+      <td style="text-align:center">${pct>=Math.round(100*(i+1)/12)?badge(pct+'%','green'):badge(pct+'%','amber')}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('subTableTitle').textContent = `Monthly breakdown — ${MONTHS[mi]} 2026 highlighted`;
+}
+
+// ── GI FULL TABLE ─────────────────────────────────────────────────────
+function renderGIFullTable() {
+  const tbody = document.querySelector('#giFullTable tbody');
+  tbody.innerHTML = CONS.map((c,i)=>{
+    const total = giData[c].reduce((a,b)=>a+b,0);
+    return `<tr>
+      <td style="font-weight:500">${c}</td>
+      ${giData[c].map((v,mi)=>`<td style="text-align:center;${mi===curMonth?'background:#eff6ff;font-weight:500;color:#2563eb':''}">${v.toLocaleString()}</td>`).join('')}
+      <td style="text-align:center;font-weight:500;color:#16a34a">${total.toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── MEETINGS TABLE ────────────────────────────────────────────────────
+function renderMeetings() {
+  document.getElementById('mtgTable').querySelector('tbody').innerHTML = mtgData.map(r=>`<tr>
+    <td>${r.date}</td>
+    <td><strong>${r.name}</strong></td>
+    <td>${r.role==='Leadership'?badge('Leadership','amber'):badge('Consultant','blue')}</td>
+    <td>${r.present?badge('Present','green'):badge('Absent','red')}</td>
+    <td>${r.topic}</td>
+    <td style="color:#6b7280">${r.action}</td>
+  </tr>`).join('');
+}
+
+// ── TRIPS ─────────────────────────────────────────────────────────────
+function renderTrips() {
+  const loCount = tripData.filter(r=>r.lo).length;
+  const poCount = tripData.filter(r=>r.po).length;
+  const ncCount = tripData.filter(r=>r.nc).length;
+  document.getElementById('tripKpis').innerHTML = [
+    {lbl:'Living Ordinances',val:loCount,target:'Target: 10/trip',color:'blue'},
+    {lbl:'Proxy Ordinances',val:poCount,target:'Target: 200/trip',color:'green'},
+    {lbl:'Name Cards Printed',val:ncCount,target:'Printed & ready',color:'purple'},
+  ].map(k=>`<div class="kpi-card ${k.color}">
+    <div class="kpi-label">${k.lbl}</div>
+    <div class="kpi-value">${k.val}</div>
+    <div class="kpi-target">${k.target}</div>
+  </div>`).join('');
+
+  document.getElementById('tripTable').querySelector('tbody').innerHTML = tripData.map(r=>`<tr>
+    <td>${r.date}</td>
+    <td><strong>${r.name}</strong></td>
+    <td>${badge(r.org,'blue')}</td>
+    <td>${yno(r.lo)}</td>
+    <td>${yno(r.po)}</td>
+    <td>${yno(r.nc)}</td>
+    <td>${r.cons}</td>
+  </tr>`).join('');
+}
+
+// ── FAMILY HISTORY PAGE ───────────────────────────────────────────────
+function renderFamilyHistory() {
+  const done = fhData.filter(r=>r.done).length;
+  document.getElementById('fhKpis').innerHTML = [
+    {lbl:'4th Gen Completed',val:done,target:'Target: 50/year',color:'green'},
+    {lbl:'In Progress',val:fhData.length-done,target:'Working on gens',color:'amber'},
+    {lbl:'Total Members',val:fhData.length,target:'In tracker',color:'blue'},
+    {lbl:'5th Gen Started',val:fhData.filter(r=>r.g5>0).length,target:'Beyond 4th gen',color:'teal'},
+  ].map(k=>`<div class="kpi-card ${k.color}">
+    <div class="kpi-label">${k.lbl}</div>
+    <div class="kpi-value">${k.val}</div>
+    <div class="kpi-target">${k.target}</div>
+  </div>`).join('');
+  renderFHTable('fhFullTable');
+}
+
+// ── CONSULTANTS PAGE ──────────────────────────────────────────────────
+function renderConsultants() {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  document.getElementById('consKpiStrip').innerHTML = [
+    {lbl:'On Track (Get Inv.)',val:CONS.filter(c=>(isYTD?ytd(giData[c],mi):giData[c][mi])>=500).length,target:'of 7 consultants',color:'green'},
+    {lbl:'Total Get Involved',val:(isYTD?totalGIYTD(mi):totalGI(mi)).toLocaleString(),target:isYTD?`YTD Jan–${MONS[mi]}`:'This month',color:'amber'},
+    {lbl:'4th Gen Assisted',val:fhData.filter(r=>r.done).length,target:'Total completed',color:'blue'},
+    {lbl:'Temple Class',val:5,target:'10/year target',color:'purple'},
+  ].map(k=>`<div class="kpi-card ${k.color}">
+    <div class="kpi-label">${k.lbl}</div>
+    <div class="kpi-value">${k.val}</div>
+    <div class="kpi-target">${k.target}</div>
+  </div>`).join('');
+  renderConsTable();
+  renderConsBar();
+}
+
+// ── GET INVOLVED PAGE ─────────────────────────────────────────────────
+function renderGetInvolved() {
+  const mi = curMonth;
+  const isYTD = curView==='ytd';
+  document.getElementById('giPageTitle').textContent = `Monthly Get Involved — ${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]}`;
+  renderProgBars('giPageBars', null);
+
+  const giYtdM = totalGIYTD(mi);
+  const giM = totalGI(mi);
+  document.getElementById('giYtdStrip').innerHTML = [
+    {lbl:'This Month Total',val:giM.toLocaleString(),sub:'All consultants'},
+    {lbl:'YTD Total',val:giYtdM.toLocaleString(),sub:`Jan – ${MONS[mi]}`},
+    {lbl:'Monthly Target',val:'3,500',sub:'All consultants combined'},
+    {lbl:'Best Consultant',val:'Rhea',sub:`${giData.Rhea[mi].toLocaleString()} entries`},
+    {lbl:'Months Elapsed',val:mi+1,sub:'of 12'},
+    {lbl:'YTD per Consultant',val:Math.round(giYtdM/7).toLocaleString(),sub:'Average'},
+  ].map(x=>`<div class="ytd-mini">
+    <div class="ytd-mini-label">${x.lbl}</div>
+    <div class="ytd-mini-val">${x.val}</div>
+    <div class="ytd-mini-sub">${x.sub}</div>
+  </div>`).join('');
+  renderGITrend();
+  renderGIFullTable();
+}
+
+// ── SUBMITTERS PAGE ───────────────────────────────────────────────────
+function renderSubmitters() {
+  renderYTDStrip('subYtdStrip');
+  renderSubmitFullTable();
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────
+function renderDashboard() {
+  renderKPIs();
+  renderYTDStrip('ytdStrip');
+  renderSubmitChart();
+  renderPie();
+  renderProgBars('progBars','giProgressLabel');
+  renderTrend('trendChart', false);
+  renderFHTable('fhTable');
+  renderYTDBar();
+}
+
+// ── DATA ENTRY ────────────────────────────────────────────────────────
+function submitRecord() {
+  const name = document.getElementById('f-name').value.trim();
+  if(!name) { showToast('Please enter a name'); return; }
+  const record = {
+    name, date:document.getElementById('f-date').value,
+    org:document.getElementById('f-org').value,
+    consultant:document.getElementById('f-cons').value,
+    gi:+document.getElementById('f-gi').value||0,
+    newMember:document.getElementById('f-newmember').value,
+    ysa:document.getElementById('f-ysa').value,
+    submitted:document.getElementById('f-submitted').value,
+    gen4:document.getElementById('f-gen4').value,
+    meeting:document.getElementById('f-meeting').value,
+    notes:document.getElementById('f-notes').value,
+  };
+  localRecords.push(record);
+  localStorage.setItem('wt_records', JSON.stringify(localRecords));
+  showToast(`Saved: ${name} — ${record.org}`);
+  clearForm();
+}
+function clearForm() {
+  ['f-name','f-gi','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-date').value='2026-01-01';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+renderDashboard();
+</script>
+</body>
+</html>
