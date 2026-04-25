@@ -355,11 +355,11 @@ tr:hover td{background:#eff6ff}
             <div class="form-group"><label>Member Name</label><input id="e-name" placeholder="Sister / Bro. Name"></div>
             <div class="form-group"><label>Date</label><input type="date" id="e-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
             <div class="form-group"><label>Organization</label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
-            <div class="form-group"><label>Your Name</label><select id="e-cons"></select></div>
+            <div class="form-group"><label>Your Name</label><select id="e-cons" id="e-cons"></select></div>
             <div class="form-group"><label>Get Involved # entries</label><input type="number" id="e-gi" placeholder="0" min="0"></div>
             <div class="form-group"><label>Is New Member?</label><select id="e-new"><option>No</option><option>Yes</option></select></div>
             <div class="form-group"><label>Is YSA?</label><select id="e-ysa"><option>No</option><option>Yes</option></select></div>
-            <div class="form-group"><label>Name Submitted?</label><select id="e-sub"><option>Yes</option><option>No</option></select></div>
+            <div class="form-group"><label>Name Submitted?</label><select id="e-sub"><option>No</option><option>Yes</option></select></div>
             <div class="form-group"><label>4th Gen Completed?</label><select id="e-gen4"><option>No</option><option>Yes</option></select></div>
             <div class="form-group"><label>Attended Meeting?</label><select id="e-mtg"><option>No</option><option>Yes</option></select></div>
             <div class="form-group form-full"><label>Notes</label><textarea id="e-notes" rows="2" placeholder="Any notes..."></textarea></div>
@@ -634,22 +634,6 @@ function doPost(e) {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   const sheet = ss.getSheetByName(p.sheet);
   if (!sheet) return out({ error: 'Sheet not found: ' + p.sheet });
-
-  if (p.sheet === 'Temple_Submitters') {
-    const startRow = 3;
-    const nameCol = 2; // B = Full Name
-    const maxRows = Math.max(sheet.getMaxRows(), startRow);
-    const values = sheet.getRange(startRow, nameCol, maxRows - startRow + 1, 1).getValues();
-    let targetRow = startRow;
-    for (let i = 0; i < values.length; i++) {
-      if (!values[i][0]) { targetRow = startRow + i; break; }
-      targetRow = startRow + values.length;
-    }
-    if (targetRow > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), targetRow - sheet.getMaxRows());
-    sheet.getRange(targetRow, 1, 1, p.row.length).setValues([p.row]);
-    return out({ success: true, row: targetRow });
-  }
-
   sheet.appendRow(p.row);
   return out({ success: true });
 }
@@ -658,12 +642,11 @@ function getData(ss, name) {
   const s = ss.getSheetByName(name);
   if (!s) return [];
   const d = s.getDataRange().getValues();
-  const headerRow = name === 'Temple_Submitters' ? 2 : 1;
-  if (d.length < headerRow) return [];
-  const h = d[headerRow - 1];
-  return d.slice(headerRow).filter(r => r.some(v => v !== '' && v !== null)).map(r => {
+  if (d.length < 2) return [];
+  const h = d[0];
+  return d.slice(1).map(r => {
     const o = {};
-    h.forEach((k, i) => { if (String(k).trim()) o[String(k).trim()] = r[i]; });
+    h.forEach((k, i) => { o[String(k).trim()] = r[i]; });
     return o;
   });
 }
@@ -885,41 +868,21 @@ function setBanner(type, msg) {
 }
 
 // ═══════════════════════════════════════════════════════
-// DATA HELPERS
+// DATA HELPERS — column names match your exact Google Sheet
 // ═══════════════════════════════════════════════════════
-function isYes(v) {
-  return v === true || String(v || '').trim().toLowerCase() === 'yes' || String(v || '').trim().toLowerCase() === 'true';
-}
-function getVal(r, keys, fallback) {
-  for (var i = 0; i < keys.length; i++) {
-    if (r[keys[i]] !== undefined && r[keys[i]] !== null && r[keys[i]] !== '') return r[keys[i]];
-  }
-  return fallback || '';
-}
-function parseSheetDate(raw) {
-  if (!raw) return null;
-  if (raw instanceof Date) return raw;
-  var dt = new Date(raw);
-  if (!isNaN(dt)) return dt;
-  return null;
-}
-
 function getOrgData() {
   var d = {};
   ORGS.forEach(function(o) { d[o] = new Array(12).fill(0); });
   var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
   rows.forEach(function(r) {
-    var dt = parseSheetDate(getVal(r, ['Date','date'], ''));
-    if (!dt || dt.getFullYear() !== 2026) return;
+    var raw = r['Date'] || r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
     var mi = dt.getMonth();
-    var org = getVal(r, ['Organization','org'], '');
-    var submitted = isYes(getVal(r, ['Temple Name Submitted?','Name Submitted?','submitted'], 'No'));
-    var isNew = isYes(getVal(r, ['Is New Mem?','Is New Member?','newMember'], 'No')) || org === 'New Members';
-    var isYsa = isYes(getVal(r, ['Is YSA?','ysa'], 'No')) || org === 'YSA';
-    if (!submitted) return;
-    if (d[org] !== undefined && org !== 'New Members' && org !== 'YSA') d[org][mi]++;
-    if (isNew) d['New Members'][mi]++;
-    if (isYsa) d['YSA'][mi]++;
+    var org = r['Organization'] || r.org || '';
+    var sub = r['Temple Name Submitted?'] || r.submitted || 'No';
+    if (sub === 'Yes' && d[org] !== undefined) d[org][mi]++;
   });
   return d;
 }
@@ -929,11 +892,13 @@ function getGIData() {
   CONS.forEach(function(c) { d[c] = new Array(12).fill(0); });
   var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
   rows.forEach(function(r) {
-    var dt = parseSheetDate(getVal(r, ['Date','date'], ''));
-    if (!dt || dt.getFullYear() !== 2026) return;
+    var raw = r['Date'] || r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
     var mi = dt.getMonth();
-    var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
-    var gi = parseFloat(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
+    var cons = r['Assisted By (Consultant)'] || r.consultant || '';
+    var gi = parseFloat(r['Get Involved (# Entries)'] || r.gi || 0) || 0;
     if (d[cons] !== undefined) d[cons][mi] += gi;
   });
   return d;
@@ -946,11 +911,16 @@ function getFHData() {
       name: r['Member Name'] || r.name || '',
       org:  r['Organization'] || r.org || '',
       ysa:  (r['Is YSA?'] || r.ysa || 'No') === 'Yes',
-      g:    [+r['Gen 1 Parents (0-4)']||0, +r['Gen 2 Grandparents (0-4)']||0, +r['Gen 3 Great-Grand (0-4)']||0, +r['Gen 4 2x Great-Grand (0-4)']||0],
-      g5:   +r['Gen 5+ Beyond'] || 0,
-      done: (r['4th Gen Completed?'] || r.done || 'No') === 'Yes',
+      g:    [
+        +r['Gen 1 Parents'] || 0,
+        +r['Gen 2 Grand'] || 0,
+        +r['Gen 3 Great-Grand'] || 0,
+        +r['Gen 4 2x Great-Grand'] || 0
+      ],
+      g5:   +r['Gen 5+'] || 0,
+      done: (r['4th Gen Complete?'] || r.done || 'No') === 'Yes',
       entries: +r['New Entries This Month'] || 0,
-      by: r['Your Name'] || r.cons || '',
+      by: r['Assisted By (Consultant)'] || r.cons || '',
     };
   }).filter(function(r) { return r.name; });
 }
@@ -959,12 +929,15 @@ function getTCData() {
   var rows = (SHEET_DATA && SHEET_DATA.templeClass ? SHEET_DATA.templeClass : []).concat(LOCAL.tc);
   return rows.map(function(r) {
     return {
-      name: r['Student Name'] || r.name || '',
-      org:  r['Organization'] || r.org || '',
-      cons: r['Assigned Consultant'] || r.cons || '',
-      date: r['Date Started'] || r.date || '',
+      name:     r['Candidate Name'] || r.name || '',
+      org:      r['Organization'] || r.org || '',
+      cons:     r['Assigned Consultant'] || r.cons || '',
+      newM:     r['Is New Member?'] || r.newM || 'No',
+      ysa:      r['Is YSA?'] || r.ysa || 'No',
+      date:     r['Date Started'] || r.date || '',
       sessions: +r['Sessions Attended'] || 0,
-      status: r['Status'] || r.status || 'Enrolled',
+      status:   r['Status'] || r.status || 'Enrolled',
+      notes:    r['Notes'] || r.notes || '',
     };
   }).filter(function(r) { return r.name; });
 }
@@ -1144,8 +1117,8 @@ function renderSubList() {
   var rows = getAllSubmitters().filter(function(r) {
     var raw = r['Date'] || r.date || '';
     if (!raw) return false;
-    var dt = parseSheetDate(raw);
-    if (!dt || dt.getFullYear() !== 2026) return false;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return false;
     if (filter === 'all') return true;
     return dt.getMonth() === parseInt(filter);
   });
@@ -1162,16 +1135,16 @@ function renderSubList() {
   if (rows.length) {
     em.style.display = 'none';
     tb.innerHTML = rows.map(function(r, i) {
-      var name = getVal(r, ['Full Name','Member Name','name'], '');
-      var date = getVal(r, ['Date','date'], '');
-      var org  = getVal(r, ['Organization','org'], '');
-      var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
-      var gi   = parseInt(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
-      var newM = getVal(r, ['Is New Mem?','Is New Member?','newMember'], 'No');
-      var ysa  = getVal(r, ['Is YSA?','ysa'], 'No');
-      var gen4 = getVal(r, ['4th Gen Completed?','gen4'], 'No');
-      var notes = getVal(r, ['Notes','notes'], '');
-      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + yno(isYes(newM)) + '</td><td>' + yno(isYes(ysa)) + '</td><td>' + (isYes(gen4) ? badge('Yes ✓', 'bg') : badge('No', 'ba')) + '</td><td style="color:var(--muted);font-size:10px">' + notes + '</td></tr>';
+      var name = r['Member Name'] || r.name || '';
+      var date = r['Date'] || r.date || '';
+      var org  = r['Organization'] || r.org || '';
+      var cons = r['Your Name'] || r['Assisted By (Consultant)'] || r.consultant || '';
+      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
+      var newM = r['Is New Member?'] || r.newMember || 'No';
+      var ysa  = r['Is YSA?'] || r.ysa || 'No';
+      var gen4 = r['4th Gen Completed?'] || r.gen4 || 'No';
+      var notes = r['Notes'] || r.notes || '';
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + yno(newM === 'Yes') + '</td><td>' + yno(ysa === 'Yes') + '</td><td>' + (gen4 === 'Yes' ? badge('Yes ✓', 'bg') : badge('No', 'ba')) + '</td><td style="color:var(--muted);font-size:10px">' + notes + '</td></tr>';
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
@@ -1282,20 +1255,21 @@ function renderMeetings() {
     tb.innerHTML = rows.map(function(r) {
       var date  = r['Meeting Date'] || r.date || '';
       var name  = r['Attendee Name'] || r.name || '';
-      var role  = r['Role'] || r.role || 'Consultant';
-      var pres  = (r['Present?'] || r.present || 'No') === 'Yes';
+      var isCons = (r['Is Consultant'] || r.role || '');
+      var pres  = (r['Present?'] || r.present || 'No') === 'Yes' || r.present === true;
       var topic = r['Topic Discussed'] || r.topic || '';
-      var act   = r['Action Item'] || r.action || '';
-      return '<tr><td>' + date + '</td><td><b>' + name + '</b></td><td>' + (role === 'Leadership' ? badge('Leadership', 'ba') : badge('Consultant', 'bb')) + '</td><td>' + yno(pres) + '</td><td>' + topic + '</td><td style="color:var(--muted)">' + act + '</td></tr>';
+      var act   = r['Action Items'] || r.action || '';
+      var roleBadge = isCons === 'TRUE' || isCons === true || isCons === 'Yes' ? badge('Consultant','bb') : badge('Leadership','ba');
+      return '<tr><td>' + date + '</td><td><b>' + name + '</b></td><td>' + roleBadge + '</td><td>' + yno(pres) + '</td><td>' + topic + '</td><td style="color:var(--muted)">' + act + '</td></tr>';
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
 
 function renderTrips() {
   var rows = getTrips();
-  var lo = rows.filter(function(r) { return (r['Living Ordinance?'] || r.lo) === 'Yes' || r.lo === true; }).length;
-  var po = rows.filter(function(r) { return (r['Proxy Ordinance?'] || r.po) === 'Yes' || r.po === true; }).length;
-  var nc = rows.filter(function(r) { return (r['Printed Name Cards?'] || r.nc) === 'Yes' || r.nc === true; }).length;
+  var lo = rows.filter(function(r) { return r['Living Ordinance?'] === 'Yes' || r.lo === true; }).length;
+  var po = rows.filter(function(r) { return r['Proxy Ordinance?'] === 'Yes' || r.po === true; }).length;
+  var nc = rows.filter(function(r) { return r['Printed Name Cards?'] === 'Yes' || r.nc === true; }).length;
   document.getElementById('trip-kpis').innerHTML = [
     { l: 'Living Ordinances', v: lo, s: 'Target 10/trip', c: 'blue' },
     { l: 'Proxy Ordinances', v: po, s: 'Target 200/trip', c: 'green' },
@@ -1305,10 +1279,13 @@ function renderTrips() {
   if (rows.length) {
     em.style.display = 'none';
     tb.innerHTML = rows.map(function(r) {
-      var loV = (r['Living Ordinance?'] || r.lo) === 'Yes' || r.lo === true;
-      var poV = (r['Proxy Ordinance?'] || r.po) === 'Yes' || r.po === true;
-      var ncV = (r['Printed Name Cards?'] || r.nc) === 'Yes' || r.nc === true;
-      return '<tr><td>' + (r['Trip Date'] || r.date || '') + '</td><td><b>' + (r['Attendee Name'] || r.name || '') + '</b></td><td>' + badge(r['Organization'] || r.org || '', 'bb') + '</td><td>' + yno(loV) + '</td><td>' + yno(poV) + '</td><td>' + yno(ncV) + '</td><td>' + (r['Consultant Assisting'] || r.cons || '') + '</td></tr>';
+      var loV = r['Living Ordinance?'] === 'Yes' || r.lo === true;
+      var poV = r['Proxy Ordinance?'] === 'Yes' || r.po === true;
+      var ncV = r['Printed Name Cards?'] === 'Yes' || r.nc === true;
+      return '<tr><td>' + (r['Trip Date']||r.date||'') + '</td><td><b>' + (r['Attendee Name']||r.name||'') + '</b></td><td>' + badge(r['Organization']||r.org||'','bb') + '</td><td>' + yno(loV) + '</td><td>' + yno(poV) + '</td><td>' + yno(ncV) + '</td><td>' + (r['Consultant Assisting']||r.cons||'') + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
@@ -1319,75 +1296,85 @@ function renderRecent() {
   if (rows.length) {
     em.style.display = 'none';
     tb.innerHTML = rows.map(function(r, i) {
-      var name = getVal(r, ['Full Name','Member Name','name'], '');
-      var date = getVal(r, ['Date','date'], '');
-      var org  = getVal(r, ['Organization','org'], '');
-      var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
-      var gi   = parseInt(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
-      var sub  = isYes(getVal(r, ['Temple Name Submitted?','Name Submitted?','submitted'], 'No'));
-      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + (sub ? badge('Yes', 'bg') : badge('No', 'ba')) + '</td></tr>';
+      var name = r['Member Name'] || r.name || '';
+      var date = r['Date'] || r.date || '';
+      var org  = r['Organization'] || r.org || '';
+      var cons = r['Your Name'] || r.consultant || '';
+      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
+      var sub  = r['Name Submitted?'] || r.submitted || 'No';
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + (sub === 'Yes' ? badge('Yes', 'bg') : badge('No', 'ba')) + '</td></tr>';
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
 
 // ═══════════════════════════════════════════════════════
-// DATA ENTRY
+// DATA ENTRY — rows match exact column order of your Google Sheet
 // ═══════════════════════════════════════════════════════
 async function saveEntry() {
   var name = document.getElementById('e-name').value.trim();
   if (!name) { showToast('Please enter a member name'); return; }
   var stat = document.getElementById('e-stat');
   stat.textContent = '⏳ Saving...';
-  stat.style.color = 'var(--muted)';
+  // Sheet cols: #, Full Name, Date, Get Involved (# Entries), Organization, Is New Mem?, Is YSA?, Assisted By (Consultant), Attended Meeting?, 4th Gen Completed?, 5th Gen Completed?, Family Gen New Entries, Temple Name Submitted?, Printed Name Cards?, Notes
   var row = [
-    '',
-    name,
-    document.getElementById('e-date').value || '2026-04-01',
-    parseInt(document.getElementById('e-gi').value) || 0,
-    document.getElementById('e-org').value,
-    document.getElementById('e-new').value,
-    document.getElementById('e-ysa').value,
-    document.getElementById('e-cons').value,
-    document.getElementById('e-mtg').value,
-    document.getElementById('e-gen4').value,
-    'No',
-    0,
-    document.getElementById('e-sub').value,
-    'No',
-    document.getElementById('e-notes').value
+    '',                                                              // # (auto)
+    name,                                                           // Full Name
+    document.getElementById('e-date').value || '2026-04-01',       // Date
+    parseInt(document.getElementById('e-gi').value) || 0,          // Get Involved (# Entries)
+    document.getElementById('e-org').value,                        // Organization
+    document.getElementById('e-new').value,                        // Is New Mem?
+    document.getElementById('e-ysa').value,                        // Is YSA?
+    document.getElementById('e-cons').value,                       // Assisted By (Consultant)
+    document.getElementById('e-mtg').value,                        // Attended Meeting?
+    document.getElementById('e-gen4').value,                       // 4th Gen Completed?
+    'No',                                                           // 5th Gen Completed?
+    0,                                                              // Family Gen New Entries
+    document.getElementById('e-sub').value,                        // Temple Name Submitted?
+    'No',                                                           // Printed Name Cards?
+    document.getElementById('e-notes').value,                      // Notes
   ];
-  var localObj = { name: row[1], date: row[2], gi: row[3], org: row[4], newMember: row[5], ysa: row[6], consultant: row[7], meeting: row[8], gen4: row[9], submitted: row[12], notes: row[14] };
+  var localObj = {
+    'Full Name': row[1], 'Date': row[2], 'Get Involved (# Entries)': row[3],
+    'Organization': row[4], 'Is New Mem?': row[5], 'Is YSA?': row[6],
+    'Assisted By (Consultant)': row[7], 'Attended Meeting?': row[8],
+    '4th Gen Completed?': row[9], 'Temple Name Submitted?': row[12],
+  };
   if (API_URL) {
     var res = await postToSheet({ sheet: 'Temple_Submitters', row: row });
-    if (res.success) {
-      stat.textContent = '✓ Saved!';
-      stat.style.color = '#16a34a';
-      showToast('✓ Saved to Temple_Submitters: ' + name);
-      clearEntry();
-      await fetchData();
-    } else {
-      saveLocal('submitters', localObj);
-      stat.textContent = '⚠ Saved locally — ' + (res.error || 'Sheet error');
-      stat.style.color = '#d97706';
-      clearEntry();
-      renderRecent();
-    }
-  } else {
-    saveLocal('submitters', localObj);
-    stat.textContent = '✓ Saved locally';
-    stat.style.color = '#16a34a';
-    showToast('✓ Saved locally: ' + name);
-    clearEntry();
-    renderRecent();
-  }
+    if (res.success) { stat.textContent = '✓ Saved to Sheet!'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearEntry(); fetchData(); }
+    else { saveLocal('submitters', localObj); stat.textContent = '⚠ Saved locally (Sheet error)'; stat.style.color = '#d97706'; clearEntry(); renderRecent(); }
+  } else { saveLocal('submitters', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearEntry(); renderRecent(); }
 }
 
 async function saveFH() {
   var name = document.getElementById('fh-name').value.trim();
   if (!name) { showToast('Please enter a member name'); return; }
   var stat = document.getElementById('fh-stat'); stat.textContent = '⏳ Saving...';
-  var row = [name, document.getElementById('fh-org').value, document.getElementById('fh-ysa').value, parseInt(document.getElementById('fh-g1').value)||0, parseInt(document.getElementById('fh-g2').value)||0, parseInt(document.getElementById('fh-g3').value)||0, parseInt(document.getElementById('fh-g4').value)||0, parseInt(document.getElementById('fh-g5').value)||0, document.getElementById('fh-done').value, parseInt(document.getElementById('fh-entries').value)||0, document.getElementById('fh-cons').value, document.getElementById('fh-notes').value];
-  var localObj = { name: row[0], org: row[1], ysa: row[2], g1: row[3], g2: row[4], g3: row[5], g4: row[6], g5: row[7], done: row[8], entries: row[9], cons: row[10] };
+  // Sheet cols: Member Name, Organization, Is YSA?, Gen 1 Parents, Gen 2 Grand, Gen 3 Great-Grand, Gen 4 2x Great-Grand, Gen 5+, 4th Gen Complete?, New Entries This Month, Date, Month, Assisted By (Consultant), Notes
+  var dateVal = new Date().toISOString().split('T')[0];
+  var monthName = MONS[new Date().getMonth()];
+  var row = [
+    name,
+    document.getElementById('fh-org').value,
+    document.getElementById('fh-ysa').value,
+    parseInt(document.getElementById('fh-g1').value)||0,
+    parseInt(document.getElementById('fh-g2').value)||0,
+    parseInt(document.getElementById('fh-g3').value)||0,
+    parseInt(document.getElementById('fh-g4').value)||0,
+    parseInt(document.getElementById('fh-g5').value)||0,
+    document.getElementById('fh-done').value,
+    parseInt(document.getElementById('fh-entries').value)||0,
+    dateVal,
+    monthName,
+    document.getElementById('fh-cons').value,
+    document.getElementById('fh-notes').value,
+  ];
+  var localObj = {
+    'Member Name': row[0], 'Organization': row[1], 'Is YSA?': row[2],
+    'Gen 1 Parents': row[3], 'Gen 2 Grand': row[4], 'Gen 3 Great-Grand': row[5],
+    'Gen 4 2x Great-Grand': row[6], 'Gen 5+': row[7], '4th Gen Complete?': row[8],
+    'New Entries This Month': row[9], 'Assisted By (Consultant)': row[12],
+  };
   if (API_URL) { var res = await postToSheet({ sheet: 'Family_History', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ FH saved: ' + name); clearFH(); fetchData(); } else { saveLocal('fh', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearFH(); } }
   else { saveLocal('fh', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearFH(); }
 }
@@ -1396,8 +1383,20 @@ async function saveMeeting() {
   var name = document.getElementById('m-name').value.trim();
   if (!name) { showToast('Please enter attendee name'); return; }
   var stat = document.getElementById('m-stat'); stat.textContent = '⏳ Saving...';
-  var row = [document.getElementById('m-date').value || '2026-04-01', name, document.getElementById('m-role').value, document.getElementById('m-present').value, document.getElementById('m-topic').value, document.getElementById('m-action').value, document.getElementById('m-notes').value];
-  var localObj = { date: row[0], name: row[1], role: row[2], present: row[3], topic: row[4], action: row[5] };
+  // Sheet cols: #, Meeting Date, Attendee Name, Organization, Is Consultant, Present?, Topic Discussed, Action Items, Notes
+  var isCons = document.getElementById('m-role').value === 'Consultant' ? 'Yes' : 'No';
+  var row = [
+    '',
+    document.getElementById('m-date').value || '2026-04-01',
+    name,
+    document.getElementById('m-role').value,
+    isCons,
+    document.getElementById('m-present').value,
+    document.getElementById('m-topic').value,
+    document.getElementById('m-action').value,
+    document.getElementById('m-notes').value,
+  ];
+  var localObj = { 'Meeting Date': row[1], 'Attendee Name': row[2], 'Is Consultant': isCons, 'Present?': row[5], 'Topic Discussed': row[6], 'Action Items': row[7] };
   if (API_URL) { var res = await postToSheet({ sheet: 'Monthly_Meeting', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Meeting: ' + name); clearMeeting(); fetchData(); } else { saveLocal('meetings', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearMeeting(); } }
   else { saveLocal('meetings', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearMeeting(); }
 }
@@ -1406,8 +1405,20 @@ async function saveTrip() {
   var name = document.getElementById('t-name').value.trim();
   if (!name) { showToast('Please enter attendee name'); return; }
   var stat = document.getElementById('t-stat'); stat.textContent = '⏳ Saving...';
-  var row = [document.getElementById('t-date').value || '2026-04-01', name, document.getElementById('t-org').value, document.getElementById('t-cons').value, document.getElementById('t-ysa').value, document.getElementById('t-lo').value, document.getElementById('t-po').value, document.getElementById('t-nc').value, document.getElementById('t-notes').value];
-  var localObj = { date: row[0], name: row[1], org: row[2], cons: row[3], lo: row[5] === 'Yes', po: row[6] === 'Yes', nc: row[7] === 'Yes' };
+  // Sheet cols: #, Trip Date, Attendee Name, Organization, Is YSA?, Living Ordinance?, Proxy Ordinance?, Printed Name Cards?, Consultant Assisting, Notes
+  var row = [
+    '',
+    document.getElementById('t-date').value || '2026-04-01',
+    name,
+    document.getElementById('t-org').value,
+    document.getElementById('t-ysa').value,
+    document.getElementById('t-lo').value,
+    document.getElementById('t-po').value,
+    document.getElementById('t-nc').value,
+    document.getElementById('t-cons').value,
+    document.getElementById('t-notes').value,
+  ];
+  var localObj = { 'Trip Date': row[1], 'Attendee Name': row[2], 'Organization': row[3], 'Living Ordinance?': row[5], 'Proxy Ordinance?': row[6], 'Printed Name Cards?': row[7], 'Consultant Assisting': row[8] };
   if (API_URL) { var res = await postToSheet({ sheet: 'Ward_Temple_Trips', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Trip: ' + name); clearTrip(); fetchData(); } else { saveLocal('trips', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearTrip(); } }
   else { saveLocal('trips', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearTrip(); }
 }
@@ -1416,8 +1427,20 @@ async function saveTC() {
   var name = document.getElementById('tc-name').value.trim();
   if (!name) { showToast('Please enter student name'); return; }
   var stat = document.getElementById('tc-stat'); stat.textContent = '⏳ Saving...';
-  var row = [document.getElementById('tc-cons').value, name, document.getElementById('tc-org').value, document.getElementById('tc-new').value, document.getElementById('tc-ysa').value, document.getElementById('tc-date').value || '2026-04-01', parseInt(document.getElementById('tc-sessions').value) || 0, document.getElementById('tc-status').value, document.getElementById('tc-notes').value];
-  var localObj = { name: row[1], org: row[2], cons: row[0], date: row[5], sessions: row[6], status: row[7] };
+  // Sheet cols: #, Assigned Consultant, Candidate Name, Organization, Is New Member?, Is YSA?, Date Started, Sessions Attended, Status, Notes
+  var row = [
+    '',
+    document.getElementById('tc-cons').value,
+    name,
+    document.getElementById('tc-org').value,
+    document.getElementById('tc-new').value,
+    document.getElementById('tc-ysa').value,
+    document.getElementById('tc-date').value || '2026-04-01',
+    parseInt(document.getElementById('tc-sessions').value) || 0,
+    document.getElementById('tc-status').value,
+    document.getElementById('tc-notes').value,
+  ];
+  var localObj = { 'Candidate Name': row[2], 'Organization': row[3], 'Assigned Consultant': row[1], 'Date Started': row[6], 'Sessions Attended': row[7], 'Status': row[8] };
   if (API_URL) { var res = await postToSheet({ sheet: 'Temple_Class', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ TC: ' + name); clearTC(); fetchData(); } else { saveLocal('tc', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearTC(); renderTC(); } }
   else { saveLocal('tc', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearTC(); renderTC(); }
 }
@@ -1429,13 +1452,11 @@ async function quickAddAll() {
   var stat = document.getElementById('quick-stat');
   stat.textContent = '⏳ Saving all...';
   var all = CONS.concat(['Romeo Alejandro']);
-  var roles = {};
-  roles['Romeo Alejandro'] = 'Leadership';
   for (var i = 0; i < all.length; i++) {
     var n = all[i];
-    var role = roles[n] || 'Consultant';
-    var row = [date, n, role, 'Yes', topic, action, ''];
-    var localObj = { date: date, name: n, role: role, present: 'Yes', topic: topic, action: action };
+    var isCons = n === 'Romeo Alejandro' ? 'No' : 'Yes';
+    var row = ['', date, n, n === 'Romeo Alejandro' ? 'Leadership' : 'Consultant', isCons, 'Yes', topic, action, ''];
+    var localObj = { 'Meeting Date': date, 'Attendee Name': n, 'Is Consultant': isCons, 'Present?': 'Yes', 'Topic Discussed': topic, 'Action Items': action };
     if (API_URL) { await postToSheet({ sheet: 'Monthly_Meeting', row: row }); }
     else { saveLocal('meetings', localObj); }
   }
@@ -1445,7 +1466,7 @@ async function quickAddAll() {
   if (API_URL) fetchData(); else renderMeetings();
 }
 
-function clearEntry() { ['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('e-date').value='2026-04-01'; document.getElementById('e-sub').value='Yes'; document.getElementById('e-new').value='No'; document.getElementById('e-ysa').value='No'; document.getElementById('e-gen4').value='No'; document.getElementById('e-mtg').value='No'; document.getElementById('e-stat').textContent=''; }
+function clearEntry() { ['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('e-date').value='2026-04-01'; document.getElementById('e-stat').textContent=''; }
 function clearFH() { ['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value=''}); ['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0}); document.getElementById('fh-stat').textContent=''; }
 function clearMeeting() { ['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('m-date').value='2026-04-01'; document.getElementById('m-stat').textContent=''; }
 function clearTrip() { ['t-name','t-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('t-date').value='2026-04-01'; document.getElementById('t-stat').textContent=''; }
