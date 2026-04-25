@@ -355,11 +355,11 @@ tr:hover td{background:#eff6ff}
             <div class="form-group"><label>Member Name</label><input id="e-name" placeholder="Sister / Bro. Name"></div>
             <div class="form-group"><label>Date</label><input type="date" id="e-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
             <div class="form-group"><label>Organization</label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
-            <div class="form-group"><label>Your Name</label><select id="e-cons" id="e-cons"></select></div>
+            <div class="form-group"><label>Your Name</label><select id="e-cons"></select></div>
             <div class="form-group"><label>Get Involved # entries</label><input type="number" id="e-gi" placeholder="0" min="0"></div>
             <div class="form-group"><label>Is New Member?</label><select id="e-new"><option>No</option><option>Yes</option></select></div>
             <div class="form-group"><label>Is YSA?</label><select id="e-ysa"><option>No</option><option>Yes</option></select></div>
-            <div class="form-group"><label>Name Submitted?</label><select id="e-sub"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Name Submitted?</label><select id="e-sub"><option>Yes</option><option>No</option></select></div>
             <div class="form-group"><label>4th Gen Completed?</label><select id="e-gen4"><option>No</option><option>Yes</option></select></div>
             <div class="form-group"><label>Attended Meeting?</label><select id="e-mtg"><option>No</option><option>Yes</option></select></div>
             <div class="form-group form-full"><label>Notes</label><textarea id="e-notes" rows="2" placeholder="Any notes..."></textarea></div>
@@ -634,6 +634,22 @@ function doPost(e) {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   const sheet = ss.getSheetByName(p.sheet);
   if (!sheet) return out({ error: 'Sheet not found: ' + p.sheet });
+
+  if (p.sheet === 'Temple_Submitters') {
+    const startRow = 3;
+    const nameCol = 2; // B = Full Name
+    const maxRows = Math.max(sheet.getMaxRows(), startRow);
+    const values = sheet.getRange(startRow, nameCol, maxRows - startRow + 1, 1).getValues();
+    let targetRow = startRow;
+    for (let i = 0; i < values.length; i++) {
+      if (!values[i][0]) { targetRow = startRow + i; break; }
+      targetRow = startRow + values.length;
+    }
+    if (targetRow > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), targetRow - sheet.getMaxRows());
+    sheet.getRange(targetRow, 1, 1, p.row.length).setValues([p.row]);
+    return out({ success: true, row: targetRow });
+  }
+
   sheet.appendRow(p.row);
   return out({ success: true });
 }
@@ -642,11 +658,12 @@ function getData(ss, name) {
   const s = ss.getSheetByName(name);
   if (!s) return [];
   const d = s.getDataRange().getValues();
-  if (d.length < 2) return [];
-  const h = d[0];
-  return d.slice(1).map(r => {
+  const headerRow = name === 'Temple_Submitters' ? 2 : 1;
+  if (d.length < headerRow) return [];
+  const h = d[headerRow - 1];
+  return d.slice(headerRow).filter(r => r.some(v => v !== '' && v !== null)).map(r => {
     const o = {};
-    h.forEach((k, i) => { o[String(k).trim()] = r[i]; });
+    h.forEach((k, i) => { if (String(k).trim()) o[String(k).trim()] = r[i]; });
     return o;
   });
 }
@@ -870,19 +887,39 @@ function setBanner(type, msg) {
 // ═══════════════════════════════════════════════════════
 // DATA HELPERS
 // ═══════════════════════════════════════════════════════
+function isYes(v) {
+  return v === true || String(v || '').trim().toLowerCase() === 'yes' || String(v || '').trim().toLowerCase() === 'true';
+}
+function getVal(r, keys, fallback) {
+  for (var i = 0; i < keys.length; i++) {
+    if (r[keys[i]] !== undefined && r[keys[i]] !== null && r[keys[i]] !== '') return r[keys[i]];
+  }
+  return fallback || '';
+}
+function parseSheetDate(raw) {
+  if (!raw) return null;
+  if (raw instanceof Date) return raw;
+  var dt = new Date(raw);
+  if (!isNaN(dt)) return dt;
+  return null;
+}
+
 function getOrgData() {
   var d = {};
   ORGS.forEach(function(o) { d[o] = new Array(12).fill(0); });
   var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
   rows.forEach(function(r) {
-    var raw = r['Date'] || r.date || '';
-    if (!raw) return;
-    var dt = new Date(raw);
-    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var dt = parseSheetDate(getVal(r, ['Date','date'], ''));
+    if (!dt || dt.getFullYear() !== 2026) return;
     var mi = dt.getMonth();
-    var org = r['Organization'] || r.org || '';
-    var sub = r['Temple Name Submitted?'] || r['Name Submitted?'] || r.submitted || 'No';
-    if (sub === 'Yes' && d[org] !== undefined) d[org][mi]++;
+    var org = getVal(r, ['Organization','org'], '');
+    var submitted = isYes(getVal(r, ['Temple Name Submitted?','Name Submitted?','submitted'], 'No'));
+    var isNew = isYes(getVal(r, ['Is New Mem?','Is New Member?','newMember'], 'No')) || org === 'New Members';
+    var isYsa = isYes(getVal(r, ['Is YSA?','ysa'], 'No')) || org === 'YSA';
+    if (!submitted) return;
+    if (d[org] !== undefined && org !== 'New Members' && org !== 'YSA') d[org][mi]++;
+    if (isNew) d['New Members'][mi]++;
+    if (isYsa) d['YSA'][mi]++;
   });
   return d;
 }
@@ -892,13 +929,11 @@ function getGIData() {
   CONS.forEach(function(c) { d[c] = new Array(12).fill(0); });
   var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
   rows.forEach(function(r) {
-    var raw = r['Date'] || r.date || '';
-    if (!raw) return;
-    var dt = new Date(raw);
-    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var dt = parseSheetDate(getVal(r, ['Date','date'], ''));
+    if (!dt || dt.getFullYear() !== 2026) return;
     var mi = dt.getMonth();
-    var cons = r['Your Name'] || r['Assisted By (Consultant)'] || r.consultant || '';
-    var gi = parseFloat(r['Get Involved # entries'] || r['Get Involved'] || r.gi || 0) || 0;
+    var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
+    var gi = parseFloat(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
     if (d[cons] !== undefined) d[cons][mi] += gi;
   });
   return d;
@@ -1109,8 +1144,8 @@ function renderSubList() {
   var rows = getAllSubmitters().filter(function(r) {
     var raw = r['Date'] || r.date || '';
     if (!raw) return false;
-    var dt = new Date(raw);
-    if (isNaN(dt) || dt.getFullYear() !== 2026) return false;
+    var dt = parseSheetDate(raw);
+    if (!dt || dt.getFullYear() !== 2026) return false;
     if (filter === 'all') return true;
     return dt.getMonth() === parseInt(filter);
   });
@@ -1127,16 +1162,16 @@ function renderSubList() {
   if (rows.length) {
     em.style.display = 'none';
     tb.innerHTML = rows.map(function(r, i) {
-      var name = r['Member Name'] || r.name || '';
-      var date = r['Date'] || r.date || '';
-      var org  = r['Organization'] || r.org || '';
-      var cons = r['Your Name'] || r['Assisted By (Consultant)'] || r.consultant || '';
-      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
-      var newM = r['Is New Member?'] || r.newMember || 'No';
-      var ysa  = r['Is YSA?'] || r.ysa || 'No';
-      var gen4 = r['4th Gen Completed?'] || r.gen4 || 'No';
-      var notes = r['Notes'] || r.notes || '';
-      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + yno(newM === 'Yes') + '</td><td>' + yno(ysa === 'Yes') + '</td><td>' + (gen4 === 'Yes' ? badge('Yes ✓', 'bg') : badge('No', 'ba')) + '</td><td style="color:var(--muted);font-size:10px">' + notes + '</td></tr>';
+      var name = getVal(r, ['Full Name','Member Name','name'], '');
+      var date = getVal(r, ['Date','date'], '');
+      var org  = getVal(r, ['Organization','org'], '');
+      var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
+      var gi   = parseInt(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
+      var newM = getVal(r, ['Is New Mem?','Is New Member?','newMember'], 'No');
+      var ysa  = getVal(r, ['Is YSA?','ysa'], 'No');
+      var gen4 = getVal(r, ['4th Gen Completed?','gen4'], 'No');
+      var notes = getVal(r, ['Notes','notes'], '');
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + yno(isYes(newM)) + '</td><td>' + yno(isYes(ysa)) + '</td><td>' + (isYes(gen4) ? badge('Yes ✓', 'bg') : badge('No', 'ba')) + '</td><td style="color:var(--muted);font-size:10px">' + notes + '</td></tr>';
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
@@ -1284,13 +1319,13 @@ function renderRecent() {
   if (rows.length) {
     em.style.display = 'none';
     tb.innerHTML = rows.map(function(r, i) {
-      var name = r['Member Name'] || r.name || '';
-      var date = r['Date'] || r.date || '';
-      var org  = r['Organization'] || r.org || '';
-      var cons = r['Your Name'] || r.consultant || '';
-      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
-      var sub  = r['Name Submitted?'] || r.submitted || 'No';
-      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + (sub === 'Yes' ? badge('Yes', 'bg') : badge('No', 'ba')) + '</td></tr>';
+      var name = getVal(r, ['Full Name','Member Name','name'], '');
+      var date = getVal(r, ['Date','date'], '');
+      var org  = getVal(r, ['Organization','org'], '');
+      var cons = getVal(r, ['Your Name','Assisted By (Consultant)','consultant'], '');
+      var gi   = parseInt(getVal(r, ['Get Involved (# Entries)','Get Involved # entries','Get Involved','gi'], 0)) || 0;
+      var sub  = isYes(getVal(r, ['Temple Name Submitted?','Name Submitted?','submitted'], 'No'));
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + (sub ? badge('Yes', 'bg') : badge('No', 'ba')) + '</td></tr>';
     }).join('');
   } else { em.style.display = ''; tb.innerHTML = ''; }
 }
@@ -1303,25 +1338,48 @@ async function saveEntry() {
   if (!name) { showToast('Please enter a member name'); return; }
   var stat = document.getElementById('e-stat');
   stat.textContent = '⏳ Saving...';
+  stat.style.color = 'var(--muted)';
   var row = [
-    document.getElementById('e-date').value || '2026-04-01',
+    '',
     name,
-    document.getElementById('e-org').value,
-    document.getElementById('e-cons').value,
+    document.getElementById('e-date').value || '2026-04-01',
     parseInt(document.getElementById('e-gi').value) || 0,
+    document.getElementById('e-org').value,
     document.getElementById('e-new').value,
     document.getElementById('e-ysa').value,
-    document.getElementById('e-sub').value,
-    document.getElementById('e-gen4').value,
+    document.getElementById('e-cons').value,
     document.getElementById('e-mtg').value,
-    document.getElementById('e-notes').value,
+    document.getElementById('e-gen4').value,
+    'No',
+    0,
+    document.getElementById('e-sub').value,
+    'No',
+    document.getElementById('e-notes').value
   ];
-  var localObj = { date: row[0], name: row[1], org: row[2], consultant: row[3], gi: row[4], newMember: row[5], ysa: row[6], submitted: row[7], gen4: row[8] };
+  var localObj = { name: row[1], date: row[2], gi: row[3], org: row[4], newMember: row[5], ysa: row[6], consultant: row[7], meeting: row[8], gen4: row[9], submitted: row[12], notes: row[14] };
   if (API_URL) {
     var res = await postToSheet({ sheet: 'Temple_Submitters', row: row });
-    if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearEntry(); fetchData(); }
-    else { saveLocal('submitters', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearEntry(); renderRecent(); }
-  } else { saveLocal('submitters', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved locally: ' + name); clearEntry(); renderRecent(); }
+    if (res.success) {
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Saved to Temple_Submitters: ' + name);
+      clearEntry();
+      await fetchData();
+    } else {
+      saveLocal('submitters', localObj);
+      stat.textContent = '⚠ Saved locally — ' + (res.error || 'Sheet error');
+      stat.style.color = '#d97706';
+      clearEntry();
+      renderRecent();
+    }
+  } else {
+    saveLocal('submitters', localObj);
+    stat.textContent = '✓ Saved locally';
+    stat.style.color = '#16a34a';
+    showToast('✓ Saved locally: ' + name);
+    clearEntry();
+    renderRecent();
+  }
 }
 
 async function saveFH() {
@@ -1387,7 +1445,7 @@ async function quickAddAll() {
   if (API_URL) fetchData(); else renderMeetings();
 }
 
-function clearEntry() { ['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('e-date').value='2026-04-01'; document.getElementById('e-stat').textContent=''; }
+function clearEntry() { ['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('e-date').value='2026-04-01'; document.getElementById('e-sub').value='Yes'; document.getElementById('e-new').value='No'; document.getElementById('e-ysa').value='No'; document.getElementById('e-gen4').value='No'; document.getElementById('e-mtg').value='No'; document.getElementById('e-stat').textContent=''; }
 function clearFH() { ['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value=''}); ['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0}); document.getElementById('fh-stat').textContent=''; }
 function clearMeeting() { ['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('m-date').value='2026-04-01'; document.getElementById('m-stat').textContent=''; }
 function clearTrip() { ['t-name','t-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('t-date').value='2026-04-01'; document.getElementById('t-stat').textContent=''; }
