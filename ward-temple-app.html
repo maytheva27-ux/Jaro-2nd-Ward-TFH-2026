@@ -3,836 +3,600 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ward Temple & Family History — 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Jaro 2nd Ward — Temple & Family History 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
-  --navy: #1B3A6B;
-  --navy-light: #243f6e;
-  --gold: #C9A84C;
-  --gold-light: #e8c97a;
-  --cream: #FBF8F3;
-  --white: #ffffff;
-  --text: #1a1a2e;
-  --text-muted: #6b7280;
-  --text-light: #9ca3af;
-  --border: #e5e7eb;
-  --blue-50: #eff6ff;
-  --green-50: #f0fdf4;
-  --amber-50: #fffbeb;
-  --red-50: #fff1f2;
-  --purple-50: #faf5ff;
-  --teal-50: #f0fdfa;
-  --blue-600: #2563eb;
-  --green-600: #16a34a;
-  --amber-600: #d97706;
-  --red-600: #dc2626;
-  --purple-600: #9333ea;
-  --teal-600: #0d9488;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
-  --radius: 12px;
-  --radius-sm: 8px;
+  --navy:#1B3A6B; --navy2:#152d54; --gold:#C9A84C; --gold2:#e8c97a;
+  --cream:#FAF7F2; --white:#fff; --text:#1a1a2e; --muted:#6b7280;
+  --light:#9ca3af; --border:#e5e7eb;
+  --green:#16a34a; --amber:#d97706; --red:#dc2626;
+  --blue:#2563eb; --purple:#7c3aed; --teal:#0d9488;
+  --font-base: 15px; --font-sm: 13px; --font-xs: 11px;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:var(--font-base)}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* LAYOUT */
+.app{display:flex;min-height:100vh}
+.sidebar{width:224px;background:var(--navy);position:fixed;top:0;left:0;bottom:0;z-index:100;display:flex;flex-direction:column;overflow-y:auto;transition:transform .28s}
+.main{margin-left:224px;flex:1;display:flex;flex-direction:column;min-height:100vh}
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  min-height: 100vh;
-}
+/* SIDEBAR */
+.sb-top{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-icon{font-size:26px;margin-bottom:8px}
+.sb-title{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;font-weight:600;line-height:1.4}
+.sb-sub{font-size:11px;color:var(--gold);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
+.sb-quote{font-size:10.5px;color:rgba(255,255,255,.55);line-height:1.6;padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-style:italic}
+.sb-quote cite{display:block;margin-top:5px;font-size:10px;color:var(--gold);font-style:normal;font-weight:500}
+.sb-nav{padding:10px 10px;flex:1}
+.sb-group{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;padding:10px 8px 4px;font-weight:500}
+.nav-btn{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.65);font-size:13.5px;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-btn.active{background:var(--gold);color:var(--navy);font-weight:500}
+.nav-btn .ni{font-size:14px;width:17px;text-align:center;flex-shrink:0}
+.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.8}
 
-/* ── SIDEBAR ─────────────────────────────────────────── */
-.layout { display: flex; min-height: 100vh; }
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.tb-left h2{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--navy)}
+.tb-left p{font-size:11px;color:var(--muted);margin-top:1px}
+.tb-right{display:flex;align-items:center;gap:8px}
+.mpill{display:flex;align-items:center;gap:6px;background:var(--navy);border-radius:8px;padding:5px 12px}
+.mpill label{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;font-weight:500;white-space:nowrap}
+.mpill select{background:transparent;border:none;color:#fff;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none}
+.mpill select option{background:var(--navy)}
+.vtog{display:flex;background:var(--cream);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.vtog button{padding:5px 12px;font-size:11px;font-family:'DM Sans',sans-serif;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
+.vtog button.on{background:var(--navy);color:#fff;font-weight:500}
+.gear-btn{width:32px;height:32px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--muted);transition:all .15s;flex-shrink:0}
+.gear-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hamburger{display:none;background:none;border:none;font-size:20px;cursor:pointer;color:var(--navy);padding:2px 4px}
 
-.sidebar {
-  width: 220px;
-  background: var(--navy);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  z-index: 100;
-  transition: transform 0.3s ease;
-}
+/* PAGES */
+.page{padding:20px 24px;display:none}
+.page.active{display:block;animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-.sidebar-logo {
-  padding: 24px 20px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.sidebar-logo .temple-icon {
-  font-size: 24px;
-  margin-bottom: 6px;
-}
-.sidebar-logo h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 14px;
-  color: var(--white);
-  line-height: 1.3;
-  font-weight: 600;
-}
-.sidebar-logo p {
-  font-size: 10px;
-  color: var(--gold);
-  margin-top: 2px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
+/* CONNECTION BANNER */
+.banner{display:flex;align-items:center;gap:8px;border-radius:8px;padding:8px 13px;font-size:11px;margin-bottom:16px}
+.banner.ok{background:#f0fdf4;border:1px solid #86efac;color:#166534}
+.banner.warn{background:#fef9c3;border:1px solid #fcd34d;color:#92400e}
+.banner.err{background:#fff1f2;border:1px solid #fca5a5;color:#991b1b}
+.bdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.banner.ok .bdot{background:#16a34a}
+.banner.warn .bdot{background:#d97706;animation:pulse 1.5s infinite}
+.banner.err .bdot{background:#dc2626}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.sidebar-nav { padding: 16px 12px; flex: 1; }
+/* KPI GRID */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(142px,1fr));gap:11px;margin-bottom:16px}
+.kpi{background:#fff;border-radius:12px;padding:14px 16px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);position:relative;overflow:hidden;transition:box-shadow .2s}
+.kpi:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.kpi.blue::before{background:var(--blue)}.kpi.green::before{background:var(--green)}
+.kpi.amber::before{background:var(--amber)}.kpi.red::before{background:var(--red)}
+.kpi.purple::before{background:var(--purple)}.kpi.teal::before{background:var(--teal)}
+.kpi.navy::before{background:var(--navy)}
+.kpi-label{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.kpi-val{font-size:26px;font-weight:500;line-height:1;margin-bottom:2px}
+.kpi.blue .kpi-val{color:var(--blue)}.kpi.green .kpi-val{color:var(--green)}
+.kpi.amber .kpi-val{color:var(--amber)}.kpi.red .kpi-val{color:var(--red)}
+.kpi.purple .kpi-val{color:var(--purple)}.kpi.teal .kpi-val{color:var(--teal)}
+.kpi.navy .kpi-val{color:var(--navy)}
+.kpi-sub{font-size:11px;color:var(--light)}
+.kpi-bar{height:3px;background:var(--border);border-radius:2px;margin-top:9px}
+.kpi-fill{height:100%;border-radius:2px;transition:width .6s ease}
+.ytd-tag{display:inline-block;font-size:9px;background:var(--navy);color:var(--gold);padding:1px 5px;border-radius:10px;margin-left:3px;vertical-align:middle}
 
-.nav-section-label {
-  font-size: 9px;
-  color: rgba(255,255,255,0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 12px 8px 6px;
-  font-weight: 500;
-}
+/* YTD STRIP */
+.ytd-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:9px;margin-bottom:14px}
+.ytd-card{background:var(--navy);border-radius:8px;padding:10px 12px;text-align:center}
+.ytd-lbl{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.ytd-val{font-size:19px;font-weight:500;color:#fff}
+.ytd-sub{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
 
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  color: rgba(255,255,255,0.65);
-  font-size: 13px;
-  font-weight: 400;
-  transition: all 0.15s;
-  margin-bottom: 2px;
-}
-.nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
-.nav-item.active { background: var(--gold); color: var(--navy); font-weight: 500; }
-.nav-item .nav-icon { font-size: 15px; width: 20px; text-align: center; }
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:13px;margin-bottom:13px}
 
-.sidebar-footer {
-  padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 11px;
-  color: rgba(255,255,255,0.3);
-  line-height: 1.5;
-}
+/* CARD */
+.card{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
+.card-head{padding:13px 16px 0;display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-size:14px;font-weight:500;color:var(--text)}
+.card-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.card-body{padding:11px 16px 15px}
 
-/* ── MAIN CONTENT ────────────────────────────────────── */
-.main {
-  margin-left: 220px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--navy);color:#fff;padding:8px 11px;text-align:left;font-weight:500;font-size:11px}
+td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#fafafa}
+tr:hover td{background:#eff6ff}
 
-/* ── TOPBAR ──────────────────────────────────────────── */
-.topbar {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  box-shadow: var(--shadow-sm);
-}
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.bg{background:#f0fdf4;color:#166534}.bb{background:#eff6ff;color:#1d4ed8}
+.ba{background:#fffbeb;color:#92400e}.br{background:#fff1f2;color:#991b1b}
+.bp{background:#faf5ff;color:#6d28d9}.bt{background:#f0fdfa;color:#0f766e}
+.bn{background:var(--navy);color:var(--gold)}
 
-.topbar-left h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--navy);
-}
-.topbar-left p {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
+/* PROGRESS */
+.prog-list{display:flex;flex-direction:column;gap:8px}
+.prog-row{display:flex;align-items:center;gap:7px}
+.prog-name{font-size:13px;font-weight:500;width:70px;flex-shrink:0}
+.prog-bar{flex:1;height:9px;background:var(--border);border-radius:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:5px;transition:width .5s ease}
+.prog-val{font-size:12px;width:65px;text-align:right;color:var(--muted);flex-shrink:0}
 
-.topbar-controls { display: flex; align-items: center; gap: 10px; }
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:7px}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+.leg-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
 
-.month-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--navy);
-  border-radius: var(--radius-sm);
-  padding: 6px 14px;
-}
-.month-selector label {
-  font-size: 10px;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-}
-.month-selector select {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-}
-.month-selector select option { background: var(--navy); }
+/* SECTION HEADING */
+.sec-head{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.sec-head h2{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--navy);white-space:nowrap}
+.sec-head .sec-line{flex:1;height:1px;background:var(--border)}
 
-.view-toggle {
-  display: flex;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-}
-.view-toggle button {
-  padding: 6px 14px;
-  font-size: 12px;
-  font-family: 'DM Sans', sans-serif;
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-weight: 400;
-  transition: all 0.15s;
-}
-.view-toggle button.active { background: var(--navy); color: #fff; font-weight: 500; }
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:12px;font-weight:500;color:var(--muted)}
+.form-group input,.form-group select,.form-group textarea{padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy)}
+.form-full{grid-column:1/-1}
+.btn{padding:9px 20px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy2)}
+.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{background:var(--gold2)}
+.btn-sm{padding:6px 13px;font-size:12px}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.form-status{font-size:11px;color:var(--muted)}
 
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 4px;
-  color: var(--navy);
-}
+/* EMPTY STATE */
+.empty{text-align:center;padding:28px;color:var(--light);font-size:12px}
+.empty-icon{font-size:26px;margin-bottom:6px}
 
-/* ── PAGE CONTENT ─────────────────────────────────────── */
-.page { padding: 24px 28px; display: none; }
-.page.active { display: block; }
+/* LOADING */
+.loading{display:flex;align-items:center;gap:7px;padding:18px;color:var(--muted);font-size:12px;justify-content:center}
+.spin{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── KPI STRIP ───────────────────────────────────────── */
-.kpi-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
-}
+/* MODAL */
+.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-wrap.open{display:flex}
+.modal{background:#fff;border-radius:12px;width:100%;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden}
+.modal-head{background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.modal-head h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;font-weight:600}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;line-height:1;padding:0}
+.modal-close:hover{color:#fff}
+.modal-body{padding:20px}
+.modal-foot{padding:13px 20px;border-top:1px solid var(--border);display:flex;gap:8px}
+.code-box{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:10px 12px;font-family:monospace;font-size:10px;line-height:1.6;max-height:150px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin:7px 0}
 
-.kpi-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.2s;
-}
-.kpi-card:hover { box-shadow: var(--shadow-md); }
-.kpi-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: var(--radius) var(--radius) 0 0;
-}
-.kpi-card.blue::before { background: var(--blue-600); }
-.kpi-card.green::before { background: var(--green-600); }
-.kpi-card.amber::before { background: var(--amber-600); }
-.kpi-card.red::before { background: var(--red-600); }
-.kpi-card.purple::before { background: var(--purple-600); }
-.kpi-card.teal::before { background: var(--teal-600); }
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;border-left:3px solid var(--gold);box-shadow:0 4px 20px rgba(0,0,0,.15);transform:translateY(80px);opacity:0;transition:all .3s;z-index:999;max-width:260px;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
 
-.kpi-label { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-bottom: 6px; }
-.kpi-value { font-size: 28px; font-weight: 500; line-height: 1; margin-bottom: 4px; }
-.kpi-card.blue .kpi-value { color: var(--blue-600); }
-.kpi-card.green .kpi-value { color: var(--green-600); }
-.kpi-card.amber .kpi-value { color: var(--amber-600); }
-.kpi-card.red .kpi-value { color: var(--red-600); }
-.kpi-card.purple .kpi-value { color: var(--purple-600); }
-.kpi-card.teal .kpi-value { color: var(--teal-600); }
-.kpi-target { font-size: 10px; color: var(--text-light); }
-.kpi-delta { font-size: 11px; font-weight: 500; margin-top: 6px; }
-.kpi-delta.up { color: var(--green-600); }
-.kpi-delta.dn { color: var(--red-600); }
-.kpi-progress { height: 3px; background: var(--border); border-radius: 2px; margin-top: 10px; }
-.kpi-progress-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+.overlay.show{display:block}
 
-/* ── CHART GRID ──────────────────────────────────────── */
-.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-.chart-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; margin-bottom: 18px; }
-
-.card {
-  background: var(--white);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}.hamburger{display:block}
+  .g2,.g3{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .page{padding:14px}.topbar{padding:10px 14px}
 }
-.card-header {
-  padding: 16px 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-}
-.card-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-.card-body { padding: 14px 20px 18px; }
-
-.chart-container { position: relative; }
-
-/* ── LEGEND ──────────────────────────────────────────── */
-.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
-.legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-
-/* ── SUBMITTER TABLE ─────────────────────────────────── */
-.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.data-table th {
-  background: var(--navy);
-  color: #fff;
-  padding: 10px 14px;
-  text-align: left;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-}
-.data-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
-.data-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
-.data-table td {
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-  vertical-align: middle;
-}
-.data-table tr:last-child td { border-bottom: none; }
-.data-table tr:nth-child(even) td { background: #fafafa; }
-.data-table tr:hover td { background: var(--blue-50); }
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 500;
-}
-.badge-blue { background: var(--blue-50); color: var(--blue-600); }
-.badge-green { background: var(--green-50); color: var(--green-600); }
-.badge-amber { background: var(--amber-50); color: var(--amber-600); }
-.badge-red { background: var(--red-50); color: var(--red-600); }
-.badge-purple { background: var(--purple-50); color: var(--purple-600); }
-.badge-teal { background: var(--teal-50); color: var(--teal-600); }
-.badge-navy { background: var(--navy); color: var(--gold); }
-
-/* ── PROGRESS BARS ───────────────────────────────────── */
-.prog-list { display: flex; flex-direction: column; gap: 10px; }
-.prog-row { display: flex; align-items: center; gap: 10px; }
-.prog-name { font-size: 12px; font-weight: 500; width: 55px; flex-shrink: 0; color: var(--text); }
-.prog-bar { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
-.prog-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
-.prog-val { font-size: 11px; width: 65px; text-align: right; color: var(--text-muted); flex-shrink: 0; }
-.prog-check { font-size: 11px; width: 14px; flex-shrink: 0; }
-
-/* ── YTD SUMMARY ROW ─────────────────────────────────── */
-.ytd-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-  margin-bottom: 18px;
-}
-.ytd-mini {
-  background: var(--navy);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  text-align: center;
-}
-.ytd-mini-label { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-.ytd-mini-val { font-size: 20px; font-weight: 500; color: #fff; }
-.ytd-mini-sub { font-size: 9px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-
-/* ── SECTION HEADING ─────────────────────────────────── */
-.section-heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-  margin-top: 4px;
-}
-.section-heading h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--navy);
-}
-.section-heading .divider { flex: 1; height: 1px; background: var(--border); }
-
-/* ── DATA ENTRY FORM ─────────────────────────────────── */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-group { display: flex; flex-direction: column; gap: 5px; }
-.form-group label { font-size: 12px; font-weight: 500; color: var(--text-muted); }
-.form-group input, .form-group select, .form-group textarea {
-  padding: 9px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--text);
-  background: var(--white);
-  transition: border-color 0.15s;
-  outline: none;
-}
-.form-group input:focus, .form-group select:focus { border-color: var(--navy); }
-.form-full { grid-column: 1 / -1; }
-.btn {
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.btn-primary { background: var(--navy); color: #fff; }
-.btn-primary:hover { background: var(--navy-light); }
-.btn-gold { background: var(--gold); color: var(--navy); }
-.btn-gold:hover { background: var(--gold-light); }
-
-/* ── TOAST ───────────────────────────────────────────── */
-.toast {
-  position: fixed;
-  bottom: 24px; right: 24px;
-  background: var(--navy);
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  border-left: 3px solid var(--gold);
-  box-shadow: var(--shadow-md);
-  transform: translateY(80px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 999;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* ── OVERLAY ─────────────────────────────────────────── */
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 90;
-}
-.overlay.show { display: block; }
-
-/* ── RESPONSIVE ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
-  .hamburger { display: block; }
-  .chart-grid, .chart-grid-3 { grid-template-columns: 1fr; }
-  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
-  .form-grid { grid-template-columns: 1fr; }
-  .page { padding: 16px; }
-  .topbar { padding: 12px 16px; }
-}
-
-/* ── ANIMATIONS ──────────────────────────────────────── */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.page.active { animation: fadeIn 0.25s ease; }
-.kpi-card { animation: fadeIn 0.3s ease both; }
-.kpi-card:nth-child(1) { animation-delay: 0.05s; }
-.kpi-card:nth-child(2) { animation-delay: 0.10s; }
-.kpi-card:nth-child(3) { animation-delay: 0.15s; }
-.kpi-card:nth-child(4) { animation-delay: 0.20s; }
-.kpi-card:nth-child(5) { animation-delay: 0.25s; }
-.kpi-card:nth-child(6) { animation-delay: 0.30s; }
 </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
-<div class="layout">
-
-<!-- ── SIDEBAR ─────────────────────────────────────── -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <div class="temple-icon">⛪</div>
-    <h2>Ward Temple &amp;<br>Family History</h2>
-    <p>2026 Ministry</p>
+<!-- SETTINGS MODAL -->
+<div class="modal-wrap" id="settingsModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>⚙ Settings — Google Sheets</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:13px">
+        <label>Web App URL (paste your Apps Script URL)</label>
+        <input id="set-url" placeholder="https://script.google.com/macros/s/.../exec">
+        <div style="font-size:10px;color:var(--light);margin-top:3px">Must end with <strong>/exec</strong></div>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:11px 13px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:500;margin-bottom:5px">Current</div>
+        <div id="set-current" style="font-size:10px;color:var(--muted);word-break:break-all"></div>
+        <div id="set-status" style="font-size:11px;margin-top:5px"></div>
+      </div>
+      <div style="font-size:11px;font-weight:500;margin-bottom:5px">Apps Script code — paste into Extensions → Apps Script</div>
+      <div class="code-box" id="set-script">Loading...</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-navy" onclick="saveUrl()">Save & Connect</button>
+      <button class="btn btn-gold" onclick="testConn()">Test</button>
+      <button class="btn" style="background:var(--cream);color:var(--muted)" onclick="copyScript()">📋 Copy Script</button>
+    </div>
   </div>
-  <nav class="sidebar-nav">
-    <div class="nav-section-label">Overview</div>
-    <div class="nav-item active" onclick="navigate('dashboard', this)">
-      <span class="nav-icon">▣</span> Dashboard
-    </div>
-    <div class="nav-section-label">Tracking</div>
-    <div class="nav-item" onclick="navigate('submitters', this)">
-      <span class="nav-icon">✦</span> Temple Submitters
-    </div>
-    <div class="nav-item" onclick="navigate('getinvolved', this)">
-      <span class="nav-icon">◈</span> Get Involved
-    </div>
-    <div class="nav-item" onclick="navigate('familyhistory', this)">
-      <span class="nav-icon">❧</span> Family History
-    </div>
-    <div class="nav-section-label">Team</div>
-    <div class="nav-item" onclick="navigate('consultants', this)">
-      <span class="nav-icon">◉</span> Consultant KPIs
-    </div>
-    <div class="nav-item" onclick="navigate('meetings', this)">
-      <span class="nav-icon">◆</span> Monthly Meeting
-    </div>
-    <div class="nav-section-label">Records</div>
-    <div class="nav-item" onclick="navigate('templetrips', this)">
-      <span class="nav-icon">✶</span> Temple Trips
-    </div>
-    <div class="nav-item" onclick="navigate('entry', this)">
-      <span class="nav-icon">✚</span> Add Record
-    </div>
-  </nav>
-  <div class="sidebar-footer">
-    Ward Temple &amp; Family<br>History Ministry<br>Iloilo City Ward · 2026
+</div>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-top">
+    <div class="sb-icon">⛪</div>
+    <div class="sb-title">Jaro 2nd Ward<br>Temple & Family History</div>
+    <div class="sb-sub">2026</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-group">Overview</div>
+    <button class="nav-btn active" data-page="dashboard"><span class="ni">▣</span>Dashboard</button>
+
+    <div class="sb-group">Data Entry</div>
+    <button class="nav-btn" data-page="log"><span class="ni">✚</span>Log My Work</button>
+    <button class="nav-btn" data-page="addmeeting"><span class="ni">◆</span>Add Meeting</button>
+    <button class="nav-btn" data-page="addtrip"><span class="ni">✶</span>Add Temple Trip</button>
+
+    <div class="sb-group">Tracking</div>
+    <button class="nav-btn" data-page="submitters"><span class="ni">✦</span>Temple Submitters</button>
+    <button class="nav-btn" data-page="sublist"><span class="ni">📝</span>Submitters List</button>
+    <button class="nav-btn" data-page="getinvolved"><span class="ni">◈</span>Get Involved</button>
+    <button class="nav-btn" data-page="familyhistory"><span class="ni">❧</span>Family History</button>
+    <button class="nav-btn" data-page="templeclass"><span class="ni">🎓</span>Temple Class</button>
+
+    <div class="sb-group">Team</div>
+    <button class="nav-btn" data-page="kpis"><span class="ni">◉</span>Consultant KPIs</button>
+    <button class="nav-btn" data-page="meetings"><span class="ni">📋</span>Meetings Log</button>
+    <button class="nav-btn" data-page="trips"><span class="ni">🏛</span>Temple Trips Log</button>
+  </div>
+  <div class="sb-foot">
+    Jaro 2nd Ward · Iloilo City<br>
+    Temple &amp; Family History · 2026<br>
+    Leader: Romeo Alejandro<br>
+    Built with ♥ for the ward
+  </div>
+  <div class="sb-quote">
+    "The doctrine of The Church of Jesus Christ centers on the family. Essential to our doctrine on the family is the temple. The ordinances received there enable us to return as eternal families to the presence of our Heavenly Father."
+    <cite>— President Dallin H. Oaks<br>18th Prophet &amp; President</cite>
   </div>
 </aside>
 
-<!-- ── MAIN ────────────────────────────────────────── -->
+<!-- MAIN -->
 <main class="main">
 
   <!-- TOPBAR -->
   <header class="topbar">
-    <div style="display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:9px">
       <button class="hamburger" onclick="toggleSidebar()">☰</button>
-      <div class="topbar-left">
-        <h1 id="pageTitle">Dashboard</h1>
-        <p id="pageSubtitle">All KPIs · 2026 Overview</p>
+      <div class="tb-left">
+        <h2 id="page-title">Dashboard</h2>
+        <p id="page-sub">All KPIs · 2026 Overview</p>
       </div>
     </div>
-    <div class="topbar-controls">
-      <div class="month-selector">
+    <div class="tb-right">
+      <div class="mpill">
         <label>Period</label>
-        <select id="monthSel" onchange="onMonthChange()">
-          <option value="0">January</option>
-          <option value="1">February</option>
-          <option value="2">March</option>
-          <option value="3">April</option>
-          <option value="4">May</option>
-          <option value="5">June</option>
-          <option value="6">July</option>
-          <option value="7">August</option>
-          <option value="8">September</option>
-          <option value="9">October</option>
-          <option value="10">November</option>
-          <option value="11">December</option>
+        <select id="month-sel" onchange="onMonthChange()">
+          <option value="0">January</option><option value="1">February</option>
+          <option value="2">March</option><option value="3" selected>April</option>
+          <option value="4">May</option><option value="5">June</option>
+          <option value="6">July</option><option value="7">August</option>
+          <option value="8">September</option><option value="9">October</option>
+          <option value="10">November</option><option value="11">December</option>
         </select>
       </div>
-      <div class="view-toggle" id="viewToggle">
-        <button class="active" onclick="setView('monthly', this)">Monthly</button>
-        <button onclick="setView('ytd', this)">YTD</button>
+      <div class="vtog">
+        <button class="on" onclick="setView('monthly',this)">Monthly</button>
+        <button onclick="setView('ytd',this)">YTD</button>
       </div>
+      <div class="gear-btn" onclick="openModal()" title="Settings">⚙</div>
     </div>
   </header>
 
-  <!-- ══ DASHBOARD PAGE ══════════════════════════════ -->
+  <!-- ═══ DASHBOARD ═══ -->
   <section class="page active" id="page-dashboard">
-
-    <!-- KPI STRIP -->
-    <div class="kpi-strip" id="kpiStrip"></div>
-
-    <!-- YTD STRIP -->
-    <div class="ytd-strip" id="ytdStrip"></div>
-
-    <!-- CHARTS ROW 1 -->
-    <div class="chart-grid-3">
+    <div class="banner warn" id="conn-banner"><div class="bdot"></div><span id="conn-msg">Connecting to Google Sheets...</span></div>
+    <div class="kpi-row" id="kpi-grid"></div>
+    <div class="ytd-row" id="ytd-strip"></div>
+    <div class="g3">
       <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title" id="submitChartTitle">Temple name submitters — January</div>
-            <div class="card-subtitle">By organization</div>
+        <div class="card-head"><div><div class="card-title" id="sub-chart-title">Temple Submitters — April</div><div class="card-sub">By organization</div></div></div>
+        <div class="card-body"><div class="legend" id="sub-legend"></div><div style="position:relative;height:180px"><canvas id="chart-sub"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Org split</div></div>
+        <div class="card-body"><div style="position:relative;height:150px"><canvas id="chart-pie"></canvas></div><div class="legend" id="pie-legend" style="margin-top:7px;justify-content:center"></div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Get Involved — consultants</div><div class="card-sub" id="gi-label">April · target 500</div></div>
+        <div class="card-body"><div class="prog-list" id="prog-bars"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Get Involved trend 2026</div></div>
+        <div class="card-body"><div style="position:relative;height:180px"><canvas id="chart-trend"></canvas></div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><div class="card-title">4th generation tracker</div><div class="card-sub">Target: 50/year</div></div>
+        <div class="card-body" style="padding-top:8px">
+          <table><thead><tr><th>Member</th><th>Org</th><th>Gen4</th><th>Done?</th><th>Consultant</th></tr></thead>
+          <tbody id="fh-mini-body"></tbody></table>
+          <div id="fh-mini-empty" class="empty" style="display:none"><div class="empty-icon">❧</div>No records yet</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title" id="ytd-bar-title">YTD submitters by org</div></div>
+        <div class="card-body"><div style="position:relative;height:195px"><canvas id="chart-ytd"></canvas></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LOG MY WORK ═══ -->
+  <section class="page" id="page-log">
+    <div class="sec-head"><h2>Log My Work</h2><div class="sec-line"></div></div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">✦ Temple Name Submitter</div><div class="card-sub">Log a member who submitted a name</div></div></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Member Name</label><input id="e-name" placeholder="Sister / Bro. Name"></div>
+            <div class="form-group"><label>Date</label><input type="date" id="e-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
+            <div class="form-group"><label>Organization</label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+            <div class="form-group"><label>Your Name</label><select id="e-cons" id="e-cons"></select></div>
+            <div class="form-group"><label>Get Involved # entries</label><input type="number" id="e-gi" placeholder="0" min="0"></div>
+            <div class="form-group"><label>Is New Member?</label><select id="e-new"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Is YSA?</label><select id="e-ysa"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Name Submitted?</label><select id="e-sub"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>4th Gen Completed?</label><select id="e-gen4"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Attended Meeting?</label><select id="e-mtg"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group form-full"><label>Notes</label><textarea id="e-notes" rows="2" placeholder="Any notes..."></textarea></div>
           </div>
+          <div class="btn-row"><button class="btn btn-navy" onclick="saveEntry()">💾 Save to Sheet</button><button class="btn btn-gold" onclick="clearEntry()">Clear</button><span class="form-status" id="e-stat"></span></div>
         </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">❧ Family History Update</div><div class="card-sub">Update generation progress</div></div></div>
         <div class="card-body">
-          <div class="legend" id="submitLegend"></div>
-          <div class="chart-container" style="height:200px">
-            <canvas id="submitChart" aria-label="Bar chart of temple submitters by organization">Temple submitters by organization.</canvas>
+          <div class="form-grid">
+            <div class="form-group"><label>Member Name</label><input id="fh-name" placeholder="Member name"></div>
+            <div class="form-group"><label>Organization</label><select id="fh-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+            <div class="form-group"><label>Your Name</label><select id="fh-cons"></select></div>
+            <div class="form-group"><label>Is YSA?</label><select id="fh-ysa"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Gen 1 Parents (0–4)</label><input type="number" id="fh-g1" min="0" max="4" value="0"></div>
+            <div class="form-group"><label>Gen 2 Grandparents (0–4)</label><input type="number" id="fh-g2" min="0" max="4" value="0"></div>
+            <div class="form-group"><label>Gen 3 Great-Grand (0–4)</label><input type="number" id="fh-g3" min="0" max="4" value="0"></div>
+            <div class="form-group"><label>Gen 4 2x Great-Grand (0–4)</label><input type="number" id="fh-g4" min="0" max="4" value="0"></div>
+            <div class="form-group"><label>Gen 5+ Beyond</label><input type="number" id="fh-g5" min="0" value="0"></div>
+            <div class="form-group"><label>4th Gen Completed?</label><select id="fh-done"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>New Entries This Month</label><input type="number" id="fh-entries" min="0" value="0"></div>
+            <div class="form-group form-full"><label>Notes</label><textarea id="fh-notes" rows="2"></textarea></div>
           </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Organization split</div>
-        </div>
-        <div class="card-body">
-          <div class="chart-container" style="height:180px">
-            <canvas id="pieChart" aria-label="Donut chart of submitter breakdown">Submitter breakdown.</canvas>
-          </div>
-          <div class="legend" id="pieLegend" style="margin-top:10px;justify-content:center"></div>
+          <div class="btn-row"><button class="btn btn-navy" onclick="saveFH()">💾 Save to Sheet</button><button class="btn btn-gold" onclick="clearFH()">Clear</button><span class="form-status" id="fh-stat"></span></div>
         </div>
       </div>
     </div>
-
-    <!-- CHARTS ROW 2 -->
-    <div class="chart-grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Get Involved — consultant progress</div>
-          <div class="card-subtitle" id="giProgressLabel">January · target 500/consultant</div>
-        </div>
-        <div class="card-body">
-          <div class="prog-list" id="progBars"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Get Involved trend — 2026</div>
-          <div class="card-subtitle">All consultants combined</div>
-        </div>
-        <div class="card-body">
-          <div class="chart-container" style="height:200px">
-            <canvas id="trendChart" aria-label="Line chart showing monthly Get Involved trend">Get Involved monthly trend 2026.</canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BOTTOM ROW -->
-    <div class="chart-grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">4th generation tracker</div>
-          <div class="card-subtitle">Target: 50 members/year</div>
-        </div>
-        <div class="card-body" style="padding-top:10px">
-          <table class="data-table" id="fhTable">
-            <thead><tr><th>Member</th><th>Org</th><th>Gen 4</th><th>Status</th><th>Consultant</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">YTD submitters by organization</div>
-          <div class="card-subtitle" id="ytdChartLabel">Jan – January 2026</div>
-        </div>
-        <div class="card-body">
-          <div class="chart-container" style="height:220px">
-            <canvas id="ytdBarChart" aria-label="Horizontal bar chart of YTD submitters by organization">YTD submitters by organization.</canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ══ TEMPLE SUBMITTERS PAGE ══════════════════════ -->
-  <section class="page" id="page-submitters">
-    <div class="section-heading"><h2>Temple Name Submitters</h2><div class="divider"></div></div>
-    <div class="ytd-strip" id="subYtdStrip"></div>
-    <div class="card" style="margin-bottom:18px">
-      <div class="card-header" style="padding-bottom:14px">
-        <div class="card-title" id="subTableTitle">Monthly breakdown — January 2026</div>
-      </div>
-      <div class="card-body" style="padding-top:0;overflow-x:auto">
-        <table class="data-table">
-          <thead>
-            <tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>New Members</th><th>Primary</th><th>YSA</th><th>Monthly Total</th><th>YTD Total</th><th>% of Target</th></tr>
-          </thead>
-          <tbody id="submitFullTable"></tbody>
-        </table>
+    <div class="card" style="margin-top:13px">
+      <div class="card-head"><div class="card-title">📝 Recently logged submitters</div><div class="card-sub">Last 20 records</div></div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>#</th><th>Name</th><th>Date</th><th>Org</th><th>Consultant</th><th>Get Involved</th><th>Submitted?</th></tr></thead>
+        <tbody id="recent-body"></tbody></table>
+        <div id="recent-empty" class="empty"><div class="empty-icon">✦</div>No records yet. Save a record above to see it here!</div>
       </div>
     </div>
   </section>
 
-  <!-- ══ GET INVOLVED PAGE ════════════════════════════ -->
-  <section class="page" id="page-getinvolved">
-    <div class="section-heading"><h2>Get Involved Records</h2><div class="divider"></div></div>
-    <div class="ytd-strip" id="giYtdStrip"></div>
-    <div class="chart-grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title" id="giPageTitle">Monthly Get Involved — January</div>
-        </div>
-        <div class="card-body">
-          <div class="prog-list" id="giPageBars"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">12-month trend per consultant</div></div>
-        <div class="card-body">
-          <div class="legend" id="giTrendLeg"></div>
-          <div class="chart-container" style="height:220px">
-            <canvas id="giTrendChart" aria-label="Line chart per consultant Get Involved trend">Per consultant Get Involved trend.</canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header"><div class="card-title">Full year Get Involved — all consultants</div></div>
-      <div class="card-body" style="overflow-x:auto">
-        <table class="data-table" id="giFullTable">
-          <thead><tr><th>Consultant</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>TOTAL</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ FAMILY HISTORY PAGE ══════════════════════════ -->
-  <section class="page" id="page-familyhistory">
-    <div class="section-heading"><h2>Family History — 4 Generations</h2><div class="divider"></div></div>
-    <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:18px" id="fhKpis"></div>
-    <div class="card">
-      <div class="card-header"><div class="card-title">Member genealogy progress</div></div>
-      <div class="card-body" style="overflow-x:auto">
-        <table class="data-table">
-          <thead><tr><th>Member</th><th>Org</th><th>YSA</th><th>Gen 1</th><th>Gen 2</th><th>Gen 3</th><th>Gen 4</th><th>Gen 5+</th><th>4th Gen Done</th><th>New Entries</th><th>Consultant</th></tr></thead>
-          <tbody id="fhFullTable"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CONSULTANT KPIS PAGE ════════════════════════ -->
-  <section class="page" id="page-consultants">
-    <div class="section-heading"><h2>Consultant KPIs</h2><div class="divider"></div></div>
-    <div class="kpi-strip" id="consKpiStrip" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:18px"></div>
-    <div class="card" style="margin-bottom:18px">
-      <div class="card-header">
-        <div class="card-title" id="consTableTitle">KPI performance — January 2026</div>
-      </div>
-      <div class="card-body" style="overflow-x:auto">
-        <table class="data-table">
-          <thead><tr><th>Consultant</th><th>Get Involved</th><th>vs Target</th><th>Temple Class</th><th>4th Gen Done</th><th>Names Submitted</th><th>Records Reviewed</th><th>Status</th></tr></thead>
-          <tbody id="consTable"></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header"><div class="card-title">Get Involved comparison — selected month</div></div>
-      <div class="card-body">
-        <div class="chart-container" style="height:260px">
-          <canvas id="consBarChart" aria-label="Horizontal bar chart of consultant Get Involved">Consultant Get Involved comparison.</canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ MEETINGS PAGE ════════════════════════════════ -->
-  <section class="page" id="page-meetings">
-    <div class="section-heading"><h2>Monthly Coordination Meeting</h2><div class="divider"></div></div>
-    <div style="background:var(--amber-50);border:1px solid #fcd34d;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px;font-size:13px;color:#92400e">
-      <strong>c/o Tatay</strong> — Monthly meeting attendance and action items tracker
-    </div>
-    <div class="card">
-      <div class="card-body" style="overflow-x:auto">
-        <table class="data-table">
-          <thead><tr><th>Date</th><th>Attendee</th><th>Role</th><th>Present</th><th>Topic</th><th>Action Item</th></tr></thead>
-          <tbody id="mtgTable"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ TEMPLE TRIPS PAGE ════════════════════════════ -->
-  <section class="page" id="page-templetrips">
-    <div class="section-heading"><h2>Ward Temple Trips</h2><div class="divider"></div></div>
-    <div class="kpi-strip" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px" id="tripKpis"></div>
-    <div class="card">
-      <div class="card-body" style="overflow-x:auto">
-        <table class="data-table">
-          <thead><tr><th>Date</th><th>Attendee</th><th>Org</th><th>Living Ord.</th><th>Proxy Ord.</th><th>Name Cards</th><th>Consultant</th></tr></thead>
-          <tbody id="tripTable"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ADD RECORD PAGE ══════════════════════════════ -->
-  <section class="page" id="page-entry">
-    <div class="section-heading"><h2>Add New Record</h2><div class="divider"></div></div>
-    <div class="card" style="max-width:680px">
-      <div class="card-header" style="padding-bottom:16px">
-        <div class="card-title">Temple Name Submitter Entry</div>
-        <div class="card-subtitle">Data is saved locally in this browser session</div>
-      </div>
+  <!-- ═══ ADD MEETING ═══ -->
+  <section class="page" id="page-addmeeting">
+    <div class="sec-head"><h2>Add Monthly Meeting</h2><div class="sec-line"></div></div>
+    <div class="card" style="max-width:580px">
+      <div class="card-head"><div><div class="card-title">◆ Monthly Coordination Meeting</div><div class="card-sub">c/o Romeo Alejandro — log attendance</div></div></div>
       <div class="card-body">
         <div class="form-grid">
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="f-name" placeholder="Sister / Bro. Name">
-          </div>
-          <div class="form-group">
-            <label>Date</label>
-            <input type="date" id="f-date" value="2026-01-01">
-          </div>
-          <div class="form-group">
-            <label>Organization</label>
-            <select id="f-org">
-              <option>EQ</option><option>RS</option><option>Youth</option>
-              <option>New Members</option><option>Primary</option><option>YSA</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Consultant (Assisted By)</label>
-            <select id="f-cons">
-              <option>Rhea</option><option>Juna</option><option>May</option>
-              <option>Alpha</option><option>Jean</option><option>Nelida</option><option>Steph</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Get Involved (# entries)</label>
-            <input type="number" id="f-gi" placeholder="e.g. 1195" min="0">
-          </div>
-          <div class="form-group">
-            <label>Is New Member?</label>
-            <select id="f-newmember"><option>No</option><option>Yes</option></select>
-          </div>
-          <div class="form-group">
-            <label>Is YSA?</label>
-            <select id="f-ysa"><option>No</option><option>Yes</option></select>
-          </div>
-          <div class="form-group">
-            <label>Temple Name Submitted?</label>
-            <select id="f-submitted"><option>No</option><option>Yes</option></select>
-          </div>
-          <div class="form-group">
-            <label>4th Gen Completed?</label>
-            <select id="f-gen4"><option>No</option><option>Yes</option></select>
-          </div>
-          <div class="form-group">
-            <label>Attended Meeting?</label>
-            <select id="f-meeting"><option>No</option><option>Yes</option></select>
-          </div>
-          <div class="form-group form-full">
-            <label>Notes</label>
-            <textarea id="f-notes" rows="2" placeholder="Any additional notes..."></textarea>
-          </div>
+          <div class="form-group"><label>Meeting Date</label><input type="date" id="m-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
+          <div class="form-group"><label>Attendee Name</label><input id="m-name" placeholder="Full name"></div>
+          <div class="form-group"><label>Role</label><select id="m-role"><option>Consultant</option><option>Leadership</option><option>Ward Council</option><option>Member</option></select></div>
+          <div class="form-group"><label>Present?</label><select id="m-present"><option>Yes</option><option>No</option></select></div>
+          <div class="form-group form-full"><label>Topic Discussed</label><input id="m-topic" placeholder="e.g. KPI Review, Get Involved Update"></div>
+          <div class="form-group form-full"><label>Action Item</label><input id="m-action" placeholder="e.g. Submit reports by 15th"></div>
+          <div class="form-group form-full"><label>Notes</label><textarea id="m-notes" rows="2" placeholder="Any notes..."></textarea></div>
         </div>
-        <div style="display:flex;gap:10px;margin-top:16px">
-          <button class="btn btn-primary" onclick="submitRecord()">Save Record</button>
-          <button class="btn btn-gold" onclick="clearForm()">Clear</button>
+        <div class="btn-row">
+          <button class="btn btn-navy" onclick="saveMeeting()">💾 Save to Sheet</button>
+          <button class="btn btn-gold" onclick="clearMeeting()">Clear</button>
+          <span class="form-status" id="m-stat"></span>
         </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:500;color:var(--muted);margin-bottom:8px">Quick add — all consultants + Romeo Alejandro at once</div>
+          <button class="btn btn-gold btn-sm" onclick="quickAddAll()">Add All 10 Consultants + Leader</button>
+          <span class="form-status" id="quick-stat" style="margin-left:8px"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ADD TEMPLE TRIP ═══ -->
+  <section class="page" id="page-addtrip">
+    <div class="sec-head"><h2>Add Temple Trip</h2><div class="sec-line"></div></div>
+    <div class="card" style="max-width:580px">
+      <div class="card-head"><div><div class="card-title">✶ Ward Temple Trip</div><div class="card-sub">Log attendance and ordinances</div></div></div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group"><label>Trip Date</label><input type="date" id="t-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
+          <div class="form-group"><label>Attendee Name</label><input id="t-name" placeholder="Full name"></div>
+          <div class="form-group"><label>Organization</label><select id="t-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+          <div class="form-group"><label>Consultant Assisting</label><select id="t-cons"></select></div>
+          <div class="form-group"><label>Is YSA?</label><select id="t-ysa"><option>No</option><option>Yes</option></select></div>
+          <div class="form-group"><label>Living Ordinance?</label><select id="t-lo"><option>No</option><option>Yes</option></select></div>
+          <div class="form-group"><label>Proxy Ordinance?</label><select id="t-po"><option>No</option><option>Yes</option></select></div>
+          <div class="form-group"><label>Printed Name Cards?</label><select id="t-nc"><option>No</option><option>Yes</option></select></div>
+          <div class="form-group form-full"><label>Notes</label><textarea id="t-notes" rows="2"></textarea></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-navy" onclick="saveTrip()">💾 Save to Sheet</button><button class="btn btn-gold" onclick="clearTrip()">Clear</button><span class="form-status" id="t-stat"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TEMPLE SUBMITTERS ═══ -->
+  <section class="page" id="page-submitters">
+    <div class="sec-head"><h2>Temple Name Submitters</h2><div class="sec-line"></div></div>
+    <div class="ytd-row" id="sub-ytd-row"></div>
+    <div class="card">
+      <div class="card-head"><div class="card-title" id="sub-tbl-title">Monthly breakdown</div></div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>New Members</th><th>Primary</th><th>YSA</th><th>Monthly Total</th><th>YTD Total</th><th>% of Target</th></tr></thead>
+        <tbody id="sub-tbl-body"></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SUBMITTERS LIST ═══ -->
+  <section class="page" id="page-sublist">
+    <div class="sec-head"><h2>Submitters List</h2><div class="sec-line"></div></div>
+    <div class="ytd-row" id="sublist-ytd"></div>
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title" id="sublist-title">All submitters — April 2026</div><div class="card-sub">Names of members who submitted a temple name</div></div>
+        <select id="sublist-filter" onchange="renderSubList()" style="font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:8px;background:#fff">
+          <option value="all">All Months</option>
+          <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+          <option value="3" selected>April</option><option value="4">May</option><option value="5">June</option>
+          <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+          <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+        </select>
+      </div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>#</th><th>Name</th><th>Date</th><th>Org</th><th>Consultant</th><th>Get Involved</th><th>New Member</th><th>YSA</th><th>4th Gen Done</th><th>Notes</th></tr></thead>
+        <tbody id="sublist-body"></tbody></table>
+        <div id="sublist-empty" class="empty"><div class="empty-icon">✦</div>No records for this period. Use "Log My Work" to add.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GET INVOLVED ═══ -->
+  <section class="page" id="page-getinvolved">
+    <div class="sec-head"><h2>Get Involved Records</h2><div class="sec-line"></div></div>
+    <div class="ytd-row" id="gi-ytd-row"></div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><div class="card-title" id="gi-page-title">Monthly Get Involved</div></div>
+        <div class="card-body"><div class="prog-list" id="gi-page-bars"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Trend per consultant</div></div>
+        <div class="card-body"><div class="legend" id="gi-trend-leg"></div><div style="position:relative;height:200px"><canvas id="chart-gi-trend"></canvas></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Full year — all consultants</div></div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Consultant</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>TOTAL</th></tr></thead>
+        <tbody id="gi-tbl-body"></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAMILY HISTORY ═══ -->
+  <section class="page" id="page-familyhistory">
+    <div class="sec-head"><h2>Family History — 4 Generations</h2><div class="sec-line"></div></div>
+    <div class="kpi-row" id="fh-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Member genealogy progress</div></div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Member</th><th>Org</th><th>YSA</th><th>Gen1</th><th>Gen2</th><th>Gen3</th><th>Gen4</th><th>Gen5+</th><th>4th Gen Done</th><th>New Entries</th><th>Consultant</th></tr></thead>
+        <tbody id="fh-tbl-body"></tbody></table>
+        <div id="fh-tbl-empty" class="empty"><div class="empty-icon">❧</div>No family history records yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TEMPLE CLASS ═══ -->
+  <section class="page" id="page-templeclass">
+    <div class="sec-head"><h2>Temple Preparation Class</h2><div class="sec-line"></div></div>
+    <div class="kpi-row" id="tc-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">🎓 Add Student</div><div class="card-sub">Target: 10 candidates/year</div></div></div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group"><label>Student Name</label><input id="tc-name" placeholder="Full name"></div>
+            <div class="form-group"><label>Date Started</label><input type="date" id="tc-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
+            <div class="form-group"><label>Organization</label><select id="tc-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+            <div class="form-group"><label>Assigned Consultant</label><select id="tc-cons"></select></div>
+            <div class="form-group"><label>Is New Member?</label><select id="tc-new"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Is YSA?</label><select id="tc-ysa"><option>No</option><option>Yes</option></select></div>
+            <div class="form-group"><label>Sessions Attended</label><input type="number" id="tc-sessions" min="0" value="0"></div>
+            <div class="form-group"><label>Status</label><select id="tc-status"><option>Enrolled</option><option>In Progress</option><option>Completed</option><option>Dropped</option></select></div>
+            <div class="form-group form-full"><label>Notes</label><textarea id="tc-notes" rows="2"></textarea></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-navy" onclick="saveTC()">💾 Save to Sheet</button><button class="btn btn-gold" onclick="clearTC()">Clear</button><span class="form-status" id="tc-stat"></span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Students enrolled</div><div class="card-sub" id="tc-count">0 of 10</div></div>
+        <div class="card-body tbl-wrap" style="padding-top:8px">
+          <table><thead><tr><th>Name</th><th>Org</th><th>Consultant</th><th>Sessions</th><th>Status</th></tr></thead>
+          <tbody id="tc-tbl-body"></tbody></table>
+          <div id="tc-tbl-empty" class="empty"><div class="empty-icon">🎓</div>No students yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONSULTANT KPIS ═══ -->
+  <section class="page" id="page-kpis">
+    <div class="sec-head"><h2>Consultant KPIs</h2><div class="sec-line"></div></div>
+    <div class="kpi-row" id="cons-kpi-row" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
+    <div class="card" style="margin-bottom:13px">
+      <div class="card-head"><div class="card-title" id="cons-tbl-title">KPI performance</div></div>
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Consultant</th><th>Get Involved</th><th>vs Target</th><th>4th Gen</th><th>Submitted</th><th>Status</th></tr></thead>
+        <tbody id="cons-tbl-body"></tbody></table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Get Involved comparison</div></div>
+      <div class="card-body"><div style="position:relative;height:240px"><canvas id="chart-cons"></canvas></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ MEETINGS LOG ═══ -->
+  <section class="page" id="page-meetings">
+    <div class="sec-head"><h2>Meetings Log</h2><div class="sec-line"></div>
+      <button class="btn btn-navy btn-sm" onclick="navigate('addmeeting')">+ Add Meeting</button>
+    </div>
+    <div class="card">
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Date</th><th>Attendee</th><th>Role</th><th>Present</th><th>Topic</th><th>Action Item</th></tr></thead>
+        <tbody id="mtg-body"></tbody></table>
+        <div id="mtg-empty" class="empty"><div class="empty-icon">◆</div>No meeting records yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TEMPLE TRIPS LOG ═══ -->
+  <section class="page" id="page-trips">
+    <div class="sec-head"><h2>Temple Trips Log</h2><div class="sec-line"></div>
+      <button class="btn btn-navy btn-sm" onclick="navigate('addtrip')">+ Add Trip</button>
+    </div>
+    <div class="kpi-row" id="trip-kpis" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px"></div>
+    <div class="card">
+      <div class="card-body tbl-wrap" style="padding-top:8px">
+        <table><thead><tr><th>Date</th><th>Attendee</th><th>Org</th><th>Living Ord.</th><th>Proxy Ord.</th><th>Name Cards</th><th>Consultant</th></tr></thead>
+        <tbody id="trip-body"></tbody></table>
+        <div id="trip-empty" class="empty"><div class="empty-icon">🏛</div>No temple trip records yet.</div>
       </div>
     </div>
   </section>
@@ -843,111 +607,186 @@ body {
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DATA ─────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// APPS SCRIPT CODE
+// ═══════════════════════════════════════════════════════
+const GAS_CODE = `const SHEET_ID = '1Rb5BmSSUqupk70Dw4M4iO3iTRgXhCsgdgN4sJ8s5o6Q';
+
+function doGet(e) {
+  const action = e.parameter.action;
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let data = {};
+  if (action === 'getAll') {
+    data.submitters    = getData(ss, 'Temple_Submitters');
+    data.familyHistory = getData(ss, 'Family_History');
+    data.wardTrips     = getData(ss, 'Ward_Temple_Trips');
+    data.meetings      = getData(ss, 'Monthly_Meeting');
+    data.templeClass   = getData(ss, 'Temple_Class');
+  } else if (action === 'ping') {
+    data.status = 'connected';
+    data.sheetName = ss.getName();
+  }
+  return out(data);
+}
+
+function doPost(e) {
+  const p = JSON.parse(e.postData.contents);
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const sheet = ss.getSheetByName(p.sheet);
+  if (!sheet) return out({ error: 'Sheet not found: ' + p.sheet });
+  sheet.appendRow(p.row);
+  return out({ success: true });
+}
+
+function getData(ss, name) {
+  const s = ss.getSheetByName(name);
+  if (!s) return [];
+  const d = s.getDataRange().getValues();
+  if (d.length < 2) return [];
+  const h = d[0];
+  return d.slice(1).map(r => {
+    const o = {};
+    h.forEach((k, i) => { o[String(k).trim()] = r[i]; });
+    return o;
+  });
+}
+
+function out(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+// ═══════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MONS   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const ORGS   = ['EQ','RS','Youth','New Members','Primary','YSA'];
-const CONS   = ['Rhea','Juna','May','Alpha','Jean','Nelida','Steph'];
-const ORG_COLORS  = ['#2563eb','#16a34a','#d97706','#dc2626','#9333ea','#0d9488'];
-const CONS_COLORS = ['#1B3A6B','#2563eb','#16a34a','#C9A84C','#dc2626','#9333ea','#d97706'];
+const CONS   = ['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
+const ORG_C  = ['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
+const CON_C  = ['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
 
-const orgData = {
-  EQ:           [4,3,4,5,4,4,4,5,4,4,4,5],
-  RS:           [6,5,6,6,5,5,6,7,6,5,6,6],
-  Youth:        [2,2,3,2,3,2,3,3,2,3,3,3],
-  'New Members':[3,3,3,4,3,3,3,4,4,3,3,4],
-  Primary:      [1,1,1,1,1,1,1,1,1,1,1,1],
-  YSA:          [2,1,2,2,2,2,2,2,2,2,2,2],
-};
-const giData = {
-  Rhea:   [1195,800,750,900,850,780,820,910,870,760,800,850],
-  Juna:   [600,550,620,580,610,590,640,600,570,590,610,620],
-  May:    [750,700,680,720,690,710,740,760,730,700,720,750],
-  Alpha:  [520,480,510,530,500,490,540,520,510,500,530,520],
-  Jean:   [450,420,460,440,430,450,470,460,440,430,450,460],
-  Nelida: [380,360,390,370,380,395,400,380,370,360,380,390],
-  Steph:  [290,270,300,280,295,285,310,300,285,275,290,300],
-};
-const fhData = [
-  {name:'Sister Rhea Cruz',org:'RS',ysa:false,g:[4,4,4,4],g5:2,done:true,entries:5,by:'Rhea'},
-  {name:'Bro. Paul Mendoza',org:'EQ',ysa:false,g:[4,4,4,3],g5:0,done:false,entries:3,by:'May'},
-  {name:'Sis. Carla Yap',org:'YSA',ysa:true,g:[4,4,4,4],g5:1,done:true,entries:2,by:'Juna'},
-  {name:'Bro. James Lim',org:'Youth',ysa:false,g:[4,4,2,0],g5:0,done:false,entries:8,by:'Alpha'},
-  {name:'Sis. Nina Go',org:'RS',ysa:false,g:[4,4,4,4],g5:0,done:true,entries:0,by:'Jean'},
-  {name:'Bro. Roy Santos',org:'New Members',ysa:false,g:[4,3,0,0],g5:0,done:false,entries:12,by:'Nelida'},
-  {name:'Sis. Paz Reyes',org:'Primary',ysa:false,g:[4,4,4,4],g5:3,done:true,entries:4,by:'Steph'},
-];
-const mtgData = [
-  {date:'Jan 5',name:'Rhea Cruz',role:'Consultant',present:true,topic:'KPI Review Q1',action:'Submit reports by 15th'},
-  {date:'Jan 5',name:'Juna Reyes',role:'Consultant',present:true,topic:'Get Involved Update',action:'Push 500/month target'},
-  {date:'Jan 5',name:'May Oloroso',role:'Consultant',present:true,topic:'4th Gen Progress',action:'List pending families'},
-  {date:'Jan 5',name:'Alpha Santos',role:'Consultant',present:false,topic:'Temple Trip Planning',action:'Coordinate Feb trip'},
-  {date:'Jan 5',name:'Jean Lim',role:'Consultant',present:true,topic:'Temple Class',action:'Enroll 2 candidates'},
-  {date:'Jan 5',name:'Nelida Go',role:'Consultant',present:true,topic:'Records Review',action:'Reach 5K this month'},
-  {date:'Jan 5',name:'Steph Diaz',role:'Consultant',present:true,topic:'YSA Outreach',action:'Visit YSA group'},
-  {date:'Jan 5',name:'Tatay (Facilitator)',role:'Leadership',present:true,topic:'All KPIs Overview',action:'Follow up Jan 20'},
-];
-const tripData = [
-  {date:'Jan 10',name:'Bro. Mark Santos',org:'EQ',lo:true,po:false,nc:true,cons:'Rhea'},
-  {date:'Jan 10',name:'Sis. Ana Cruz',org:'RS',lo:true,po:true,nc:true,cons:'May'},
-  {date:'Jan 17',name:'Youth A',org:'Youth',lo:false,po:true,nc:true,cons:'Juna'},
-  {date:'Jan 24',name:'YSA B',org:'YSA',lo:true,po:false,nc:true,cons:'Alpha'},
-  {date:'Feb 7',name:'Sis. Beth Go',org:'Primary',lo:false,po:true,nc:false,cons:'Jean'},
-];
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let CUR_MONTH = 3; // April default
+let CUR_VIEW  = 'monthly';
+let SHEET_DATA = null;
+let CHARTS = {};
+let API_URL = localStorage.getItem('wt_api') || '';
+let LOCAL = JSON.parse(localStorage.getItem('wt_local') || '{"submitters":[],"fh":[],"meetings":[],"trips":[],"tc":[]}');
 
-// ── STATE ─────────────────────────────────────────────────────────────
-let curMonth = 0;
-let curView  = 'monthly';
-let charts   = {};
-let localRecords = JSON.parse(localStorage.getItem('wt_records') || '[]');
-
-// ── HELPERS ───────────────────────────────────────────────────────────
-const ytd = (arr, mi) => arr.slice(0, mi+1).reduce((a,b)=>a+b, 0);
-const totalMonth = mi => ORGS.reduce((a,o)=>a+orgData[o][mi], 0);
-const totalYTD   = mi => ORGS.reduce((a,o)=>a+ytd(orgData[o], mi), 0);
-const totalGI    = mi => CONS.reduce((a,c)=>a+giData[c][mi], 0);
-const totalGIYTD = mi => CONS.reduce((a,c)=>a+ytd(giData[c], mi), 0);
-
-function badge(text, type) {
-  return `<span class="badge badge-${type}">${text}</span>`;
-}
-function yno(v) { return v ? badge('Yes','green') : badge('No','red'); }
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2800);
-}
-
-// ── NAVIGATION ────────────────────────────────────────────────────────
-const pageMeta = {
-  dashboard:    ['Dashboard','All KPIs · 2026 Overview'],
-  submitters:   ['Temple Submitters','Monthly & YTD breakdown'],
-  getinvolved:  ['Get Involved','Records reviewed per consultant'],
-  familyhistory:['Family History','4-generation genealogy tracker'],
-  consultants:  ['Consultant KPIs','Performance vs targets'],
-  meetings:     ['Monthly Meeting','Attendance c/o Tatay'],
-  templetrips:  ['Ward Temple Trips','Living & Proxy ordinances'],
-  entry:        ['Add Record','New submitter data entry'],
+const PAGE_META = {
+  'dashboard':    ['Dashboard','All KPIs · 2026 Overview'],
+  'log':          ['Log My Work','Save data directly to Google Sheets'],
+  'addmeeting':   ['Add Meeting','Log coordination meeting attendance'],
+  'addtrip':      ['Add Temple Trip','Log ward temple trip attendance'],
+  'submitters':   ['Temple Submitters','Monthly & YTD breakdown by org'],
+  'sublist':      ['Submitters List','Names of all members who submitted'],
+  'getinvolved':  ['Get Involved','Records reviewed per consultant'],
+  'familyhistory':['Family History','4-generation genealogy tracker'],
+  'templeclass':  ['Temple Preparation Class','Log students · Target 10/year'],
+  'kpis':         ['Consultant KPIs','Performance vs targets'],
+  'meetings':     ['Meetings Log','All meeting attendance records'],
+  'trips':        ['Temple Trips Log','All temple trip records'],
 };
 
-function navigate(id, el) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  if(el) el.classList.add('active');
-  const meta = pageMeta[id];
-  document.getElementById('pageTitle').textContent = meta[0];
-  document.getElementById('pageSubtitle').textContent = meta[1];
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  // Set script box
+  document.getElementById('set-script').textContent = GAS_CODE;
+
+  // Build consultant dropdowns
+  const consSelects = ['e-cons','fh-cons','t-cons','tc-cons'];
+  consSelects.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = CONS.map(function(c) { return '<option>' + c + '</option>'; }).join('');
+    }
+  });
+
+  // Wire up nav buttons
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var page = btn.getAttribute('data-page');
+      if (page) navigate(page);
+    });
+  });
+
+  // Month selector default
+  document.getElementById('month-sel').value = '3';
+
+  // Load data
+  if (API_URL) {
+    fetchData();
+  } else {
+    setBanner('warn', 'Not connected to Google Sheets — click ⚙ to set up');
+    renderDashboard();
+  }
+});
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function navigate(pageId) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  // Remove active from all nav buttons
+  document.querySelectorAll('.nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+
+  // Show target page
+  var target = document.getElementById('page-' + pageId);
+  if (!target) { console.warn('Page not found: page-' + pageId); return; }
+  target.classList.add('active');
+
+  // Activate nav button
+  var navBtn = document.querySelector('.nav-btn[data-page="' + pageId + '"]');
+  if (navBtn) navBtn.classList.add('active');
+
+  // Update topbar
+  var meta = PAGE_META[pageId] || [pageId, ''];
+  document.getElementById('page-title').textContent = meta[0];
+  document.getElementById('page-sub').textContent = meta[1];
+
+  // Close sidebar on mobile
   closeSidebar();
-  if(id==='dashboard') renderDashboard();
-  else if(id==='submitters') renderSubmitters();
-  else if(id==='getinvolved') renderGetInvolved();
-  else if(id==='familyhistory') renderFamilyHistory();
-  else if(id==='consultants') renderConsultants();
-  else if(id==='meetings') renderMeetings();
-  else if(id==='templetrips') renderTrips();
+
+  // Render page content
+  renderPage(pageId);
+}
+
+function renderPage(id) {
+  if      (id === 'dashboard')    renderDashboard();
+  else if (id === 'log')          renderRecent();
+  else if (id === 'submitters')   renderSubmitters();
+  else if (id === 'sublist')      renderSubList();
+  else if (id === 'getinvolved')  renderGI();
+  else if (id === 'familyhistory')renderFH();
+  else if (id === 'templeclass')  renderTC();
+  else if (id === 'kpis')         renderKPIs();
+  else if (id === 'meetings')     renderMeetings();
+  else if (id === 'trips')        renderTrips();
+}
+
+function onMonthChange() {
+  CUR_MONTH = parseInt(document.getElementById('month-sel').value);
+  var active = document.querySelector('.page.active');
+  if (active) renderPage(active.id.replace('page-', ''));
+}
+
+function setView(v, btn) {
+  CUR_VIEW = v;
+  document.querySelectorAll('.vtog button').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  var active = document.querySelector('.page.active');
+  if (active) renderPage(active.id.replace('page-', ''));
 }
 
 function toggleSidebar() {
@@ -959,443 +798,600 @@ function closeSidebar() {
   document.getElementById('overlay').classList.remove('show');
 }
 
-function onMonthChange() {
-  curMonth = +document.getElementById('monthSel').value;
-  renderAll();
+// ═══════════════════════════════════════════════════════
+// SETTINGS MODAL
+// ═══════════════════════════════════════════════════════
+function openModal() {
+  document.getElementById('set-url').value = API_URL;
+  document.getElementById('set-current').textContent = API_URL || 'Not set';
+  document.getElementById('set-status').textContent = '';
+  document.getElementById('settingsModal').classList.add('open');
 }
-function setView(v, btn) {
-  curView = v;
-  document.querySelectorAll('.view-toggle button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderAll();
+function closeModal() {
+  document.getElementById('settingsModal').classList.remove('open');
 }
-function renderAll() {
-  const active = document.querySelector('.page.active');
-  if(!active) return;
-  const id = active.id.replace('page-','');
-  navigate(id, null);
-  document.querySelectorAll('.nav-item').forEach(n=>{
-    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+function saveUrl() {
+  var url = document.getElementById('set-url').value.trim();
+  if (!url.startsWith('https://script.google.com')) { showToast('Please paste a valid Apps Script URL'); return; }
+  API_URL = url;
+  localStorage.setItem('wt_api', url);
+  closeModal();
+  fetchData();
+  showToast('✓ Saved! Connecting...');
+}
+async function testConn() {
+  var url = document.getElementById('set-url').value.trim() || API_URL;
+  var s = document.getElementById('set-status');
+  s.textContent = '⏳ Testing...'; s.style.color = 'var(--muted)';
+  try {
+    var r = await fetch(url + '?action=ping');
+    var j = await r.json();
+    if (j.status === 'connected') { s.textContent = '✓ Connected: ' + j.sheetName; s.style.color = '#16a34a'; }
+    else { s.textContent = 'Unexpected response'; s.style.color = '#dc2626'; }
+  } catch(e) { s.textContent = '✗ Cannot connect. Check URL ends with /exec'; s.style.color = '#dc2626'; }
+}
+function copyScript() {
+  navigator.clipboard.writeText(GAS_CODE).then(function() { showToast('✓ Script copied! Paste into Apps Script.'); });
+}
+
+// ═══════════════════════════════════════════════════════
+// GOOGLE SHEETS API
+// ═══════════════════════════════════════════════════════
+async function fetchData() {
+  setBanner('warn', 'Connecting to Google Sheets...');
+  try {
+    var r = await fetch(API_URL + '?action=getAll');
+    SHEET_DATA = await r.json();
+    setBanner('ok', '✓ Live — connected to Google Sheets');
+    var active = document.querySelector('.page.active');
+    if (active) renderPage(active.id.replace('page-', ''));
+  } catch(e) {
+    setBanner('err', '⚠ Cannot reach Google Sheets — using local data');
+    SHEET_DATA = null;
+    renderDashboard();
+  }
+}
+
+async function postToSheet(payload) {
+  if (!API_URL) return { error: 'No URL' };
+  try {
+    var r = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+    return await r.json();
+  } catch(e) { return { error: e.message }; }
+}
+
+function setBanner(type, msg) {
+  var b = document.getElementById('conn-banner');
+  if (!b) return;
+  b.className = 'banner ' + type;
+  document.getElementById('conn-msg').textContent = msg;
+}
+
+// ═══════════════════════════════════════════════════════
+// DATA HELPERS
+// ═══════════════════════════════════════════════════════
+function getOrgData() {
+  var d = {};
+  ORGS.forEach(function(o) { d[o] = new Array(12).fill(0); });
+  var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
+  rows.forEach(function(r) {
+    var raw = r['Date'] || r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var mi = dt.getMonth();
+    var org = r['Organization'] || r.org || '';
+    var sub = r['Temple Name Submitted?'] || r['Name Submitted?'] || r.submitted || 'No';
+    if (sub === 'Yes' && d[org] !== undefined) d[org][mi]++;
   });
+  return d;
 }
 
-// ── KPI STRIP ─────────────────────────────────────────────────────────
-function renderKPIs() {
-  const mi = curMonth;
-  const mSub = totalMonth(mi);
-  const ytdSub = totalYTD(mi);
-  const prevSub = mi>0 ? totalMonth(mi-1) : null;
-  const diff = prevSub !== null ? mSub - prevSub : null;
-  const giM = totalGI(mi);
-  const giY = totalGIYTD(mi);
-  const fhDone = fhData.filter(r=>r.done).length;
-  const pctAnnual = Math.round(ytdSub/100*100);
+function getGIData() {
+  var d = {};
+  CONS.forEach(function(c) { d[c] = new Array(12).fill(0); });
+  var rows = (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
+  rows.forEach(function(r) {
+    var raw = r['Date'] || r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var mi = dt.getMonth();
+    var cons = r['Your Name'] || r['Assisted By (Consultant)'] || r.consultant || '';
+    var gi = parseFloat(r['Get Involved # entries'] || r['Get Involved'] || r.gi || 0) || 0;
+    if (d[cons] !== undefined) d[cons][mi] += gi;
+  });
+  return d;
+}
 
-  const kpis = [
-    {lbl:'Monthly submitters', val:mSub, target:'~8/month', color:'blue', prog:Math.min(100,Math.round(mSub/8*100)), delta:diff},
-    {lbl:'YTD submitters', val:ytdSub, target:'100/year', color:'blue', sub:true, prog:pctAnnual},
-    {lbl:'Get Involved this month', val:giM.toLocaleString(), target:'Target: 3,500/month', color:'amber', prog:Math.min(100,Math.round(giM/3500*100))},
-    {lbl:'YTD Get Involved', val:giY.toLocaleString(), target:'Target: 6,000/year', color:'amber', sub:true, prog:Math.min(100,Math.round(giY/6000*100))},
-    {lbl:'4th gen completed', val:fhDone, target:'Target: 50/year', color:'green', prog:Math.min(100,Math.round(fhDone/50*100))},
-    {lbl:'Annual target progress', val:pctAnnual+'%', target:'Submitters vs 100/yr', color:'teal', prog:pctAnnual},
+function getFHData() {
+  var rows = (SHEET_DATA && SHEET_DATA.familyHistory ? SHEET_DATA.familyHistory : []).concat(LOCAL.fh);
+  return rows.map(function(r) {
+    return {
+      name: r['Member Name'] || r.name || '',
+      org:  r['Organization'] || r.org || '',
+      ysa:  (r['Is YSA?'] || r.ysa || 'No') === 'Yes',
+      g:    [+r['Gen 1 Parents (0-4)']||0, +r['Gen 2 Grandparents (0-4)']||0, +r['Gen 3 Great-Grand (0-4)']||0, +r['Gen 4 2x Great-Grand (0-4)']||0],
+      g5:   +r['Gen 5+ Beyond'] || 0,
+      done: (r['4th Gen Completed?'] || r.done || 'No') === 'Yes',
+      entries: +r['New Entries This Month'] || 0,
+      by: r['Your Name'] || r.cons || '',
+    };
+  }).filter(function(r) { return r.name; });
+}
+
+function getTCData() {
+  var rows = (SHEET_DATA && SHEET_DATA.templeClass ? SHEET_DATA.templeClass : []).concat(LOCAL.tc);
+  return rows.map(function(r) {
+    return {
+      name: r['Student Name'] || r.name || '',
+      org:  r['Organization'] || r.org || '',
+      cons: r['Assigned Consultant'] || r.cons || '',
+      date: r['Date Started'] || r.date || '',
+      sessions: +r['Sessions Attended'] || 0,
+      status: r['Status'] || r.status || 'Enrolled',
+    };
+  }).filter(function(r) { return r.name; });
+}
+
+function getMeetings() {
+  return (SHEET_DATA && SHEET_DATA.meetings ? SHEET_DATA.meetings : []).concat(LOCAL.meetings);
+}
+function getTrips() {
+  return (SHEET_DATA && SHEET_DATA.wardTrips ? SHEET_DATA.wardTrips : []).concat(LOCAL.trips);
+}
+function getAllSubmitters() {
+  return (SHEET_DATA && SHEET_DATA.submitters ? SHEET_DATA.submitters : []).concat(LOCAL.submitters);
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function ytdSum(arr, mi) { return arr.slice(0, mi + 1).reduce(function(a, b) { return a + b; }, 0); }
+function totalMonth(od, mi) { return ORGS.reduce(function(a, o) { return a + ((od[o] || [])[mi] || 0); }, 0); }
+function totalYTD(od, mi) { return ORGS.reduce(function(a, o) { return a + ytdSum(od[o] || [], mi); }, 0); }
+function totalGI(gd, mi) { return CONS.reduce(function(a, c) { return a + ((gd[c] || [])[mi] || 0); }, 0); }
+function totalGIYTD(gd, mi) { return CONS.reduce(function(a, c) { return a + ytdSum(gd[c] || [], mi); }, 0); }
+
+function badge(text, cls) { return '<span class="badge ' + cls + '">' + text + '</span>'; }
+function yno(val) { return val ? badge('Yes', 'bg') : badge('No', 'br'); }
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
+
+function saveLocal(key, obj) {
+  if (!LOCAL[key]) LOCAL[key] = [];
+  LOCAL[key].push(obj);
+  localStorage.setItem('wt_local', JSON.stringify(LOCAL));
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════
+function renderDashboard() {
+  var od = getOrgData(), gd = getGIData(), fh = getFHData();
+  var mi = CUR_MONTH, isY = CUR_VIEW === 'ytd';
+  var mSub = totalMonth(od, mi), ytdSub = totalYTD(od, mi);
+  var giM = totalGI(gd, mi), giY = totalGIYTD(gd, mi);
+  var pct = ytdSub > 0 ? Math.min(100, Math.round(ytdSub / 100 * 100)) : 0;
+  var fhDone = fh.filter(function(r) { return r.done; }).length;
+
+  // KPI cards
+  var kpis = [
+    { l: isY ? 'YTD Submitters' : 'Monthly Submitters', v: isY ? ytdSub : mSub, s: isY ? 'Jan–' + MONS[mi] : '~8/month target', c: 'blue', p: Math.min(100, Math.round((isY ? ytdSub : mSub) / 8 * 100)), f: '#2563eb', ytd: isY },
+    { l: 'YTD Submitters', v: ytdSub, s: '100/year target', c: 'blue', p: pct, f: '#2563eb', ytd: true },
+    { l: isY ? 'YTD Get Involved' : 'Get Involved', v: (isY ? giY : giM).toLocaleString(), s: isY ? 'Jan–' + MONS[mi] : 'Target 3,500/month', c: 'amber', p: Math.min(100, Math.round((isY ? giY : giM) / 3500 * 100)), f: '#d97706', ytd: isY },
+    { l: 'YTD Get Involved', v: giY.toLocaleString(), s: 'Target 6,000/year', c: 'amber', p: Math.min(100, Math.round(giY / 6000 * 100)), f: '#d97706', ytd: true },
+    { l: '4th Gen Completed', v: fhDone, s: 'Target 50/year', c: 'green', p: Math.min(100, Math.round(fhDone / 50 * 100)), f: '#16a34a' },
+    { l: 'Annual Progress', v: pct + '%', s: 'Submitters vs 100/yr', c: 'teal', p: pct, f: '#0d9488' },
   ];
 
-  const colors = {blue:'#2563eb',amber:'#d97706',green:'#16a34a',teal:'#0d9488'};
-  const strip = document.getElementById('kpiStrip');
-  strip.innerHTML = kpis.map((k,i)=>{
-    const deltaHtml = k.delta !== null && k.delta !== undefined
-      ? `<div class="kpi-delta ${k.delta>=0?'up':'dn'}">${k.delta>=0?'+':''}${k.delta} vs prev month</div>` : '';
-    return `<div class="kpi-card ${k.color}" style="animation-delay:${i*0.05}s">
-      <div class="kpi-label">${k.lbl}${k.sub?' <span style="font-size:9px;background:var(--navy);color:var(--gold);padding:1px 6px;border-radius:10px;margin-left:4px">YTD</span>':''}</div>
-      <div class="kpi-value">${k.val}</div>
-      <div class="kpi-target">${k.target}</div>
-      ${deltaHtml}
-      <div class="kpi-progress"><div class="kpi-progress-fill" style="width:${k.prog}%;background:${colors[k.color]}"></div></div>
-    </div>`;
+  document.getElementById('kpi-grid').innerHTML = kpis.map(function(k, i) {
+    return '<div class="kpi ' + k.c + '" style="animation-delay:' + (i * 0.05) + 's">' +
+      '<div class="kpi-label">' + k.l + (k.ytd ? '<span class="ytd-tag">YTD</span>' : '') + '</div>' +
+      '<div class="kpi-val">' + k.v + '</div>' +
+      '<div class="kpi-sub">' + k.s + '</div>' +
+      '<div class="kpi-bar"><div class="kpi-fill" style="width:' + k.p + '%;background:' + k.f + '"></div></div>' +
+      '</div>';
   }).join('');
-}
 
-// ── YTD STRIP ─────────────────────────────────────────────────────────
-function renderYTDStrip(containerId) {
-  const mi = curMonth;
-  const ytdSub = totalYTD(mi);
-  const ytdGI  = totalGIYTD(mi);
-  const pct    = Math.round(ytdSub/100*100);
-  const expected = Math.round(100*(mi+1)/12);
-  const ontrack = ytdSub >= expected;
-
-  const items = [
-    {lbl:'YTD Submitters', val:ytdSub, sub:`Jan – ${MONS[mi]}`},
-    {lbl:'YTD Get Involved', val:ytdGI.toLocaleString(), sub:'All consultants'},
-    {lbl:'% of Annual Target', val:pct+'%', sub:'Submitters vs 100'},
-    {lbl:'On Track?', val:ontrack?'YES':'NO', sub:`Expected ≥${expected}`},
-    {lbl:'Months Elapsed', val:mi+1, sub:'of 12'},
-    {lbl:'Remaining Target', val:Math.max(0,100-ytdSub), sub:'submitters needed'},
-  ];
-
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  el.innerHTML = items.map(x=>`<div class="ytd-mini">
-    <div class="ytd-mini-label">${x.lbl}</div>
-    <div class="ytd-mini-val">${x.val}</div>
-    <div class="ytd-mini-sub">${x.sub}</div>
-  </div>`).join('');
-}
-
-// ── SUBMIT CHART ──────────────────────────────────────────────────────
-function renderSubmitChart() {
-  const mi = curMonth;
-  const isYTD = curView === 'ytd';
-  const vals = ORGS.map(o => isYTD ? ytd(orgData[o], mi) : orgData[o][mi]);
-  document.getElementById('submitChartTitle').textContent =
-    `Temple name submitters — ${isYTD ? 'YTD Jan–'+MONS[mi] : MONTHS[mi]}`;
-
-  const leg = document.getElementById('submitLegend');
-  leg.innerHTML = ORGS.map((o,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${ORG_COLORS[i]}"></span>${o} <strong>${vals[i]}</strong></span>`).join('');
-
-  if(charts.submit) charts.submit.destroy();
-  charts.submit = new Chart(document.getElementById('submitChart'), {
-    type:'bar',
-    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS.map(c=>c+'CC'), borderColor:ORG_COLORS, borderWidth:1, borderRadius:6}]},
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:11}}}}}
-  });
-}
-
-// ── PIE CHART ─────────────────────────────────────────────────────────
-function renderPie() {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  const vals = ORGS.map(o => isYTD ? ytd(orgData[o],mi) : orgData[o][mi]);
-  const leg = document.getElementById('pieLegend');
-  leg.innerHTML = ORGS.map((o,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${ORG_COLORS[i]}"></span>${o}</span>`).join('');
-  if(charts.pie) charts.pie.destroy();
-  charts.pie = new Chart(document.getElementById('pieChart'), {
-    type:'doughnut',
-    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS, borderWidth:2, borderColor:'#fff'}]},
-    options:{responsive:true, maintainAspectRatio:false, cutout:'60%',
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed}`}}}}
-  });
-}
-
-// ── PROGRESS BARS ─────────────────────────────────────────────────────
-function renderProgBars(containerId, labelId) {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  const max = Math.max(...CONS.map(c => isYTD ? ytd(giData[c],mi) : giData[c][mi]));
-  const target = isYTD ? 500*(mi+1) : 500;
-
-  if(labelId) document.getElementById(labelId).textContent =
-    `${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]} · target ${target.toLocaleString()}/consultant`;
-
-  const el = document.getElementById(containerId);
-  el.innerHTML = CONS.map((c,i)=>{
-    const v = isYTD ? ytd(giData[c],mi) : giData[c][mi];
-    const pct = Math.round(v/max*100);
-    const ontrack = v >= target;
-    return `<div class="prog-row">
-      <div class="prog-name">${c}</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${CONS_COLORS[i]}"></div></div>
-      <div class="prog-val">${v.toLocaleString()} ${ontrack?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>'}</div>
-    </div>`;
+  // YTD strip
+  var exp = Math.round(100 * (mi + 1) / 12);
+  document.getElementById('ytd-strip').innerHTML = [
+    { l: 'YTD Submitters', v: ytdSub, s: 'Jan–' + MONS[mi] },
+    { l: 'YTD Get Involved', v: giY.toLocaleString(), s: 'All consultants' },
+    { l: '% of Annual Target', v: pct + '%', s: 'vs 100 goal' },
+    { l: 'On Track?', v: ytdSub >= exp ? 'YES' : 'NO', s: 'Need ≥' + exp },
+    { l: 'Months Elapsed', v: mi + 1, s: 'of 12' },
+    { l: 'Remaining', v: Math.max(0, 100 - ytdSub), s: 'names needed' },
+  ].map(function(x) {
+    return '<div class="ytd-card"><div class="ytd-lbl">' + x.l + '</div><div class="ytd-val">' + x.v + '</div><div class="ytd-sub">' + x.s + '</div></div>';
   }).join('');
-}
 
-// ── TREND CHART ───────────────────────────────────────────────────────
-function renderTrend(canvasId, perConsultant) {
-  const mi = curMonth;
-  if(charts[canvasId]) charts[canvasId].destroy();
+  // Sub chart
+  var sVals = ORGS.map(function(o) { return isY ? ytdSum(od[o] || [], mi) : ((od[o] || [])[mi] || 0); });
+  document.getElementById('sub-chart-title').textContent = 'Temple Submitters — ' + (isY ? 'YTD Jan–' + MONS[mi] : MONTHS[mi]);
+  document.getElementById('sub-legend').innerHTML = ORGS.map(function(o, i) {
+    return '<span class="leg-item"><span class="leg-dot" style="background:' + ORG_C[i] + '"></span>' + o + ' <b>' + sVals[i] + '</b></span>';
+  }).join('');
+  if (CHARTS.sub) CHARTS.sub.destroy();
+  CHARTS.sub = new Chart(document.getElementById('chart-sub'), {
+    type: 'bar',
+    data: { labels: ORGS, datasets: [{ data: sVals, backgroundColor: ORG_C.map(function(c) { return c + 'CC'; }), borderColor: ORG_C, borderWidth: 1, borderRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { min: 0, ticks: { font: { size: 10 } } } } }
+  });
 
-  let datasets;
-  if(perConsultant) {
-    datasets = CONS.map((c,i)=>({
-      label:c, data:giData[c], borderColor:CONS_COLORS[i],
-      backgroundColor:CONS_COLORS[i]+'15', borderWidth:1.5,
-      pointRadius:ctx=>ctx.dataIndex===mi?5:2,
-      pointBackgroundColor:CONS_COLORS[i], tension:0.35, fill:false
-    }));
+  // Pie
+  var pVals = ORGS.map(function(o) { return (od[o] || [])[mi] || 0; });
+  document.getElementById('pie-legend').innerHTML = ORGS.map(function(o, i) {
+    return '<span class="leg-item"><span class="leg-dot" style="background:' + ORG_C[i] + '"></span>' + o + '</span>';
+  }).join('');
+  if (CHARTS.pie) CHARTS.pie.destroy();
+  CHARTS.pie = new Chart(document.getElementById('chart-pie'), {
+    type: 'doughnut',
+    data: { labels: ORGS, datasets: [{ data: pVals, backgroundColor: ORG_C, borderWidth: 2, borderColor: '#fff' }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false } } }
+  });
+
+  // Progress bars
+  var target = isY ? 500 * (mi + 1) : 500;
+  var maxGI = Math.max.apply(null, CONS.map(function(c) { return (gd[c] || [])[mi] || 0; }).concat([1]));
+  document.getElementById('gi-label').textContent = (isY ? 'YTD Jan–' + MONS[mi] : MONTHS[mi]) + ' · target ' + target.toLocaleString();
+  document.getElementById('prog-bars').innerHTML = CONS.map(function(c, i) {
+    var v = isY ? ytdSum(gd[c] || [], mi) : ((gd[c] || [])[mi] || 0);
+    var p = Math.round(v / maxGI * 100);
+    return '<div class="prog-row"><div class="prog-name">' + c + '</div><div class="prog-bar"><div class="prog-fill" style="width:' + p + '%;background:' + CON_C[i] + '"></div></div><div class="prog-val">' + v.toLocaleString() + ' ' + (v >= target ? '<span style="color:#16a34a">✓</span>' : '<span style="color:#dc2626">↓</span>') + '</div></div>';
+  }).join('');
+
+  // Trend
+  var combined = MONS.map(function(_, i) { return totalGI(gd, i); });
+  if (CHARTS.trend) CHARTS.trend.destroy();
+  CHARTS.trend = new Chart(document.getElementById('chart-trend'), {
+    type: 'line',
+    data: { labels: MONS, datasets: [{ data: combined, borderColor: '#1B3A6B', backgroundColor: '#1B3A6B10', borderWidth: 2, fill: true, pointRadius: 3, tension: .35 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, font: { size: 9 } } }, y: { min: 0, ticks: { font: { size: 9 } } } } }
+  });
+
+  // FH mini
+  var fhMiniBody = document.getElementById('fh-mini-body');
+  var fhMiniEmpty = document.getElementById('fh-mini-empty');
+  if (fh.length) {
+    fhMiniEmpty.style.display = 'none';
+    fhMiniBody.style.display = '';
+    fhMiniBody.innerHTML = fh.map(function(r) {
+      return '<tr><td><b>' + r.name.split(' ').slice(0, 2).join(' ') + '</b></td><td>' + badge(r.org, 'bb') + '</td><td style="text-align:center">' + r.g[3] + '/4</td><td>' + (r.done ? badge('Done ✓', 'bg') : badge('In prog', 'ba')) + '</td><td>' + r.by + '</td></tr>';
+    }).join('');
   } else {
-    const combined = MONS.map((_,i)=>totalGI(i));
-    datasets = [{
-      label:'All consultants', data:combined, borderColor:'#1B3A6B',
-      backgroundColor:'#1B3A6B15', borderWidth:2, fill:true,
-      pointRadius:ctx=>ctx.dataIndex===mi?6:2,
-      pointBackgroundColor:ctx=>ctx.dataIndex===mi?'#C9A84C':'#1B3A6B',
-      tension:0.35
-    }];
+    fhMiniBody.style.display = 'none';
+    fhMiniEmpty.style.display = '';
   }
 
-  charts[canvasId] = new Chart(document.getElementById(canvasId), {
-    type:'line',
-    data:{labels:MONS, datasets},
-    options:{responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:perConsultant, position:'bottom', labels:{font:{size:10},boxWidth:8,padding:8}}},
-      scales:{x:{ticks:{autoSkip:false,font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
-              y:{min:0,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}}}}
+  // YTD bar
+  document.getElementById('ytd-bar-title').textContent = 'YTD submitters — Jan–' + MONTHS[mi];
+  var ytdVals = ORGS.map(function(o) { return ytdSum(od[o] || [], mi); });
+  if (CHARTS.ytdBar) CHARTS.ytdBar.destroy();
+  CHARTS.ytdBar = new Chart(document.getElementById('chart-ytd'), {
+    type: 'bar', indexAxis: 'y',
+    data: { labels: ORGS, datasets: [{ data: ytdVals, backgroundColor: ORG_C.map(function(c) { return c + 'BB'; }), borderColor: ORG_C, borderWidth: 1, borderRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, ticks: { font: { size: 10 } } }, y: { ticks: { font: { size: 11 } }, grid: { display: false } } } }
   });
 }
 
-// ── YTD BAR CHART ─────────────────────────────────────────────────────
-function renderYTDBar() {
-  const mi = curMonth;
-  const vals = ORGS.map(o=>ytd(orgData[o],mi));
-  document.getElementById('ytdChartLabel').textContent = `Jan – ${MONTHS[mi]} 2026`;
-  if(charts.ytdBar) charts.ytdBar.destroy();
-  charts.ytdBar = new Chart(document.getElementById('ytdBarChart'), {
-    type:'bar',
-    data:{labels:ORGS, datasets:[{data:vals, backgroundColor:ORG_COLORS.map(c=>c+'BB'), borderColor:ORG_COLORS, borderWidth:1, borderRadius:6}]},
-    options:{indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{x:{min:0,ticks:{font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
-              y:{ticks:{font:{size:11}},grid:{display:false}}}}
-  });
-}
-
-// ── FAMILY HISTORY TABLE ──────────────────────────────────────────────
-function renderFHTable(tbodyId) {
-  const el = document.getElementById(tbodyId);
-  el.innerHTML = fhData.map(r=>{
-    const orgBadge = r.ysa ? badge(r.org,'teal') : badge(r.org,'blue');
-    const gen4Badge = r.done ? badge('Done ✓','green') : badge('In progress','amber');
-    return `<tr>
-      <td><strong>${r.name}</strong></td>
-      <td>${orgBadge}</td>
-      ${tbodyId==='fhFullTable'?`<td>${r.ysa?badge('Yes','teal'):badge('No','blue')}</td>`:''}
-      ${r.g.map(v=>`<td style="text-align:center">${v}/4</td>`).join('')}
-      ${tbodyId==='fhFullTable'?`<td style="text-align:center">${r.g5||'—'}</td>`:''}
-      <td>${gen4Badge}</td>
-      ${tbodyId==='fhFullTable'?`<td style="text-align:center">${r.entries}</td>`:''}
-      <td>${r.by}</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── CONSULTANT TABLE ──────────────────────────────────────────────────
-function renderConsTable() {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  document.getElementById('consTableTitle').textContent =
-    `KPI performance — ${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]} 2026`;
-
-  const tbody = document.getElementById('consTable');
-  tbody.innerHTML = CONS.map((c,i)=>{
-    const gi = isYTD ? ytd(giData[c],mi) : giData[c][mi];
-    const target = isYTD ? 500*(mi+1) : 500;
-    const ontrack = gi >= target;
-    const tc = fhData.filter(r=>r.by===c&&r.done).length;
-    const ns = fhData.filter(r=>r.by===c).length;
-    const rr = gi;
-    return `<tr>
-      <td><strong>${c}</strong></td>
-      <td style="font-weight:500;color:${ontrack?'#16a34a':'#dc2626'}">${gi.toLocaleString()}</td>
-      <td>${ontrack?badge('On track','green'):badge('Below','amber')}</td>
-      <td style="text-align:center">${tc}<span style="color:#9ca3af">/10</span></td>
-      <td style="text-align:center">${Math.floor(tc/2)*3}<span style="color:#9ca3af">/50</span></td>
-      <td style="text-align:center">${ns}<span style="color:#9ca3af">/100</span></td>
-      <td style="text-align:center">${rr.toLocaleString()}<span style="color:#9ca3af">/5K</span></td>
-      <td>${gi>=500?badge('✓ Met','green'):badge('↓ Below','red')}</td>
-    </tr>`;
-  }).join('');
-}
-
-function renderConsBar() {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  const vals = CONS.map(c=> isYTD ? ytd(giData[c],mi) : giData[c][mi]);
-  if(charts.consBar) charts.consBar.destroy();
-  charts.consBar = new Chart(document.getElementById('consBarChart'), {
-    type:'bar', indexAxis:'y',
-    data:{labels:CONS, datasets:[{data:vals, backgroundColor:CONS_COLORS.map(c=>c+'CC'), borderColor:CONS_COLORS, borderWidth:1, borderRadius:5}]},
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{x:{min:0,ticks:{font:{size:10}}}, y:{ticks:{font:{size:12}},grid:{display:false}}}}
-  });
-}
-
-// ── GI TREND PER CONSULTANT ───────────────────────────────────────────
-function renderGITrend() {
-  const leg = document.getElementById('giTrendLeg');
-  leg.innerHTML = CONS.map((c,i)=>`<span class="legend-item"><span class="legend-dot" style="background:${CONS_COLORS[i]}"></span>${c}</span>`).join('');
-  renderTrend('giTrendChart', true);
-}
-
-// ── SUBMITTER FULL TABLE ──────────────────────────────────────────────
-function renderSubmitFullTable() {
-  const tbody = document.getElementById('submitFullTable');
-  const mi = curMonth;
-  tbody.innerHTML = MONS.map((m,i)=>{
-    const monthly = ORGS.reduce((a,o)=>a+orgData[o][i],0);
-    const ytdTotal = ORGS.reduce((a,o)=>a+ytd(orgData[o],i),0);
-    const pct = Math.round(ytdTotal/100*100);
-    const isSelected = i===mi;
-    return `<tr style="${isSelected?'background:#eff6ff!important;font-weight:500':''}" >
-      <td style="${isSelected?'color:#1B3A6B;font-weight:600':''}">
-        ${m} ${isSelected?badge('selected','navy'):''}
-      </td>
-      ${ORGS.map(o=>`<td style="text-align:center">${orgData[o][i]}</td>`).join('')}
-      <td style="text-align:center;font-weight:500;color:#2563eb">${monthly}</td>
-      <td style="text-align:center;font-weight:500;color:#0d9488">${ytdTotal}</td>
-      <td style="text-align:center">${pct>=Math.round(100*(i+1)/12)?badge(pct+'%','green'):badge(pct+'%','amber')}</td>
-    </tr>`;
-  }).join('');
-  document.getElementById('subTableTitle').textContent = `Monthly breakdown — ${MONTHS[mi]} 2026 highlighted`;
-}
-
-// ── GI FULL TABLE ─────────────────────────────────────────────────────
-function renderGIFullTable() {
-  const tbody = document.querySelector('#giFullTable tbody');
-  tbody.innerHTML = CONS.map((c,i)=>{
-    const total = giData[c].reduce((a,b)=>a+b,0);
-    return `<tr>
-      <td style="font-weight:500">${c}</td>
-      ${giData[c].map((v,mi)=>`<td style="text-align:center;${mi===curMonth?'background:#eff6ff;font-weight:500;color:#2563eb':''}">${v.toLocaleString()}</td>`).join('')}
-      <td style="text-align:center;font-weight:500;color:#16a34a">${total.toLocaleString()}</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── MEETINGS TABLE ────────────────────────────────────────────────────
-function renderMeetings() {
-  document.getElementById('mtgTable').querySelector('tbody').innerHTML = mtgData.map(r=>`<tr>
-    <td>${r.date}</td>
-    <td><strong>${r.name}</strong></td>
-    <td>${r.role==='Leadership'?badge('Leadership','amber'):badge('Consultant','blue')}</td>
-    <td>${r.present?badge('Present','green'):badge('Absent','red')}</td>
-    <td>${r.topic}</td>
-    <td style="color:#6b7280">${r.action}</td>
-  </tr>`).join('');
-}
-
-// ── TRIPS ─────────────────────────────────────────────────────────────
-function renderTrips() {
-  const loCount = tripData.filter(r=>r.lo).length;
-  const poCount = tripData.filter(r=>r.po).length;
-  const ncCount = tripData.filter(r=>r.nc).length;
-  document.getElementById('tripKpis').innerHTML = [
-    {lbl:'Living Ordinances',val:loCount,target:'Target: 10/trip',color:'blue'},
-    {lbl:'Proxy Ordinances',val:poCount,target:'Target: 200/trip',color:'green'},
-    {lbl:'Name Cards Printed',val:ncCount,target:'Printed & ready',color:'purple'},
-  ].map(k=>`<div class="kpi-card ${k.color}">
-    <div class="kpi-label">${k.lbl}</div>
-    <div class="kpi-value">${k.val}</div>
-    <div class="kpi-target">${k.target}</div>
-  </div>`).join('');
-
-  document.getElementById('tripTable').querySelector('tbody').innerHTML = tripData.map(r=>`<tr>
-    <td>${r.date}</td>
-    <td><strong>${r.name}</strong></td>
-    <td>${badge(r.org,'blue')}</td>
-    <td>${yno(r.lo)}</td>
-    <td>${yno(r.po)}</td>
-    <td>${yno(r.nc)}</td>
-    <td>${r.cons}</td>
-  </tr>`).join('');
-}
-
-// ── FAMILY HISTORY PAGE ───────────────────────────────────────────────
-function renderFamilyHistory() {
-  const done = fhData.filter(r=>r.done).length;
-  document.getElementById('fhKpis').innerHTML = [
-    {lbl:'4th Gen Completed',val:done,target:'Target: 50/year',color:'green'},
-    {lbl:'In Progress',val:fhData.length-done,target:'Working on gens',color:'amber'},
-    {lbl:'Total Members',val:fhData.length,target:'In tracker',color:'blue'},
-    {lbl:'5th Gen Started',val:fhData.filter(r=>r.g5>0).length,target:'Beyond 4th gen',color:'teal'},
-  ].map(k=>`<div class="kpi-card ${k.color}">
-    <div class="kpi-label">${k.lbl}</div>
-    <div class="kpi-value">${k.val}</div>
-    <div class="kpi-target">${k.target}</div>
-  </div>`).join('');
-  renderFHTable('fhFullTable');
-}
-
-// ── CONSULTANTS PAGE ──────────────────────────────────────────────────
-function renderConsultants() {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  document.getElementById('consKpiStrip').innerHTML = [
-    {lbl:'On Track (Get Inv.)',val:CONS.filter(c=>(isYTD?ytd(giData[c],mi):giData[c][mi])>=500).length,target:'of 7 consultants',color:'green'},
-    {lbl:'Total Get Involved',val:(isYTD?totalGIYTD(mi):totalGI(mi)).toLocaleString(),target:isYTD?`YTD Jan–${MONS[mi]}`:'This month',color:'amber'},
-    {lbl:'4th Gen Assisted',val:fhData.filter(r=>r.done).length,target:'Total completed',color:'blue'},
-    {lbl:'Temple Class',val:5,target:'10/year target',color:'purple'},
-  ].map(k=>`<div class="kpi-card ${k.color}">
-    <div class="kpi-label">${k.lbl}</div>
-    <div class="kpi-value">${k.val}</div>
-    <div class="kpi-target">${k.target}</div>
-  </div>`).join('');
-  renderConsTable();
-  renderConsBar();
-}
-
-// ── GET INVOLVED PAGE ─────────────────────────────────────────────────
-function renderGetInvolved() {
-  const mi = curMonth;
-  const isYTD = curView==='ytd';
-  document.getElementById('giPageTitle').textContent = `Monthly Get Involved — ${isYTD?'YTD Jan–'+MONS[mi]:MONTHS[mi]}`;
-  renderProgBars('giPageBars', null);
-
-  const giYtdM = totalGIYTD(mi);
-  const giM = totalGI(mi);
-  document.getElementById('giYtdStrip').innerHTML = [
-    {lbl:'This Month Total',val:giM.toLocaleString(),sub:'All consultants'},
-    {lbl:'YTD Total',val:giYtdM.toLocaleString(),sub:`Jan – ${MONS[mi]}`},
-    {lbl:'Monthly Target',val:'3,500',sub:'All consultants combined'},
-    {lbl:'Best Consultant',val:'Rhea',sub:`${giData.Rhea[mi].toLocaleString()} entries`},
-    {lbl:'Months Elapsed',val:mi+1,sub:'of 12'},
-    {lbl:'YTD per Consultant',val:Math.round(giYtdM/7).toLocaleString(),sub:'Average'},
-  ].map(x=>`<div class="ytd-mini">
-    <div class="ytd-mini-label">${x.lbl}</div>
-    <div class="ytd-mini-val">${x.val}</div>
-    <div class="ytd-mini-sub">${x.sub}</div>
-  </div>`).join('');
-  renderGITrend();
-  renderGIFullTable();
-}
-
-// ── SUBMITTERS PAGE ───────────────────────────────────────────────────
 function renderSubmitters() {
-  renderYTDStrip('subYtdStrip');
-  renderSubmitFullTable();
+  var od = getOrgData(), mi = CUR_MONTH;
+  var exp = Math.round(100 * (mi + 1) / 12);
+  document.getElementById('sub-ytd-row').innerHTML = [
+    { l: 'YTD Submitters', v: totalYTD(od, mi), s: 'Jan–' + MONS[mi] },
+    { l: 'Monthly Total', v: totalMonth(od, mi), s: MONTHS[mi] },
+    { l: '% of Annual', v: Math.round(totalYTD(od, mi) / 100 * 100) + '%', s: 'vs 100 goal' },
+    { l: 'On Track?', v: totalYTD(od, mi) >= exp ? 'YES' : 'NO', s: 'Based on pace' },
+    { l: 'Remaining', v: Math.max(0, 100 - totalYTD(od, mi)), s: 'names needed' },
+    { l: 'Months Left', v: 12 - mi, s: 'of 12' },
+  ].map(function(x) { return '<div class="ytd-card"><div class="ytd-lbl">' + x.l + '</div><div class="ytd-val">' + x.v + '</div><div class="ytd-sub">' + x.s + '</div></div>'; }).join('');
+  document.getElementById('sub-tbl-title').textContent = 'Monthly breakdown — ' + MONTHS[mi] + ' highlighted';
+  document.getElementById('sub-tbl-body').innerHTML = MONS.map(function(m, i) {
+    var mT = totalMonth(od, i), ytdT = totalYTD(od, i);
+    var p = Math.round(ytdT / 100 * 100), sel = i === mi;
+    return '<tr style="' + (sel ? 'background:#eff6ff!important' : '') + '"><td style="' + (sel ? 'font-weight:600;color:#1B3A6B' : '') + '">' + m + (sel ? ' ' + badge('selected', 'bn') : '') + '</td>' +
+      ORGS.map(function(o) { return '<td style="text-align:center">' + ((od[o] || [])[i] || 0) + '</td>'; }).join('') +
+      '<td style="text-align:center;font-weight:500;color:#2563eb">' + mT + '</td>' +
+      '<td style="text-align:center;font-weight:500;color:#0d9488">' + ytdT + '</td>' +
+      '<td style="text-align:center">' + (ytdT >= Math.round(100 * (i + 1) / 12) ? badge(p + '%', 'bg') : badge(p + '%', 'ba')) + '</td></tr>';
+  }).join('');
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────
-function renderDashboard() {
-  renderKPIs();
-  renderYTDStrip('ytdStrip');
-  renderSubmitChart();
-  renderPie();
-  renderProgBars('progBars','giProgressLabel');
-  renderTrend('trendChart', false);
-  renderFHTable('fhTable');
-  renderYTDBar();
+function renderSubList() {
+  var filter = document.getElementById('sublist-filter') ? document.getElementById('sublist-filter').value : 'all';
+  var rows = getAllSubmitters().filter(function(r) {
+    var raw = r['Date'] || r.date || '';
+    if (!raw) return false;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return false;
+    if (filter === 'all') return true;
+    return dt.getMonth() === parseInt(filter);
+  });
+  var label = filter === 'all' ? 'All 2026' : MONTHS[parseInt(filter)];
+  document.getElementById('sublist-title').textContent = 'All submitters — ' + label + ' 2026';
+  document.getElementById('sublist-ytd').innerHTML = [
+    { l: 'Showing', v: rows.length, s: label },
+    { l: 'Annual Target', v: 100, s: 'Names/year' },
+    { l: '% Complete', v: Math.round(rows.length / 100 * 100) + '%', s: 'of 100 goal' },
+    { l: 'Remaining', v: Math.max(0, 100 - rows.length), s: 'names needed' },
+  ].map(function(x) { return '<div class="ytd-card"><div class="ytd-lbl">' + x.l + '</div><div class="ytd-val">' + x.v + '</div><div class="ytd-sub">' + x.s + '</div></div>'; }).join('');
+  var tb = document.getElementById('sublist-body');
+  var em = document.getElementById('sublist-empty');
+  if (rows.length) {
+    em.style.display = 'none';
+    tb.innerHTML = rows.map(function(r, i) {
+      var name = r['Member Name'] || r.name || '';
+      var date = r['Date'] || r.date || '';
+      var org  = r['Organization'] || r.org || '';
+      var cons = r['Your Name'] || r['Assisted By (Consultant)'] || r.consultant || '';
+      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
+      var newM = r['Is New Member?'] || r.newMember || 'No';
+      var ysa  = r['Is YSA?'] || r.ysa || 'No';
+      var gen4 = r['4th Gen Completed?'] || r.gen4 || 'No';
+      var notes = r['Notes'] || r.notes || '';
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + yno(newM === 'Yes') + '</td><td>' + yno(ysa === 'Yes') + '</td><td>' + (gen4 === 'Yes' ? badge('Yes ✓', 'bg') : badge('No', 'ba')) + '</td><td style="color:var(--muted);font-size:10px">' + notes + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
 }
 
-// ── DATA ENTRY ────────────────────────────────────────────────────────
-function submitRecord() {
-  const name = document.getElementById('f-name').value.trim();
-  if(!name) { showToast('Please enter a name'); return; }
-  const record = {
-    name, date:document.getElementById('f-date').value,
-    org:document.getElementById('f-org').value,
-    consultant:document.getElementById('f-cons').value,
-    gi:+document.getElementById('f-gi').value||0,
-    newMember:document.getElementById('f-newmember').value,
-    ysa:document.getElementById('f-ysa').value,
-    submitted:document.getElementById('f-submitted').value,
-    gen4:document.getElementById('f-gen4').value,
-    meeting:document.getElementById('f-meeting').value,
-    notes:document.getElementById('f-notes').value,
-  };
-  localRecords.push(record);
-  localStorage.setItem('wt_records', JSON.stringify(localRecords));
-  showToast(`Saved: ${name} — ${record.org}`);
-  clearForm();
-}
-function clearForm() {
-  ['f-name','f-gi','f-notes'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('f-date').value='2026-01-01';
+function renderGI() {
+  var gd = getGIData(), mi = CUR_MONTH, isY = CUR_VIEW === 'ytd';
+  var giY = totalGIYTD(gd, mi), giM = totalGI(gd, mi);
+  var best = CONS.reduce(function(a, c) { return ((gd[c] || [])[mi] || 0) > ((gd[a] || [])[mi] || 0) ? c : a; }, CONS[0]);
+  document.getElementById('gi-ytd-row').innerHTML = [
+    { l: 'This Month', v: giM.toLocaleString(), s: 'All consultants' },
+    { l: 'YTD Total', v: giY.toLocaleString(), s: 'Jan–' + MONS[mi] },
+    { l: 'Monthly Target', v: '3,500', s: 'All combined' },
+    { l: 'Best Consultant', v: best, s: ((gd[best] || [])[mi] || 0).toLocaleString() + ' entries' },
+    { l: 'Months Elapsed', v: mi + 1, s: 'of 12' },
+    { l: 'YTD Average', v: Math.round(giY / CONS.length).toLocaleString(), s: 'Per consultant' },
+  ].map(function(x) { return '<div class="ytd-card"><div class="ytd-lbl">' + x.l + '</div><div class="ytd-val">' + x.v + '</div><div class="ytd-sub">' + x.s + '</div></div>'; }).join('');
+  document.getElementById('gi-page-title').textContent = 'Get Involved — ' + (isY ? 'YTD Jan–' + MONS[mi] : MONTHS[mi]);
+  var maxGI = Math.max.apply(null, CONS.map(function(c) { return (gd[c] || [])[mi] || 0; }).concat([1]));
+  document.getElementById('gi-page-bars').innerHTML = CONS.map(function(c, i) {
+    var v = isY ? ytdSum(gd[c] || [], mi) : ((gd[c] || [])[mi] || 0);
+    return '<div class="prog-row"><div class="prog-name">' + c + '</div><div class="prog-bar"><div class="prog-fill" style="width:' + Math.round(v / maxGI * 100) + '%;background:' + CON_C[i] + '"></div></div><div class="prog-val">' + v.toLocaleString() + (v >= 500 ? ' <span style="color:#16a34a">✓</span>' : '') + '</div></div>';
+  }).join('');
+  document.getElementById('gi-trend-leg').innerHTML = CONS.map(function(c, i) {
+    return '<span class="leg-item"><span class="leg-dot" style="background:' + CON_C[i] + '"></span>' + c + '</span>';
+  }).join('');
+  if (CHARTS.giTrend) CHARTS.giTrend.destroy();
+  CHARTS.giTrend = new Chart(document.getElementById('chart-gi-trend'), {
+    type: 'line',
+    data: { labels: MONS, datasets: CONS.map(function(c, i) { return { label: c, data: gd[c] || [], borderColor: CON_C[i], backgroundColor: CON_C[i] + '15', borderWidth: 1.5, pointRadius: 2, tension: .35, fill: false }; }) },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { autoSkip: false, font: { size: 9 } } }, y: { min: 0, ticks: { font: { size: 9 } } } } }
+  });
+  document.getElementById('gi-tbl-body').innerHTML = CONS.map(function(c, i) {
+    var total = (gd[c] || []).reduce(function(a, b) { return a + b; }, 0);
+    return '<tr><td style="font-weight:500">' + c + '</td>' + (gd[c] || new Array(12).fill(0)).map(function(v, idx) {
+      return '<td style="text-align:center;' + (idx === mi ? 'background:#eff6ff;font-weight:500;color:#2563eb' : '') + '">' + v.toLocaleString() + '</td>';
+    }).join('') + '<td style="text-align:center;font-weight:500;color:#16a34a">' + total.toLocaleString() + '</td></tr>';
+  }).join('');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────
-renderDashboard();
+function renderFH() {
+  var fh = getFHData();
+  var done = fh.filter(function(r) { return r.done; }).length;
+  document.getElementById('fh-kpis').innerHTML = [
+    { l: '4th Gen Completed', v: done, s: 'Target 50/year', c: 'green' },
+    { l: 'In Progress', v: fh.length - done, s: 'Working on gens', c: 'amber' },
+    { l: 'Total Members', v: fh.length, s: 'In tracker', c: 'blue' },
+    { l: '5th Gen Started', v: fh.filter(function(r) { return r.g5 > 0; }).length, s: 'Beyond 4th gen', c: 'teal' },
+  ].map(function(k) { return '<div class="kpi ' + k.c + '"><div class="kpi-label">' + k.l + '</div><div class="kpi-val">' + k.v + '</div><div class="kpi-sub">' + k.s + '</div></div>'; }).join('');
+  var tb = document.getElementById('fh-tbl-body'), em = document.getElementById('fh-tbl-empty');
+  if (fh.length) {
+    em.style.display = 'none';
+    tb.innerHTML = fh.map(function(r) {
+      return '<tr><td><b>' + r.name + '</b></td><td>' + badge(r.org, 'bb') + '</td><td>' + yno(r.ysa) + '</td>' + r.g.map(function(v) { return '<td style="text-align:center">' + v + '/4</td>'; }).join('') + '<td style="text-align:center">' + (r.g5 || '—') + '</td><td>' + (r.done ? badge('Done ✓', 'bg') : badge('In prog', 'ba')) + '</td><td style="text-align:center">' + r.entries + '</td><td>' + r.by + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
+
+function renderTC() {
+  var tc = getTCData();
+  document.getElementById('tc-count').textContent = tc.length + ' of 10';
+  document.getElementById('tc-kpis').innerHTML = [
+    { l: 'Students Enrolled', v: tc.length, s: 'Target 10/year', c: 'purple' },
+    { l: 'Completed', v: tc.filter(function(r) { return r.status === 'Completed'; }).length, s: 'Finished class', c: 'green' },
+    { l: 'In Progress', v: tc.filter(function(r) { return r.status === 'In Progress'; }).length, s: 'Attending', c: 'blue' },
+    { l: 'Remaining Slots', v: Math.max(0, 10 - tc.length), s: 'to reach target', c: 'amber' },
+  ].map(function(k) { return '<div class="kpi ' + k.c + '"><div class="kpi-label">' + k.l + '</div><div class="kpi-val">' + k.v + '</div><div class="kpi-sub">' + k.s + '</div></div>'; }).join('');
+  var tb = document.getElementById('tc-tbl-body'), em = document.getElementById('tc-tbl-empty');
+  if (tc.length) {
+    em.style.display = 'none';
+    tb.innerHTML = tc.map(function(r) {
+      var sBadge = r.status === 'Completed' ? badge('Completed', 'bg') : r.status === 'In Progress' ? badge('In Progress', 'bb') : r.status === 'Dropped' ? badge('Dropped', 'br') : badge('Enrolled', 'ba');
+      return '<tr><td><b>' + r.name + '</b></td><td>' + badge(r.org, 'bb') + '</td><td>' + r.cons + '</td><td style="text-align:center">' + r.sessions + '</td><td>' + sBadge + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
+
+function renderKPIs() {
+  var gd = getGIData(), fh = getFHData(), mi = CUR_MONTH, isY = CUR_VIEW === 'ytd';
+  document.getElementById('cons-tbl-title').textContent = 'KPI — ' + (isY ? 'YTD Jan–' + MONS[mi] : MONTHS[mi]);
+  document.getElementById('cons-kpi-row').innerHTML = [
+    { l: 'On Track', v: CONS.filter(function(c) { return ((gd[c] || [])[mi] || 0) >= 500; }).length + ' of ' + CONS.length, s: 'Get Involved ≥500', c: 'green' },
+    { l: 'Total Get Involved', v: (isY ? totalGIYTD(gd, mi) : totalGI(gd, mi)).toLocaleString(), s: isY ? 'Jan–' + MONS[mi] : 'This month', c: 'amber' },
+    { l: '4th Gen Assisted', v: fh.filter(function(r) { return r.done; }).length, s: 'Total done', c: 'blue' },
+    { l: 'Temple Class', v: getTCData().length, s: '10/year target', c: 'purple' },
+  ].map(function(k) { return '<div class="kpi ' + k.c + '"><div class="kpi-label">' + k.l + '</div><div class="kpi-val">' + k.v + '</div><div class="kpi-sub">' + k.s + '</div></div>'; }).join('');
+  document.getElementById('cons-tbl-body').innerHTML = CONS.map(function(c) {
+    var gi = isY ? ytdSum(gd[c] || [], mi) : ((gd[c] || [])[mi] || 0);
+    var tgt = isY ? 500 * (mi + 1) : 500;
+    var on = gi >= tgt;
+    var fhD = fh.filter(function(r) { return r.by === c && r.done; }).length;
+    var ns = fh.filter(function(r) { return r.by === c; }).length;
+    return '<tr><td><b>' + c + '</b></td><td style="font-weight:500;color:' + (on ? '#16a34a' : '#dc2626') + '">' + gi.toLocaleString() + '</td><td>' + (on ? badge('On track', 'bg') : badge('Below', 'ba')) + '</td><td>' + fhD + '<span style="color:#9ca3af">/50</span></td><td>' + ns + '<span style="color:#9ca3af">/100</span></td><td>' + (gi >= 500 ? badge('✓ Met', 'bg') : badge('↓ Below', 'br')) + '</td></tr>';
+  }).join('');
+  if (CHARTS.consBar) CHARTS.consBar.destroy();
+  var vals = CONS.map(function(c) { return isY ? ytdSum(gd[c] || [], mi) : ((gd[c] || [])[mi] || 0); });
+  CHARTS.consBar = new Chart(document.getElementById('chart-cons'), {
+    type: 'bar', indexAxis: 'y',
+    data: { labels: CONS, datasets: [{ data: vals, backgroundColor: CON_C.map(function(c) { return c + 'CC'; }), borderColor: CON_C, borderWidth: 1, borderRadius: 5 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, ticks: { font: { size: 10 } } }, y: { ticks: { font: { size: 11 } }, grid: { display: false } } } }
+  });
+}
+
+function renderMeetings() {
+  var rows = getMeetings();
+  var tb = document.getElementById('mtg-body'), em = document.getElementById('mtg-empty');
+  if (rows.length) {
+    em.style.display = 'none';
+    tb.innerHTML = rows.map(function(r) {
+      var date  = r['Meeting Date'] || r.date || '';
+      var name  = r['Attendee Name'] || r.name || '';
+      var role  = r['Role'] || r.role || 'Consultant';
+      var pres  = (r['Present?'] || r.present || 'No') === 'Yes';
+      var topic = r['Topic Discussed'] || r.topic || '';
+      var act   = r['Action Item'] || r.action || '';
+      return '<tr><td>' + date + '</td><td><b>' + name + '</b></td><td>' + (role === 'Leadership' ? badge('Leadership', 'ba') : badge('Consultant', 'bb')) + '</td><td>' + yno(pres) + '</td><td>' + topic + '</td><td style="color:var(--muted)">' + act + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
+
+function renderTrips() {
+  var rows = getTrips();
+  var lo = rows.filter(function(r) { return (r['Living Ordinance?'] || r.lo) === 'Yes' || r.lo === true; }).length;
+  var po = rows.filter(function(r) { return (r['Proxy Ordinance?'] || r.po) === 'Yes' || r.po === true; }).length;
+  var nc = rows.filter(function(r) { return (r['Printed Name Cards?'] || r.nc) === 'Yes' || r.nc === true; }).length;
+  document.getElementById('trip-kpis').innerHTML = [
+    { l: 'Living Ordinances', v: lo, s: 'Target 10/trip', c: 'blue' },
+    { l: 'Proxy Ordinances', v: po, s: 'Target 200/trip', c: 'green' },
+    { l: 'Name Cards', v: nc, s: 'Printed', c: 'purple' },
+  ].map(function(k) { return '<div class="kpi ' + k.c + '"><div class="kpi-label">' + k.l + '</div><div class="kpi-val">' + k.v + '</div><div class="kpi-sub">' + k.s + '</div></div>'; }).join('');
+  var tb = document.getElementById('trip-body'), em = document.getElementById('trip-empty');
+  if (rows.length) {
+    em.style.display = 'none';
+    tb.innerHTML = rows.map(function(r) {
+      var loV = (r['Living Ordinance?'] || r.lo) === 'Yes' || r.lo === true;
+      var poV = (r['Proxy Ordinance?'] || r.po) === 'Yes' || r.po === true;
+      var ncV = (r['Printed Name Cards?'] || r.nc) === 'Yes' || r.nc === true;
+      return '<tr><td>' + (r['Trip Date'] || r.date || '') + '</td><td><b>' + (r['Attendee Name'] || r.name || '') + '</b></td><td>' + badge(r['Organization'] || r.org || '', 'bb') + '</td><td>' + yno(loV) + '</td><td>' + yno(poV) + '</td><td>' + yno(ncV) + '</td><td>' + (r['Consultant Assisting'] || r.cons || '') + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
+
+function renderRecent() {
+  var rows = getAllSubmitters().reverse().slice(0, 20);
+  var tb = document.getElementById('recent-body'), em = document.getElementById('recent-empty');
+  if (rows.length) {
+    em.style.display = 'none';
+    tb.innerHTML = rows.map(function(r, i) {
+      var name = r['Member Name'] || r.name || '';
+      var date = r['Date'] || r.date || '';
+      var org  = r['Organization'] || r.org || '';
+      var cons = r['Your Name'] || r.consultant || '';
+      var gi   = parseInt(r['Get Involved # entries'] || r.gi || 0) || 0;
+      var sub  = r['Name Submitted?'] || r.submitted || 'No';
+      return '<tr><td style="text-align:center;color:var(--light)">' + (i + 1) + '</td><td><b>' + name + '</b></td><td>' + date + '</td><td>' + badge(org, 'bb') + '</td><td>' + cons + '</td><td style="text-align:center">' + gi.toLocaleString() + '</td><td>' + (sub === 'Yes' ? badge('Yes', 'bg') : badge('No', 'ba')) + '</td></tr>';
+    }).join('');
+  } else { em.style.display = ''; tb.innerHTML = ''; }
+}
+
+// ═══════════════════════════════════════════════════════
+// DATA ENTRY
+// ═══════════════════════════════════════════════════════
+async function saveEntry() {
+  var name = document.getElementById('e-name').value.trim();
+  if (!name) { showToast('Please enter a member name'); return; }
+  var stat = document.getElementById('e-stat');
+  stat.textContent = '⏳ Saving...';
+  var row = [
+    document.getElementById('e-date').value || '2026-04-01',
+    name,
+    document.getElementById('e-org').value,
+    document.getElementById('e-cons').value,
+    parseInt(document.getElementById('e-gi').value) || 0,
+    document.getElementById('e-new').value,
+    document.getElementById('e-ysa').value,
+    document.getElementById('e-sub').value,
+    document.getElementById('e-gen4').value,
+    document.getElementById('e-mtg').value,
+    document.getElementById('e-notes').value,
+  ];
+  var localObj = { date: row[0], name: row[1], org: row[2], consultant: row[3], gi: row[4], newMember: row[5], ysa: row[6], submitted: row[7], gen4: row[8] };
+  if (API_URL) {
+    var res = await postToSheet({ sheet: 'Temple_Submitters', row: row });
+    if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearEntry(); fetchData(); }
+    else { saveLocal('submitters', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearEntry(); renderRecent(); }
+  } else { saveLocal('submitters', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved locally: ' + name); clearEntry(); renderRecent(); }
+}
+
+async function saveFH() {
+  var name = document.getElementById('fh-name').value.trim();
+  if (!name) { showToast('Please enter a member name'); return; }
+  var stat = document.getElementById('fh-stat'); stat.textContent = '⏳ Saving...';
+  var row = [name, document.getElementById('fh-org').value, document.getElementById('fh-ysa').value, parseInt(document.getElementById('fh-g1').value)||0, parseInt(document.getElementById('fh-g2').value)||0, parseInt(document.getElementById('fh-g3').value)||0, parseInt(document.getElementById('fh-g4').value)||0, parseInt(document.getElementById('fh-g5').value)||0, document.getElementById('fh-done').value, parseInt(document.getElementById('fh-entries').value)||0, document.getElementById('fh-cons').value, document.getElementById('fh-notes').value];
+  var localObj = { name: row[0], org: row[1], ysa: row[2], g1: row[3], g2: row[4], g3: row[5], g4: row[6], g5: row[7], done: row[8], entries: row[9], cons: row[10] };
+  if (API_URL) { var res = await postToSheet({ sheet: 'Family_History', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ FH saved: ' + name); clearFH(); fetchData(); } else { saveLocal('fh', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearFH(); } }
+  else { saveLocal('fh', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearFH(); }
+}
+
+async function saveMeeting() {
+  var name = document.getElementById('m-name').value.trim();
+  if (!name) { showToast('Please enter attendee name'); return; }
+  var stat = document.getElementById('m-stat'); stat.textContent = '⏳ Saving...';
+  var row = [document.getElementById('m-date').value || '2026-04-01', name, document.getElementById('m-role').value, document.getElementById('m-present').value, document.getElementById('m-topic').value, document.getElementById('m-action').value, document.getElementById('m-notes').value];
+  var localObj = { date: row[0], name: row[1], role: row[2], present: row[3], topic: row[4], action: row[5] };
+  if (API_URL) { var res = await postToSheet({ sheet: 'Monthly_Meeting', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Meeting: ' + name); clearMeeting(); fetchData(); } else { saveLocal('meetings', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearMeeting(); } }
+  else { saveLocal('meetings', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearMeeting(); }
+}
+
+async function saveTrip() {
+  var name = document.getElementById('t-name').value.trim();
+  if (!name) { showToast('Please enter attendee name'); return; }
+  var stat = document.getElementById('t-stat'); stat.textContent = '⏳ Saving...';
+  var row = [document.getElementById('t-date').value || '2026-04-01', name, document.getElementById('t-org').value, document.getElementById('t-cons').value, document.getElementById('t-ysa').value, document.getElementById('t-lo').value, document.getElementById('t-po').value, document.getElementById('t-nc').value, document.getElementById('t-notes').value];
+  var localObj = { date: row[0], name: row[1], org: row[2], cons: row[3], lo: row[5] === 'Yes', po: row[6] === 'Yes', nc: row[7] === 'Yes' };
+  if (API_URL) { var res = await postToSheet({ sheet: 'Ward_Temple_Trips', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ Trip: ' + name); clearTrip(); fetchData(); } else { saveLocal('trips', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearTrip(); } }
+  else { saveLocal('trips', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearTrip(); }
+}
+
+async function saveTC() {
+  var name = document.getElementById('tc-name').value.trim();
+  if (!name) { showToast('Please enter student name'); return; }
+  var stat = document.getElementById('tc-stat'); stat.textContent = '⏳ Saving...';
+  var row = [document.getElementById('tc-cons').value, name, document.getElementById('tc-org').value, document.getElementById('tc-new').value, document.getElementById('tc-ysa').value, document.getElementById('tc-date').value || '2026-04-01', parseInt(document.getElementById('tc-sessions').value) || 0, document.getElementById('tc-status').value, document.getElementById('tc-notes').value];
+  var localObj = { name: row[1], org: row[2], cons: row[0], date: row[5], sessions: row[6], status: row[7] };
+  if (API_URL) { var res = await postToSheet({ sheet: 'Temple_Class', row: row }); if (res.success) { stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a'; showToast('✓ TC: ' + name); clearTC(); fetchData(); } else { saveLocal('tc', localObj); stat.textContent = '⚠ Saved locally'; stat.style.color = '#d97706'; clearTC(); renderTC(); } }
+  else { saveLocal('tc', localObj); stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a'; showToast('✓ Saved: ' + name); clearTC(); renderTC(); }
+}
+
+async function quickAddAll() {
+  var date = document.getElementById('m-date').value || '2026-04-01';
+  var topic = document.getElementById('m-topic').value || 'Monthly Coordination Meeting';
+  var action = document.getElementById('m-action').value || '';
+  var stat = document.getElementById('quick-stat');
+  stat.textContent = '⏳ Saving all...';
+  var all = CONS.concat(['Romeo Alejandro']);
+  var roles = {};
+  roles['Romeo Alejandro'] = 'Leadership';
+  for (var i = 0; i < all.length; i++) {
+    var n = all[i];
+    var role = roles[n] || 'Consultant';
+    var row = [date, n, role, 'Yes', topic, action, ''];
+    var localObj = { date: date, name: n, role: role, present: 'Yes', topic: topic, action: action };
+    if (API_URL) { await postToSheet({ sheet: 'Monthly_Meeting', row: row }); }
+    else { saveLocal('meetings', localObj); }
+  }
+  stat.textContent = '✓ All ' + all.length + ' saved!';
+  stat.style.color = '#16a34a';
+  showToast('✓ All consultants + Romeo Alejandro added!');
+  if (API_URL) fetchData(); else renderMeetings();
+}
+
+function clearEntry() { ['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('e-date').value='2026-04-01'; document.getElementById('e-stat').textContent=''; }
+function clearFH() { ['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value=''}); ['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0}); document.getElementById('fh-stat').textContent=''; }
+function clearMeeting() { ['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('m-date').value='2026-04-01'; document.getElementById('m-stat').textContent=''; }
+function clearTrip() { ['t-name','t-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('t-date').value='2026-04-01'; document.getElementById('t-stat').textContent=''; }
+function clearTC() { ['tc-name','tc-notes'].forEach(function(id){document.getElementById(id).value=''}); document.getElementById('tc-sessions').value=0; document.getElementById('tc-date').value='2026-04-01'; document.getElementById('tc-stat').textContent=''; }
 </script>
 </body>
 </html>
