@@ -1239,6 +1239,28 @@ function clrFH()    { ['fh-name','fh-notes'].forEach(function(id){document.getEl
 function clrMtg()   { ['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';}); document.getElementById('m-date').value='2026-04-01'; document.getElementById('m-stat').textContent=''; }
 function clrTrip()  { ['t-name','t-notes'].forEach(function(id){document.getElementById(id).value='';}); document.getElementById('t-date').value='2026-04-01'; document.getElementById('t-stat').textContent=''; }
 function clrTC()    { ['tc-name','tc-notes'].forEach(function(id){document.getElementById(id).value='';}); document.getElementById('tc-ses').value=0; document.getElementById('tc-date').value='2026-04-01'; document.getElementById('tc-stat-msg').textContent=''; }
+
+// AUTO CONNECT FIX — ALL DEVICES
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqmr6kecBU4oYNtPpx-UmOf2f73nH-5huMZ8oKJ256njYcibQZQDoDMljQZOfAk2Evsw/exec";
+API = SCRIPT_URL;
+localStorage.setItem('wt_api', SCRIPT_URL);
+
+function openMod() {
+  document.getElementById('set-url').value = SCRIPT_URL;
+  document.getElementById('set-cur').textContent = SCRIPT_URL;
+  document.getElementById('set-stat').textContent = '✓ Auto-connected to Google Sheets';
+  document.getElementById('set-stat').style.color = '#16a34a';
+  document.getElementById('settingsModal').classList.add('open');
+}
+
+function saveUrl() {
+  API = SCRIPT_URL;
+  localStorage.setItem('wt_api', SCRIPT_URL);
+  closeMod();
+  fetchData();
+  showToast('✓ Connected automatically!');
+}
+  
 </script>
 </body>
 </html>
