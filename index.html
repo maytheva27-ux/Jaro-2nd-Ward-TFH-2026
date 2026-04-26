@@ -1261,6 +1261,13 @@ function saveUrl() {
   showToast('✓ Connected automatically!');
 }
 
+function forceRefreshFromSheet() {
+  LOCAL = {"s":[],"fh":[],"m":[],"t":[],"tc":[]};
+  localStorage.setItem('wt_local', JSON.stringify(LOCAL));
+  fetchData();
+  showToast('Refreshing from Google Sheet...');
+}
+  
 </script>
 </body>
 </html>
