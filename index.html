@@ -8,11 +8,31 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
-  --navy:#1B3A6B; --navy2:#152d54; --gold:#C9A84C; --gold2:#e8c97a;
-  --cream:#FAF7F2; --white:#fff; --text:#1a1a2e; --muted:#6b7280;
-  --light:#9ca3af; --border:#e5e7eb;
-  --green:#16a34a; --amber:#d97706; --red:#dc2626;
-  --blue:#2563eb; --purple:#7c3aed; --teal:#0d9488;
+  /* MAIN THEME */
+  --navy:#f59e0b;        /* orange instead of dark blue */
+  --navy2:#d97706;
+
+  --gold:#C9A84C;        /* keep gold */
+  --gold2:#e8c97a;
+
+  --cream:#ffffff;       /* full white background */
+  --white:#ffffff;
+
+  --text:#111827;        /* darker for readability */
+  --muted:#374151;
+  --light:#6b7280;
+
+  --border:#e5e7eb;
+
+  /* STATUS COLORS */
+  --green:#16a34a;
+  --amber:#f59e0b;       /* orange */
+  --red:#dc2626;
+
+  /* REMOVE STRONG BLUE */
+  --blue:#f59e0b;        /* turn blue → orange */
+  --purple:#a855f7;
+  --teal:#0d9488;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:15px}
