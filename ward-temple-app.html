@@ -1207,61 +1207,6 @@ function forceRefreshFromSheet() {
 
   window.saveEntry = async function () {
     var name = document.getElementById('e-name').value.trim();
-    if (!name) {
-      showToast('Please enter a member name');
-      return;
-    }
-
-    var stat = document.getElementById('e-stat');
-    stat.textContent = 'Saving...';
-
-    try {
-      await addDoc(collection(db, "submitters"), {
-        name: name,
-        date: document.getElementById('e-date').value || '2026-04-01',
-        gi: parseInt(document.getElementById('e-gi').value) || 0,
-        org: document.getElementById('e-org').value,
-        newMember: document.getElementById('e-new').value,
-        ysa: document.getElementById('e-ysa').value,
-        consultant: document.getElementById('e-cons').value,
-        meeting: document.getElementById('e-mtg').value,
-        gen4: document.getElementById('e-gen4').value,
-        submitted: document.getElementById('e-sub').value,
-        notes: document.getElementById('e-notes').value,
-        timestamp: new Date()
-      });
-
-      stat.textContent = '✓ Saved to Firebase!';
-      stat.style.color = '#16a34a';
-      showToast('✓ Saved to Firebase: ' + name);
-      clrEntry();
-
-    } catch (e) {
-      console.error(e);
-      stat.textContent = 'Error saving';
-      stat.style.color = '#dc2626';
-      alert('Error saving ❌');
-    }
-  };
-</script>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCqRBzjo5FP_5Zhp9e9WF8w1mONvZs0-lM",
-    authDomain: "jaro-2nd-ward-tracker.firebaseapp.com",
-    projectId: "jaro-2nd-ward-tracker",
-    storageBucket: "jaro-2nd-ward-tracker.firebasestorage.app",
-    messagingSenderId: "524591622323",
-    appId: "1:524591622323:web:08591b43469e5a6d64a8c6"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.saveEntry = async function () {
-    var name = document.getElementById('e-name').value.trim();
 
     if (!name) {
       alert("Please enter a member name");
