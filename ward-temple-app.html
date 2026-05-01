@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jaro 2nd Ward — Temple & Family History 2026</title>
+<title>Jaro 2nd Ward — Temple & Family History Iloilo Central Stake 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
@@ -333,7 +333,11 @@ tr:hover td{background:#eff6ff}
           <div class="fi"><label>Attended Meeting?</label><select id="e-mtg"><option>No</option><option>Yes</option></select></div>
           <div class="fi ff"><label>Notes</label><textarea id="e-notes" rows="2" placeholder="Any notes..."></textarea></div>
         </div>
-        <div class="brow"><button class="btn bnn" onclick="saveEntry()">💾 Save to Sheet</button><button class="btn bng" onclick="clrEntry()">Clear</button><span class="fst" id="e-stat"></span></div>
+        <div class="brow">
+  <button class="btn bnn" onclick="saveEntry()">💾 Save to Firebase</button>
+  <button class="btn bng" onclick="clrEntry()">Clear</button>
+  <span class="fst" id="e-stat"></span>
+</div>
       </div>
     </div>
     <div class="card">
@@ -1130,111 +1134,7 @@ function renderRecent() {
 }
 
 // ── SAVE FUNCTIONS ────────────────────────────────────
-async function saveEntry() {
-  var name = document.getElementById('e-name').value.trim();
-  if (!name) { showToast('Please enter a member name'); return; }
-  var stat = document.getElementById('e-stat');
-  stat.textContent = 'Saving...';
-  // Match exact column order: #, Full Name, Date, Get Involved(#Entries), Organization, Is New Mem?, Is YSA?, Assisted By(Consultant), Attended Meeting?, 4th Gen Completed?, 5th Gen Completed?, Family Gen New Entries, Temple Name Submitted?, Printed Name Cards?, Notes
-  var row = ['', name, document.getElementById('e-date').value||'2026-04-01', parseInt(document.getElementById('e-gi').value)||0,
-    document.getElementById('e-org').value, document.getElementById('e-new').value, document.getElementById('e-ysa').value,
-    document.getElementById('e-cons').value, document.getElementById('e-mtg').value, document.getElementById('e-gen4').value,
-    'No', 0, document.getElementById('e-sub').value, 'No', document.getElementById('e-notes').value];
-  var loc = {'Full Name':name, 'Date':row[2], 'Get Involved (# Entries)':row[3], 'Organization':row[4],
-    'Is New Mem?':row[5], 'Is YSA?':row[6], 'Assisted By (Consultant)':row[7],
-    'Attended Meeting?':row[8], '4th Gen Completed?':row[9], 'Temple Name Submitted?':row[12]};
-  // Save locally first so it shows immediately
-  saveLoc('s', loc);
-  renderRecent();
-  if (API) {
-    var res = await postSheet({sheet:'Temple_Submitters', row:row});
-    if (res && (res.success || !res.error)) {
-      stat.textContent = '✓ Saved to Sheet!'; stat.style.color = '#16a34a';
-      showToast('✓ Saved: '+name); clrEntry();
-      setTimeout(function(){ fetchData(); }, 2000);
-    } else {
-      stat.textContent = '✓ Saved locally (Sheet: '+(res?res.error:'error')+')';
-      stat.style.color = '#d97706'; clrEntry();
-    }
-  } else {
-    stat.textContent = '✓ Saved locally'; stat.style.color = '#16a34a';
-    showToast('✓ Saved: '+name); clrEntry();
-  }
-}
 
-async function saveFH() {
-  var name = document.getElementById('fh-name').value.trim();
-  if (!name) { showToast('Please enter a member name'); return; }
-  var stat = document.getElementById('fh-stat'); stat.textContent = 'Saving...';
-  var today = new Date().toISOString().split('T')[0];
-  var row = [name, document.getElementById('fh-org').value, document.getElementById('fh-ysa').value,
-    parseInt(document.getElementById('fh-g1').value)||0, parseInt(document.getElementById('fh-g2').value)||0,
-    parseInt(document.getElementById('fh-g3').value)||0, parseInt(document.getElementById('fh-g4').value)||0,
-    parseInt(document.getElementById('fh-g5').value)||0, document.getElementById('fh-done').value,
-    parseInt(document.getElementById('fh-entries').value)||0, today, MONS[new Date().getMonth()],
-    document.getElementById('fh-cons').value, document.getElementById('fh-notes').value];
-  var loc = {'Member Name':row[0],'Organization':row[1],'Is YSA?':row[2],'Gen 1 Parents':row[3],'Gen 2 Grand':row[4],
-    'Gen 3 Great-Grand':row[5],'Gen 4 2x Great-Grand':row[6],'Gen 5+':row[7],'4th Gen Complete?':row[8],
-    'New Entries This Month':row[9],'Assisted By (Consultant)':row[12]};
-  saveLoc('fh', loc); renderFH();
-  if (API) {
-    var res = await postSheet({sheet:'Family_History', row:row});
-    if (res && (res.success || !res.error)) { stat.textContent='✓ Saved to Sheet!'; stat.style.color='#16a34a'; showToast('✓ FH saved: '+name); clrFH(); setTimeout(function(){fetchData();},2000); }
-    else { stat.textContent='✓ Saved locally'; stat.style.color='#d97706'; clrFH(); }
-  } else { stat.textContent='✓ Saved locally'; stat.style.color='#16a34a'; showToast('✓ Saved: '+name); clrFH(); }
-}
-
-async function saveMtg() {
-  var name = document.getElementById('m-name').value.trim();
-  if (!name) { showToast('Please enter attendee name'); return; }
-  var stat = document.getElementById('m-stat'); stat.textContent = 'Saving...';
-  var isCons = document.getElementById('m-role').value==='Consultant'?'Yes':'No';
-  var row = ['', document.getElementById('m-date').value||'2026-04-01', name, document.getElementById('m-role').value,
-    isCons, document.getElementById('m-present').value, document.getElementById('m-topic').value,
-    document.getElementById('m-action').value, document.getElementById('m-notes').value];
-  var loc = {'Meeting Date':row[1],'Attendee Name':row[2],'Is Consultant':isCons,'Present?':row[5],'Topic Discussed':row[6],'Action Items':row[7]};
-  saveLoc('m', loc); renderMtgs();
-  if (API) {
-    var res = await postSheet({sheet:'Monthly_Meeting', row:row});
-    if (res && (res.success || !res.error)) { stat.textContent='✓ Saved to Sheet!'; stat.style.color='#16a34a'; showToast('✓ Meeting: '+name); clrMtg(); setTimeout(function(){fetchData();},2000); }
-    else { stat.textContent='✓ Saved locally'; stat.style.color='#d97706'; clrMtg(); }
-  } else { stat.textContent='✓ Saved locally'; stat.style.color='#16a34a'; showToast('✓ Saved: '+name); clrMtg(); }
-}
-
-async function saveTrip() {
-  var name = document.getElementById('t-name').value.trim();
-  if (!name) { showToast('Please enter attendee name'); return; }
-  var stat = document.getElementById('t-stat'); stat.textContent = 'Saving...';
-  var row = ['', document.getElementById('t-date').value||'2026-04-01', name, document.getElementById('t-org').value,
-    document.getElementById('t-ysa').value, document.getElementById('t-lo').value, document.getElementById('t-po').value,
-    document.getElementById('t-nc').value, document.getElementById('t-cons').value, document.getElementById('t-notes').value];
-  var loc = {'Trip Date':row[1],'Attendee Name':row[2],'Organization':row[3],'Living Ordinance?':row[5],'Proxy Ordinance?':row[6],'Printed Name Cards?':row[7],'Consultant Assisting':row[8]};
-  saveLoc('t', loc); renderTrips();
-  if (API) {
-    var res = await postSheet({sheet:'Ward_Temple_Trips', row:row});
-    if (res && (res.success || !res.error)) { stat.textContent='✓ Saved to Sheet!'; stat.style.color='#16a34a'; showToast('✓ Trip: '+name); clrTrip(); setTimeout(function(){fetchData();},2000); }
-    else { stat.textContent='✓ Saved locally'; stat.style.color='#d97706'; clrTrip(); }
-  } else { stat.textContent='✓ Saved locally'; stat.style.color='#16a34a'; showToast('✓ Saved: '+name); clrTrip(); }
-}
-
-async function saveTC() {
-  var name = document.getElementById('tc-name').value.trim();
-  if (!name) { showToast('Please enter student name'); return; }
-  var stat = document.getElementById('tc-stat-msg'); stat.textContent = 'Saving...';
-  var row = ['', document.getElementById('tc-cons').value, name, document.getElementById('tc-org').value,
-    document.getElementById('tc-new').value, document.getElementById('tc-ysa').value,
-    document.getElementById('tc-date').value||'2026-04-01', parseInt(document.getElementById('tc-ses').value)||0,
-    document.getElementById('tc-stat').value, document.getElementById('tc-notes').value];
-  var loc = {'Candidate Name':row[2],'Organization':row[3],'Assigned Consultant':row[1],'Date Started':row[6],'Sessions Attended':row[7],'Status':row[8]};
-  saveLoc('tc', loc); renderTC();
-  if (API) {
-    var res = await postSheet({sheet:'Temple_Class', row:row});
-    if (res && (res.success || !res.error)) { stat.textContent='✓ Saved to Sheet!'; stat.style.color='#16a34a'; showToast('✓ TC: '+name); clrTC(); setTimeout(function(){fetchData();},2000); }
-    else { stat.textContent='✓ Saved locally'; stat.style.color='#d97706'; clrTC(); }
-  } else { stat.textContent='✓ Saved locally'; stat.style.color='#16a34a'; showToast('✓ Saved: '+name); clrTC(); }
-}
-
-async function quickAll() {
   var date = document.getElementById('m-date').value||'2026-04-01';
   var topic = document.getElementById('m-topic').value||'Monthly Coordination Meeting';
   var action = document.getElementById('m-action').value||'';
@@ -1288,6 +1188,104 @@ function forceRefreshFromSheet() {
   showToast('Refreshing from Google Sheet...');
 } 
   
+</script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCqRBzjo5FP_5Zhp9e9WF8w1mONvZs0-lM",
+    authDomain: "jaro-2nd-ward-tracker.firebaseapp.com",
+    projectId: "jaro-2nd-ward-tracker",
+    storageBucket: "jaro-2nd-ward-tracker.firebasestorage.app",
+    messagingSenderId: "524591622323",
+    appId: "1:524591622323:web:08591b43469e5a6d64a8c6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.saveEntry = async function () {
+    var name = document.getElementById('e-name').value.trim();
+    if (!name) {
+      showToast('Please enter a member name');
+      return;
+    }
+
+    var stat = document.getElementById('e-stat');
+    stat.textContent = 'Saving...';
+
+    try {
+      await addDoc(collection(db, "submitters"), {
+        name: name,
+        date: document.getElementById('e-date').value || '2026-04-01',
+        gi: parseInt(document.getElementById('e-gi').value) || 0,
+        org: document.getElementById('e-org').value,
+        newMember: document.getElementById('e-new').value,
+        ysa: document.getElementById('e-ysa').value,
+        consultant: document.getElementById('e-cons').value,
+        meeting: document.getElementById('e-mtg').value,
+        gen4: document.getElementById('e-gen4').value,
+        submitted: document.getElementById('e-sub').value,
+        notes: document.getElementById('e-notes').value,
+        timestamp: new Date()
+      });
+
+      stat.textContent = '✓ Saved to Firebase!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Saved to Firebase: ' + name);
+      clrEntry();
+
+    } catch (e) {
+      console.error(e);
+      stat.textContent = 'Error saving';
+      stat.style.color = '#dc2626';
+      alert('Error saving ❌');
+    }
+  };
+</script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCqRBzjo5FP_5Zhp9e9WF8w1mONvZs0-lM",
+    authDomain: "jaro-2nd-ward-tracker.firebaseapp.com",
+    projectId: "jaro-2nd-ward-tracker",
+    storageBucket: "jaro-2nd-ward-tracker.firebasestorage.app",
+    messagingSenderId: "524591622323",
+    appId: "1:524591622323:web:08591b43469e5a6d64a8c6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.saveEntry = async function () {
+    var name = document.getElementById('e-name').value.trim();
+
+    if (!name) {
+      alert("Please enter a member name");
+      return;
+    }
+
+    await addDoc(collection(db, "submitters"), {
+      name: name,
+      date: document.getElementById('e-date').value,
+      org: document.getElementById('e-org').value,
+      consultant: document.getElementById('e-cons').value,
+      gi: Number(document.getElementById('e-gi').value || 0),
+      newMember: document.getElementById('e-new').value,
+      ysa: document.getElementById('e-ysa').value,
+      submitted: document.getElementById('e-sub').value,
+      gen4: document.getElementById('e-gen4').value,
+      meeting: document.getElementById('e-mtg').value,
+      notes: document.getElementById('e-notes').value,
+      createdAt: new Date()
+    });
+
+    alert("Saved to Firebase ✅");
+    clrEntry();
+  };
 </script>
 </body>
 </html>
