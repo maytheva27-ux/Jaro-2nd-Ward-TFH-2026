@@ -8,19 +8,22 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
-  --navy:#b45309;
-  --navy2:#92400e;
+  --navy:#b45309;        /* DARK ORANGE (better contrast) */
+  --navy2:#92400e;       /* darker hover */
   --white:#ffffff;
   --white2:#fef3c7;
   --cream:#ffffff;
+
   --text:#111827;
   --muted:#374151;
   --light:#6b7280;
   --border:#e5e7eb;
+
   --green:#16a34a;
-  --amber:#d97706;
+  --amber:#d97706;       /* darker orange */
   --red:#dc2626;
-  --blue:#2563eb;
+
+  --blue:#2563eb;        /* keep REAL blue for charts */
   --purple:#a855f7;
   --teal:#0d9488;
 }
@@ -161,6 +164,7 @@ tr:hover td{background:#fffbeb}
 
 <div class="overlay" id="overlay" onclick="closeSB()"></div>
 
+<!-- SETTINGS MODAL -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <div class="mh"><h3>⚙ Settings — Google Sheets</h3><button class="mc" onclick="closeMod()">✕</button></div>
@@ -179,7 +183,7 @@ tr:hover td{background:#fffbeb}
       <div class="code-box" id="set-script"></div>
     </div>
     <div class="mf">
-      <button class="btn bnn" onclick="saveUrl()">Save &amp; Connect</button>
+      <button class="btn bnn" onclick="saveUrl()">Save & Connect</button>
       <button class="btn bng" onclick="testConn()">Test</button>
       <button class="btn" style="background:#f3f4f6;color:var(--muted)" onclick="copyScript()">📋 Copy Script</button>
     </div>
@@ -187,6 +191,7 @@ tr:hover td{background:#fffbeb}
 </div>
 
 <div class="app">
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-brand">
     <div class="ico">⛪</div>
@@ -215,6 +220,7 @@ tr:hover td{background:#fffbeb}
   <div class="sb-quote">"The doctrine of The Church of Jesus Christ centers on the family. Essential to our doctrine on the family is the temple."<cite>— President Dallin H. Oaks<br>18th Prophet &amp; President</cite></div>
 </aside>
 
+<!-- MAIN -->
 <main class="main">
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:9px">
@@ -239,6 +245,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </header>
 
+<!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
   <div class="banner warn" id="conn-banner"><div class="bdot"></div><span id="conn-msg">Connecting to Firebase...</span></div>
   <div class="krow" id="kpi-grid"></div>
@@ -279,6 +286,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- LOG MY WORK -->
 <section class="page" id="page-log">
   <div class="sh"><h2>Log My Work</h2><div class="ln"></div></div>
   <div class="g2">
@@ -299,7 +307,7 @@ tr:hover td{background:#fffbeb}
           <div class="fi ff"><label>Notes</label><textarea id="e-notes" rows="2" placeholder="Any notes..."></textarea></div>
         </div>
         <div class="brow">
-          <button class="btn bnn" onclick="saveEntry()">💾 Save</button>
+          <button class="btn bnn" onclick="saveEntry()">💾 Save to Firebase</button>
           <button class="btn bng" onclick="clrEntry()">Clear</button>
           <span class="fst" id="e-stat"></span>
         </div>
@@ -322,7 +330,7 @@ tr:hover td{background:#fffbeb}
           <div class="fi"><label>New Entries This Month</label><input type="number" id="fh-entries" min="0" value="0"></div>
           <div class="fi ff"><label>Notes</label><textarea id="fh-notes" rows="2"></textarea></div>
         </div>
-        <div class="brow"><button class="btn bnn" onclick="saveFH()">💾 Save</button><button class="btn bng" onclick="clrFH()">Clear</button><span class="fst" id="fh-stat"></span></div>
+        <div class="brow"><button class="btn bnn" onclick="saveFH()">💾 Save to Firebase</button><button class="btn bng" onclick="clrFH()">Clear</button><span class="fst" id="fh-stat"></span></div>
       </div>
     </div>
   </div>
@@ -336,6 +344,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- ADD MEETING -->
 <section class="page" id="page-addmeeting">
   <div class="sh"><h2>Add Monthly Meeting</h2><div class="ln"></div></div>
   <div class="card" style="max-width:580px">
@@ -350,7 +359,7 @@ tr:hover td{background:#fffbeb}
         <div class="fi ff"><label>Action Item</label><input id="m-action" placeholder="e.g. Submit reports by 15th"></div>
         <div class="fi ff"><label>Notes</label><textarea id="m-notes" rows="2"></textarea></div>
       </div>
-      <div class="brow"><button class="btn bnn" onclick="saveMtg()">💾 Save</button><button class="btn bng" onclick="clrMtg()">Clear</button><span class="fst" id="m-stat"></span></div>
+      <div class="brow"><button class="btn bnn" onclick="saveMtg()">💾 Save to Firebase</button><button class="btn bng" onclick="clrMtg()">Clear</button><span class="fst" id="m-stat"></span></div>
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
         <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:8px">Quick add — all consultants + Romeo Alejandro</div>
         <button class="btn bng bsm" onclick="quickAll()">Add All 10 Consultants + Leader</button>
@@ -360,6 +369,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- ADD TRIP -->
 <section class="page" id="page-addtrip">
   <div class="sh"><h2>Add Temple Trip</h2><div class="ln"></div></div>
   <div class="card" style="max-width:580px">
@@ -376,11 +386,12 @@ tr:hover td{background:#fffbeb}
         <div class="fi"><label>Printed Name Cards?</label><select id="t-nc"><option>No</option><option>Yes</option></select></div>
         <div class="fi ff"><label>Notes</label><textarea id="t-notes" rows="2"></textarea></div>
       </div>
-      <div class="brow"><button class="btn bnn" onclick="saveTrip()">💾 Save</button><button class="btn bng" onclick="clrTrip()">Clear</button><span class="fst" id="t-stat"></span></div>
+      <div class="brow"><button class="btn bnn" onclick="saveTrip()">💾 Save to Firebase</button><button class="btn bng" onclick="clrTrip()">Clear</button><span class="fst" id="t-stat"></span></div>
     </div>
   </div>
 </section>
 
+<!-- TEMPLE SUBMITTERS -->
 <section class="page" id="page-submitters">
   <div class="sh"><h2>Temple Name Submitters</h2><div class="ln"></div></div>
   <div class="ystrip" id="sub-ystrip"></div>
@@ -391,6 +402,7 @@ tr:hover td{background:#fffbeb}
   </div></div>
 </section>
 
+<!-- SUBMITTERS LIST -->
 <section class="page" id="page-sublist">
   <div class="sh"><h2>Submitters List</h2><div class="ln"></div></div>
   <div class="ystrip" id="sl-ystrip"></div>
@@ -413,6 +425,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- GET INVOLVED -->
 <section class="page" id="page-getinvolved">
   <div class="sh"><h2>Get Involved Records</h2><div class="ln"></div></div>
   <div class="ystrip" id="gi-ystrip"></div>
@@ -427,6 +440,7 @@ tr:hover td{background:#fffbeb}
   </div></div>
 </section>
 
+<!-- FAMILY HISTORY -->
 <section class="page" id="page-familyhistory">
   <div class="sh"><h2>Family History — 4 Generations</h2><div class="ln"></div></div>
   <div class="krow" id="fh-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div>
@@ -438,6 +452,7 @@ tr:hover td{background:#fffbeb}
   </div></div>
 </section>
 
+<!-- TEMPLE CLASS -->
 <section class="page" id="page-templeclass">
   <div class="sh"><h2>Temple Preparation Class</h2><div class="ln"></div></div>
   <div class="krow" id="tc-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
@@ -456,7 +471,7 @@ tr:hover td{background:#fffbeb}
           <div class="fi"><label>Status</label><select id="tc-status"><option>Enrolled</option><option>In Progress</option><option>Completed</option><option>Dropped</option></select></div>
           <div class="fi ff"><label>Notes</label><textarea id="tc-notes" rows="2"></textarea></div>
         </div>
-        <div class="brow"><button class="btn bnn" onclick="saveTC()">💾 Save</button><button class="btn bng" onclick="clrTC()">Clear</button><span class="fst" id="tc-stat-msg"></span></div>
+        <div class="brow"><button class="btn bnn" onclick="saveTC()">💾 Save to Firebase</button><button class="btn bng" onclick="clrTC()">Clear</button><span class="fst" id="tc-stat-msg"></span></div>
       </div>
     </div>
     <div class="card">
@@ -470,6 +485,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- CONSULTANT KPIS -->
 <section class="page" id="page-kpis">
   <div class="sh"><h2>Consultant KPIs</h2><div class="ln"></div></div>
   <div class="krow" id="cons-krow" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
@@ -481,6 +497,7 @@ tr:hover td{background:#fffbeb}
   <div class="card"><div class="ch"><div class="ct">Get Involved comparison</div></div><div class="cb"><div style="position:relative;height:240px"><canvas id="c-cons"></canvas></div></div></div>
 </section>
 
+<!-- MEETINGS LOG -->
 <section class="page" id="page-meetings">
   <div class="sh"><h2>Meetings Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addmeeting')">+ Add Meeting</button></div>
   <div class="card"><div class="cb tw" style="padding-top:8px">
@@ -490,6 +507,7 @@ tr:hover td{background:#fffbeb}
   </div></div>
 </section>
 
+<!-- TRIPS LOG -->
 <section class="page" id="page-trips">
   <div class="sh"><h2>Temple Trips Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addtrip')">+ Add Trip</button></div>
   <div class="krow" id="trip-krow" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px"></div>
@@ -505,7 +523,11 @@ tr:hover td{background:#fffbeb}
 
 <div class="toast" id="toast"></div>
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FIREBASE MODULE SCRIPT (ES Module)                  -->
+<!-- ═══════════════════════════════════════════════════ -->
 <script type="module">
+  // ── CORRECT Firebase version (10.x, not 12.x which doesn't exist) ──
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
   import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
@@ -520,9 +542,12 @@ tr:hover td{background:#fffbeb}
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+
+  // ── Expose db globally so non-module script can use it ──
   window.__db = db;
   window.__fbReady = true;
 
+  // ── Real-time listener: auto-refresh dashboard when data changes ──
   const subsRef = collection(db, "submitters");
   onSnapshot(subsRef, (snapshot) => {
     window.__submitters = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -554,6 +579,7 @@ tr:hover td{background:#fffbeb}
     if (window.__renderTC) window.__renderTC();
   });
 
+  // ── saveEntry — Temple Name Submitter ──
   window.saveEntry = async function () {
     var name = document.getElementById('e-name').value.trim();
     if (!name) { showToast('Please enter a member name'); return; }
@@ -574,13 +600,19 @@ tr:hover td{background:#fffbeb}
         notes: document.getElementById('e-notes').value,
         createdAt: new Date().toISOString()
       });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
       showToast('✓ Submitter saved to Firebase!');
       clrEntry();
       setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; showToast('Error saving: ' + e.message); }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+      showToast('Error saving: ' + e.message);
+    }
   };
 
+  // ── saveFH — Family History ──
   window.saveFH = async function () {
     var name = document.getElementById('fh-name').value.trim();
     if (!name) { showToast('Please enter a member name'); return; }
@@ -588,273 +620,397 @@ tr:hover td{background:#fffbeb}
     stat.textContent = 'Saving...';
     try {
       await addDoc(collection(db, "familyHistory"), {
-        name: name, org: document.getElementById('fh-org').value,
+        name: name,
+        org:  document.getElementById('fh-org').value,
         consultant: document.getElementById('fh-cons').value,
-        ysa: document.getElementById('fh-ysa').value,
-        g1: Number(document.getElementById('fh-g1').value || 0),
-        g2: Number(document.getElementById('fh-g2').value || 0),
-        g3: Number(document.getElementById('fh-g3').value || 0),
-        g4: Number(document.getElementById('fh-g4').value || 0),
-        g5: Number(document.getElementById('fh-g5').value || 0),
+        ysa:  document.getElementById('fh-ysa').value,
+        g1:   Number(document.getElementById('fh-g1').value || 0),
+        g2:   Number(document.getElementById('fh-g2').value || 0),
+        g3:   Number(document.getElementById('fh-g3').value || 0),
+        g4:   Number(document.getElementById('fh-g4').value || 0),
+        g5:   Number(document.getElementById('fh-g5').value || 0),
         done: document.getElementById('fh-done').value,
         entries: Number(document.getElementById('fh-entries').value || 0),
         notes: document.getElementById('fh-notes').value,
         createdAt: new Date().toISOString()
       });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Family history saved!'); clrFH();
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Family history saved!');
+      clrFH();
       setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+    }
   };
 
+  // ── saveMtg — Meeting ──
   window.saveMtg = async function () {
     var name = document.getElementById('m-name').value.trim();
     if (!name) { showToast('Please enter an attendee name'); return; }
-    var stat = document.getElementById('m-stat'); stat.textContent = 'Saving...';
+    var stat = document.getElementById('m-stat');
+    stat.textContent = 'Saving...';
     try {
       await addDoc(collection(db, "meetings"), {
-        date: document.getElementById('m-date').value, name: name,
-        role: document.getElementById('m-role').value,
+        date:    document.getElementById('m-date').value,
+        name:    name,
+        role:    document.getElementById('m-role').value,
         present: document.getElementById('m-present').value,
-        topic: document.getElementById('m-topic').value,
-        action: document.getElementById('m-action').value,
-        notes: document.getElementById('m-notes').value,
+        topic:   document.getElementById('m-topic').value,
+        action:  document.getElementById('m-action').value,
+        notes:   document.getElementById('m-notes').value,
         createdAt: new Date().toISOString()
       });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Meeting record saved!'); clrMtg();
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Meeting record saved!');
+      clrMtg();
       setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+    }
   };
 
+  // ── saveTrip — Temple Trip ──
   window.saveTrip = async function () {
     var name = document.getElementById('t-name').value.trim();
     if (!name) { showToast('Please enter an attendee name'); return; }
-    var stat = document.getElementById('t-stat'); stat.textContent = 'Saving...';
+    var stat = document.getElementById('t-stat');
+    stat.textContent = 'Saving...';
     try {
       await addDoc(collection(db, "wardTrips"), {
-        date: document.getElementById('t-date').value, name: name,
-        org: document.getElementById('t-org').value,
+        date:       document.getElementById('t-date').value,
+        name:       name,
+        org:        document.getElementById('t-org').value,
         consultant: document.getElementById('t-cons').value,
-        ysa: document.getElementById('t-ysa').value,
-        lo: document.getElementById('t-lo').value,
-        po: document.getElementById('t-po').value,
-        nc: document.getElementById('t-nc').value,
-        notes: document.getElementById('t-notes').value,
+        ysa:        document.getElementById('t-ysa').value,
+        lo:         document.getElementById('t-lo').value,
+        po:         document.getElementById('t-po').value,
+        nc:         document.getElementById('t-nc').value,
+        notes:      document.getElementById('t-notes').value,
         createdAt: new Date().toISOString()
       });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Temple trip saved!'); clrTrip();
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Temple trip saved!');
+      clrTrip();
       setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+    }
   };
 
+  // ── saveTC — Temple Class ──
   window.saveTC = async function () {
     var name = document.getElementById('tc-name').value.trim();
     if (!name) { showToast('Please enter a student name'); return; }
-    var stat = document.getElementById('tc-stat-msg'); stat.textContent = 'Saving...';
+    var stat = document.getElementById('tc-stat-msg');
+    stat.textContent = 'Saving...';
     try {
       await addDoc(collection(db, "templeClass"), {
-        name: name, date: document.getElementById('tc-date').value,
-        org: document.getElementById('tc-org').value,
+        name:       name,
+        date:       document.getElementById('tc-date').value,
+        org:        document.getElementById('tc-org').value,
         consultant: document.getElementById('tc-cons').value,
-        newMember: document.getElementById('tc-new').value,
-        ysa: document.getElementById('tc-ysa').value,
-        sessions: Number(document.getElementById('tc-ses').value || 0),
-        status: document.getElementById('tc-status').value,
-        notes: document.getElementById('tc-notes').value,
+        newMember:  document.getElementById('tc-new').value,
+        ysa:        document.getElementById('tc-ysa').value,
+        sessions:   Number(document.getElementById('tc-ses').value || 0),
+        status:     document.getElementById('tc-status').value,
+        notes:      document.getElementById('tc-notes').value,
         createdAt: new Date().toISOString()
       });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Student saved!'); clrTC();
+      stat.textContent = '✓ Saved!';
+      stat.style.color = '#16a34a';
+      showToast('✓ Student saved!');
+      clrTC();
       setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+    }
   };
 
+  // ── quickAll — Batch add all consultants to meeting ──
   window.quickAll = async function () {
-    var date = document.getElementById('m-date').value || '2026-04-01';
+    var date  = document.getElementById('m-date').value || '2026-04-01';
     var topic = document.getElementById('m-topic').value || 'Monthly Coordination Meeting';
     var action = document.getElementById('m-action').value || '';
-    var stat = document.getElementById('q-stat');
-    stat.textContent = 'Saving all...'; stat.style.color = 'var(--muted)';
+    var stat  = document.getElementById('q-stat');
+    stat.textContent = 'Saving all...';
+    stat.style.color = 'var(--muted)';
     try {
       var all = ['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie','Romeo Alejandro'];
       for (var i = 0; i < all.length; i++) {
         var n = all[i];
         await addDoc(collection(db, "meetings"), {
-          date: date, name: n,
-          role: n === 'Romeo Alejandro' ? 'Leadership' : 'Consultant',
-          present: 'Yes', topic: topic, action: action, notes: '',
+          date:    date,
+          name:    n,
+          role:    n === 'Romeo Alejandro' ? 'Leadership' : 'Consultant',
+          present: 'Yes',
+          topic:   topic,
+          action:  action,
+          notes:   '',
           createdAt: new Date().toISOString()
         });
       }
-      stat.textContent = '✓ All ' + all.length + ' saved!'; stat.style.color = '#16a34a';
+      stat.textContent = '✓ All ' + all.length + ' saved!';
+      stat.style.color = '#16a34a';
       showToast('✓ All consultants + Romeo Alejandro added!');
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
+    } catch(e) {
+      stat.textContent = '✗ Error: ' + e.message;
+      stat.style.color = '#dc2626';
+    }
   };
 
+  // Signal app is ready
   setBanner('ok', '✓ Live — connected to Firebase');
 </script>
 
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- MAIN APP SCRIPT (non-module)                        -->
+<!-- ═══════════════════════════════════════════════════ -->
 <script>
+// ── APPS SCRIPT CODE (for Google Sheets reference) ───
 var GAS = 'const SHEET_ID = \'1Rb5BmSSUqupk70Dw4M4iO3iTRgXhCsgdgN4sJ8s5o6Q\';\n\nfunction doGet(e) {\n  const action = e.parameter.action;\n  const ss = SpreadsheetApp.openById(SHEET_ID);\n  let data = {};\n  if (action === \'getAll\') {\n    data.submitters    = getData(ss, \'Temple_Submitters\');\n    data.familyHistory = getData(ss, \'Family_History\');\n    data.wardTrips     = getData(ss, \'Ward_Temple_Trips\');\n    data.meetings      = getData(ss, \'Monthly_Meeting\');\n    data.templeClass   = getData(ss, \'Temple_Class\');\n  } else if (action === \'ping\') {\n    data.status = \'connected\';\n    data.sheetName = ss.getName();\n  }\n  return out(data);\n}\n\nfunction doPost(e) {\n  try {\n    const p = JSON.parse(e.postData.contents);\n    const ss = SpreadsheetApp.openById(SHEET_ID);\n    const sheet = ss.getSheetByName(p.sheet);\n    if (!sheet) return out({ error: \'Sheet not found: \' + p.sheet });\n    sheet.appendRow(p.row);\n    return out({ success: true });\n  } catch(err) {\n    return out({ error: err.toString() });\n  }\n}\n\nfunction getData(ss, name) {\n  const s = ss.getSheetByName(name);\n  if (!s) return [];\n  const all = s.getDataRange().getValues();\n  if (all.length < 3) return [];\n  const h = all[1];\n  return all.slice(2)\n    .filter(r => r.some(c => c !== \'\'))\n    .map(r => {\n      const o = {};\n      h.forEach((k, i) => { if (String(k).trim()) o[String(k).trim()] = r[i]; });\n      return o;\n    });\n}\n\nfunction out(data) {\n  return ContentService\n    .createTextOutput(JSON.stringify(data))\n    .setMimeType(ContentService.MimeType.JSON);\n}';
 
-var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-var MONS  =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-var ORGS  =['EQ','RS','Youth','New Members','Primary','YSA'];
-var CONS  =['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
-var OC    =['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
-var CC    =['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
-var M=3,V='monthly',CH={};
+// ── CONSTANTS ────────────────────────────────────────
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MONS   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var ORGS   = ['EQ','RS','Youth','New Members','Primary','YSA'];
+var CONS   = ['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
+var OC     = ['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
+var CC     = ['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
 
-window.__submitters=window.__submitters||[];
-window.__familyHistory=window.__familyHistory||[];
-window.__meetings=window.__meetings||[];
-window.__wardTrips=window.__wardTrips||[];
-window.__templeClass=window.__templeClass||[];
+// ── STATE ────────────────────────────────────────────
+var M  = 3;
+var V  = 'monthly';
+var CH = {};
 
-var PM={
-  'dashboard':['Dashboard','All KPIs · 2026 Overview'],
-  'log':['Log My Work','Save data to Firebase'],
-  'addmeeting':['Add Meeting','Log coordination meeting'],
-  'addtrip':['Add Temple Trip','Log ward temple trip'],
-  'submitters':['Temple Submitters','Monthly & YTD breakdown'],
-  'sublist':['Submitters List','Names of all members who submitted'],
-  'getinvolved':['Get Involved','Records per consultant'],
+// Firebase data store (populated by real-time listeners above)
+window.__submitters   = window.__submitters   || [];
+window.__familyHistory= window.__familyHistory|| [];
+window.__meetings     = window.__meetings     || [];
+window.__wardTrips    = window.__wardTrips    || [];
+window.__templeClass  = window.__templeClass  || [];
+
+var PM = {
+  'dashboard':    ['Dashboard','All KPIs · 2026 Overview'],
+  'log':          ['Log My Work','Save data to Firebase'],
+  'addmeeting':   ['Add Meeting','Log coordination meeting'],
+  'addtrip':      ['Add Temple Trip','Log ward temple trip'],
+  'submitters':   ['Temple Submitters','Monthly & YTD breakdown'],
+  'sublist':      ['Submitters List','Names of all members who submitted'],
+  'getinvolved':  ['Get Involved','Records per consultant'],
   'familyhistory':['Family History','4-generation tracker'],
-  'templeclass':['Temple Preparation Class','Log students'],
-  'kpis':['Consultant KPIs','Performance vs targets'],
-  'meetings':['Meetings Log','All meeting records'],
-  'trips':['Temple Trips Log','All temple trip records']
+  'templeclass':  ['Temple Preparation Class','Log students'],
+  'kpis':         ['Consultant KPIs','Performance vs targets'],
+  'meetings':     ['Meetings Log','All meeting records'],
+  'trips':        ['Temple Trips Log','All temple trip records']
 };
 
-window.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('set-script').textContent=GAS;
-  ['e-cons','fh-cons','t-cons','tc-cons'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.innerHTML=CONS.map(function(c){return '<option>'+c+'</option>';}).join('');
+// ── INIT ─────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('set-script').textContent = GAS;
+  ['e-cons','fh-cons','t-cons','tc-cons'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = CONS.map(function(c){ return '<option>'+c+'</option>'; }).join('');
   });
-  document.querySelectorAll('.nav-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){goPage(btn.getAttribute('data-page'));});
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { goPage(btn.getAttribute('data-page')); });
   });
   renderDash();
 });
 
-window.__renderDash  =function(){if(document.getElementById('page-dashboard').classList.contains('active'))renderDash();};
-window.__renderRecent=function(){if(document.getElementById('page-log').classList.contains('active'))renderRecent();};
-window.__renderFH    =function(){if(document.getElementById('page-familyhistory').classList.contains('active'))renderFH();};
-window.__renderMtgs  =function(){if(document.getElementById('page-meetings').classList.contains('active'))renderMtgs();};
-window.__renderTrips =function(){if(document.getElementById('page-trips').classList.contains('active'))renderTrips();};
-window.__renderTC    =function(){if(document.getElementById('page-templeclass').classList.contains('active'))renderTC();};
+// Expose render functions so Firebase listeners can call them
+window.__renderDash   = function(){ if(document.getElementById('page-dashboard').classList.contains('active')) renderDash(); };
+window.__renderRecent = function(){ if(document.getElementById('page-log').classList.contains('active')) renderRecent(); };
+window.__renderFH     = function(){ if(document.getElementById('page-familyhistory').classList.contains('active')) renderFH(); };
+window.__renderMtgs   = function(){ if(document.getElementById('page-meetings').classList.contains('active')) renderMtgs(); };
+window.__renderTrips  = function(){ if(document.getElementById('page-trips').classList.contains('active')) renderTrips(); };
+window.__renderTC     = function(){ if(document.getElementById('page-templeclass').classList.contains('active')) renderTC(); };
 
-function goPage(id){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
-  var pg=document.getElementById('page-'+id); if(!pg)return;
+// ── NAVIGATION ───────────────────────────────────────
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (!pg) return;
   pg.classList.add('active');
-  var btn=document.querySelector('.nav-btn[data-page="'+id+'"]');
-  if(btn)btn.classList.add('active');
-  var meta=PM[id]||[id,''];
-  document.getElementById('pgTitle').textContent=meta[0];
-  document.getElementById('pgSub').textContent=meta[1];
-  closeSB(); renderPg(id);
+  var btn = document.querySelector('.nav-btn[data-page="'+id+'"]');
+  if (btn) btn.classList.add('active');
+  var meta = PM[id] || [id,''];
+  document.getElementById('pgTitle').textContent = meta[0];
+  document.getElementById('pgSub').textContent   = meta[1];
+  closeSB();
+  renderPg(id);
 }
 
-function renderPg(id){
-  if(id==='dashboard')renderDash();
-  else if(id==='log')renderRecent();
-  else if(id==='submitters')renderSub();
-  else if(id==='sublist')renderSL();
-  else if(id==='getinvolved')renderGI();
-  else if(id==='familyhistory')renderFH();
-  else if(id==='templeclass')renderTC();
-  else if(id==='kpis')renderKPIs();
-  else if(id==='meetings')renderMtgs();
-  else if(id==='trips')renderTrips();
+function renderPg(id) {
+  if      (id==='dashboard')    renderDash();
+  else if (id==='log')          renderRecent();
+  else if (id==='submitters')   renderSub();
+  else if (id==='sublist')      renderSL();
+  else if (id==='getinvolved')  renderGI();
+  else if (id==='familyhistory')renderFH();
+  else if (id==='templeclass')  renderTC();
+  else if (id==='kpis')         renderKPIs();
+  else if (id==='meetings')     renderMtgs();
+  else if (id==='trips')        renderTrips();
 }
 
-function onMC(){M=parseInt(document.getElementById('msel').value);var a=document.querySelector('.page.active');if(a)renderPg(a.id.replace('page-',''));}
-function setV(v,btn){V=v;document.querySelectorAll('.vtog button').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');var a=document.querySelector('.page.active');if(a)renderPg(a.id.replace('page-',''));}
-function toggleSB(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
-function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
-function openMod(){document.getElementById('set-url').value='';document.getElementById('set-cur').textContent='Using Firebase (real-time database)';document.getElementById('set-stat').textContent='✓ Firebase connected';document.getElementById('set-stat').style.color='#16a34a';document.getElementById('settingsModal').classList.add('open');}
-function closeMod(){document.getElementById('settingsModal').classList.remove('open');}
-function saveUrl(){closeMod();showToast('App uses Firebase — no URL needed!');}
-async function testConn(){var s=document.getElementById('set-stat');s.textContent='Testing Firebase...';s.style.color='var(--muted)';try{if(window.__fbReady){s.textContent='✓ Firebase connected!';s.style.color='#16a34a';}else{s.textContent='Still initializing...';s.style.color='#d97706';}}catch(e){s.textContent='✗ Error: '+e.message;s.style.color='#dc2626';}}
-function copyScript(){navigator.clipboard.writeText(GAS).then(function(){showToast('Script copied! Paste into Apps Script.');});}
-function setBanner(type,msg){var b=document.getElementById('conn-banner');if(!b)return;b.className='banner '+type;document.getElementById('conn-msg').textContent=msg;}
+function onMC() {
+  M = parseInt(document.getElementById('msel').value);
+  var a = document.querySelector('.page.active');
+  if (a) renderPg(a.id.replace('page-',''));
+}
 
-function allSubs() {return window.__submitters||[];}
-function allFH()   {return window.__familyHistory||[];}
-function allMtgs() {return window.__meetings||[];}
-function allTrips(){return window.__wardTrips||[];}
-function allTC()   {return window.__templeClass||[];}
+function setV(v, btn) {
+  V = v;
+  document.querySelectorAll('.vtog button').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var a = document.querySelector('.page.active');
+  if (a) renderPg(a.id.replace('page-',''));
+}
 
-function getOD(){
-  var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
-  allSubs().forEach(function(r){
-    var raw=r.date||'';if(!raw)return;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
-    var mi=dt.getMonth(),org=r.org||'',sub=r.submitted||'No';
-    if(sub==='Yes'&&d[org]!==undefined)d[org][mi]++;
+function toggleSB() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSB() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── SETTINGS MODAL ───────────────────────────────────
+function openMod() {
+  document.getElementById('set-url').value = '';
+  document.getElementById('set-cur').textContent = 'Using Firebase (real-time database)';
+  document.getElementById('set-stat').textContent = '✓ Firebase connected';
+  document.getElementById('set-stat').style.color = '#16a34a';
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeMod() { document.getElementById('settingsModal').classList.remove('open'); }
+function saveUrl()  { closeMod(); showToast('App uses Firebase — no URL needed!'); }
+
+async function testConn() {
+  var s = document.getElementById('set-stat');
+  s.textContent = 'Testing Firebase...'; s.style.color = 'var(--muted)';
+  try {
+    if (window.__fbReady) { s.textContent = '✓ Firebase connected!'; s.style.color = '#16a34a'; }
+    else { s.textContent = 'Still initializing...'; s.style.color = '#d97706'; }
+  } catch(e) { s.textContent = '✗ Error: ' + e.message; s.style.color = '#dc2626'; }
+}
+
+function copyScript() {
+  navigator.clipboard.writeText(GAS).then(function(){ showToast('Script copied! Paste into Apps Script.'); });
+}
+
+function setBanner(type, msg) {
+  var b = document.getElementById('conn-banner');
+  if (!b) return;
+  b.className = 'banner ' + type;
+  document.getElementById('conn-msg').textContent = msg;
+}
+
+// ── DATA GETTERS (from Firebase real-time cache) ─────
+function allSubs()    { return window.__submitters    || []; }
+function allFH()      { return window.__familyHistory || []; }
+function allMtgs()    { return window.__meetings      || []; }
+function allTrips()   { return window.__wardTrips     || []; }
+function allTC()      { return window.__templeClass   || []; }
+
+function getOD() {
+  var d = {};
+  ORGS.forEach(function(o){ d[o] = new Array(12).fill(0); });
+  allSubs().forEach(function(r) {
+    var raw = r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var mi  = dt.getMonth();
+    var org = r.org || '';
+    var sub = r.submitted || 'No';
+    if (sub === 'Yes' && d[org] !== undefined) d[org][mi]++;
   });
   return d;
 }
 
-function getGD(){
-  var d={};CONS.forEach(function(c){d[c]=new Array(12).fill(0);});
-  allSubs().forEach(function(r){
-    var raw=r.date||'';if(!raw)return;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
-    var mi=dt.getMonth(),cons=r.consultant||'',gi=parseFloat(r.gi||0)||0;
-    if(d[cons]!==undefined)d[cons][mi]+=gi;
+function getGD() {
+  var d = {};
+  CONS.forEach(function(c){ d[c] = new Array(12).fill(0); });
+  allSubs().forEach(function(r) {
+    var raw = r.date || '';
+    if (!raw) return;
+    var dt = new Date(raw);
+    if (isNaN(dt) || dt.getFullYear() !== 2026) return;
+    var mi   = dt.getMonth();
+    var cons = r.consultant || '';
+    var gi   = parseFloat(r.gi || 0) || 0;
+    if (d[cons] !== undefined) d[cons][mi] += gi;
   });
   return d;
 }
 
-function getFHD(){
-  return allFH().map(function(r){
-    return{name:r.name||'',org:r.org||'',ysa:r.ysa==='Yes',g:[+r.g1||0,+r.g2||0,+r.g3||0,+r.g4||0],g5:+r.g5||0,done:r.done==='Yes',entries:+r.entries||0,by:r.consultant||''};
-  }).filter(function(r){return r.name;});
+function getFHD() {
+  return allFH().map(function(r) {
+    return {
+      name: r.name || '',
+      org:  r.org  || '',
+      ysa:  r.ysa  === 'Yes',
+      g:    [+r.g1||0, +r.g2||0, +r.g3||0, +r.g4||0],
+      g5:   +r.g5 || 0,
+      done: r.done === 'Yes',
+      entries: +r.entries || 0,
+      by: r.consultant || ''
+    };
+  }).filter(function(r){ return r.name; });
 }
 
-function getTCD(){
-  return allTC().map(function(r){
-    return{name:r.name||'',org:r.org||'',cons:r.consultant||'',sessions:+r.sessions||0,status:r.status||'Enrolled'};
-  }).filter(function(r){return r.name;});
+function getTCD() {
+  return allTC().map(function(r) {
+    return {
+      name:     r.name || '',
+      org:      r.org  || '',
+      cons:     r.consultant || '',
+      sessions: +r.sessions || 0,
+      status:   r.status || 'Enrolled'
+    };
+  }).filter(function(r){ return r.name; });
 }
 
-function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
-function tM(od,mi){return ORGS.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
-function tY(od,mi){return ORGS.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
-function tGI(gd,mi){return CONS.reduce(function(a,c){return a+((gd[c]||[])[mi]||0);},0);}
-function tGIY(gd,mi){return CONS.reduce(function(a,c){return a+sumTo(gd[c]||[],mi);},0);}
-function bx(t,c){return '<span class="bd b'+c+'">'+t+'</span>';}
-function yno(v){return v?bx('Yes','g'):bx('No','r');}
-function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
+// ── MATH HELPERS ─────────────────────────────────────
+function sumTo(arr, mi) { return arr.slice(0, mi+1).reduce(function(a,b){return a+b;}, 0); }
+function tM(od, mi)  { return ORGS.reduce(function(a,o){return a+((od[o]||[])[mi]||0);}, 0); }
+function tY(od, mi)  { return ORGS.reduce(function(a,o){return a+sumTo(od[o]||[],mi);}, 0); }
+function tGI(gd, mi) { return CONS.reduce(function(a,c){return a+((gd[c]||[])[mi]||0);}, 0); }
+function tGIY(gd,mi) { return CONS.reduce(function(a,c){return a+sumTo(gd[c]||[],mi);}, 0); }
 
-// ═══════════════════════════════════════════
-// BUG FIX: fhDone now counts BOTH sources:
-//   1. familyHistory collection (done === 'Yes')
-//   2. submitters collection    (gen4 === true)
-// This ensures "4th Gen Completed?" logged via
-// "Log My Work" appears on the dashboard.
-// ═══════════════════════════════════════════
-function renderDash(){
-  var od=getOD(),gd=getGD(),fh=getFHD();
-  var mi=M,isY=V==='ytd';
-  var mSub=tM(od,mi),ySub=tY(od,mi);
-  var giM=tGI(gd,mi),giY=tGIY(gd,mi);
-  var pct=ySub>0?Math.min(100,Math.round(ySub/100*100)):0;
+function bx(t,c){ return '<span class="bd b'+c+'">'+t+'</span>'; }
+function yno(v){ return v ? bx('Yes','g') : bx('No','r'); }
 
-  // ▼ FIXED: combine familyHistory + submitters gen4 completions
-  var fhDone=fh.filter(function(r){return r.done;}).length
-            +allSubs().filter(function(r){return r.gen4===true;}).length;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
+}
 
-  var disp=isY?ySub:mSub;
-  var exp=Math.round(100*(mi+1)/12);
+// ── RENDER DASHBOARD ─────────────────────────────────
+function renderDash() {
+  var od = getOD(), gd = getGD(), fh = getFHD();
+  var mi = M, isY = V === 'ytd';
+  var mSub  = tM(od,mi),  ySub = tY(od,mi);
+  var giM   = tGI(gd,mi), giY  = tGIY(gd,mi);
+  var pct   = ySub > 0 ? Math.min(100, Math.round(ySub/100*100)) : 0;
+  var fhDone = fh.filter(function(r){return r.done;}).length
++ allSubs().filter(function(r){ return r.gen4 === Yes; }).length;
+  var disp  = isY ? ySub : mSub;
+  var exp   = Math.round(100*(mi+1)/12);
 
-  document.getElementById('kpi-grid').innerHTML=[
+  document.getElementById('kpi-grid').innerHTML = [
     {l:isY?'YTD Submitters':'Monthly Submitters',v:disp,s:isY?'Jan–'+MONS[mi]:'~8/month target',c:'blue',p:Math.min(100,Math.round(disp/8*100)),f:'#2563eb',ytd:isY},
     {l:'YTD Submitters',v:ySub,s:'100/year target',c:'blue',p:pct,f:'#2563eb',ytd:true},
     {l:isY?'YTD Get Involved':'Get Involved',v:(isY?giY:giM).toLocaleString(),s:isY?'Jan–'+MONS[mi]:'Target 3,500/month',c:'amber',p:Math.min(100,Math.round((isY?giY:giM)/3500*100)),f:'#d97706',ytd:isY},
@@ -862,57 +1018,79 @@ function renderDash(){
     {l:'4th Gen Completed',v:fhDone,s:'Target 50/year',c:'green',p:Math.min(100,Math.round(fhDone/50*100)),f:'#16a34a'},
     {l:'Annual Progress',v:pct+'%',s:'Submitters vs 100/yr',c:'teal',p:pct,f:'#0d9488'}
   ].map(function(k,i){
-    return '<div class="kpi '+k.c+'" style="animation:fu .3s '+i*.05+'s both">'+
-      '<div class="kl">'+k.l+(k.ytd?'<span class="ytag">YTD</span>':'')+'</div>'+
-      '<div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div>'+
+    return '<div class="kpi '+k.c+'" style="animation:fu .3s '+i*.05+'s both">' +
+      '<div class="kl">'+k.l+(k.ytd?'<span class="ytag">YTD</span>':'')+'</div>' +
+      '<div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div>' +
       '<div class="kbar"><div class="kfill" style="width:'+k.p+'%;background:'+k.f+'"></div></div></div>';
   }).join('');
 
-  document.getElementById('ytd-strip').innerHTML=[
+  document.getElementById('ytd-strip').innerHTML = [
     {l:'YTD Submitters',v:ySub,s:'Jan–'+MONS[mi]},
     {l:'YTD Get Involved',v:giY.toLocaleString(),s:'All consultants'},
     {l:'% of Annual Target',v:pct+'%',s:'vs 100 goal'},
     {l:'On Track?',v:ySub>=exp?'YES':'NO',s:'Need ≥'+exp},
     {l:'Months Elapsed',v:mi+1,s:'of 12'},
     {l:'Remaining',v:Math.max(0,100-ySub),s:'names needed'}
-  ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  ].map(function(x){
+    return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';
+  }).join('');
 
-  var sv=ORGS.map(function(o){return isY?sumTo(od[o]||[],mi):((od[o]||[])[mi]||0);});
+  var sv = ORGS.map(function(o){ return isY?sumTo(od[o]||[],mi):((od[o]||[])[mi]||0); });
   document.getElementById('sc-title').textContent='Temple Submitters — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
-  document.getElementById('sc-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+' <b>'+sv[i]+'</b></span>';}).join('');
-  if(CH.sub)CH.sub.destroy();
-  CH.sub=new Chart(document.getElementById('c-sub'),{type:'bar',data:{labels:ORGS,datasets:[{data:sv,backgroundColor:OC.map(function(c){return c+'CC';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,ticks:{font:{size:11}}}}}});
+  document.getElementById('sc-leg').innerHTML=ORGS.map(function(o,i){
+    return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+' <b>'+sv[i]+'</b></span>';
+  }).join('');
+  if(CH.sub) CH.sub.destroy();
+  CH.sub=new Chart(document.getElementById('c-sub'),{
+    type:'bar',data:{labels:ORGS,datasets:[{data:sv,backgroundColor:OC.map(function(c){return c+'CC';}),borderColor:OC,borderWidth:1,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,ticks:{font:{size:11}}}}}
+  });
 
-  var pv=ORGS.map(function(o){return(od[o]||[])[mi]||0;});
+  var pv=ORGS.map(function(o){return (od[o]||[])[mi]||0;});
   document.getElementById('pie-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+'</span>';}).join('');
-  if(CH.pie)CH.pie.destroy();
-  CH.pie=new Chart(document.getElementById('c-pie'),{type:'doughnut',data:{labels:ORGS,datasets:[{data:pv,backgroundColor:OC,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}});
+  if(CH.pie) CH.pie.destroy();
+  CH.pie=new Chart(document.getElementById('c-pie'),{
+    type:'doughnut',data:{labels:ORGS,datasets:[{data:pv,backgroundColor:OC,borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}
+  });
 
   var tgt=isY?500*(mi+1):500;
-  var maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
+  var maxGI=Math.max.apply(null,CONS.map(function(c){return (gd[c]||[])[mi]||0;}).concat([1]));
   document.getElementById('gi-lbl').textContent=(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi])+' · target '+tgt.toLocaleString();
   document.getElementById('prog-bars').innerHTML=CONS.map(function(c,i){
     var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);
-    return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+' '+(val>=tgt?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>')+'</div></div>';
+    return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div>'+
+      '<div class="pv">'+val.toLocaleString()+' '+(val>=tgt?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>')+'</div></div>';
   }).join('');
 
   var combined=MONS.map(function(_,i){return tGI(gd,i);});
-  if(CH.trend)CH.trend.destroy();
-  CH.trend=new Chart(document.getElementById('c-trend'),{type:'line',data:{labels:MONS,datasets:[{data:combined,borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
+  if(CH.trend) CH.trend.destroy();
+  CH.trend=new Chart(document.getElementById('c-trend'),{
+    type:'line',data:{labels:MONS,datasets:[{data:combined,borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}
+  });
 
   var fhMB=document.getElementById('fh-mini'),fhME=document.getElementById('fh-mini-e');
-  if(fh.length){fhME.style.display='none';fhMB.style.display='';
-    fhMB.innerHTML=fh.map(function(r){return '<tr><td><b>'+r.name.split(' ').slice(0,2).join(' ')+'</b></td><td>'+bx(r.org,'b')+'</td><td style="text-align:center">'+r.g[3]+'/4</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td>'+r.by+'</td></tr>';}).join('');
+  if(fh.length){
+    fhME.style.display='none';fhMB.style.display='';
+    fhMB.innerHTML=fh.map(function(r){
+      return '<tr><td><b>'+r.name.split(' ').slice(0,2).join(' ')+'</b></td><td>'+bx(r.org,'b')+'</td><td style="text-align:center">'+r.g[3]+'/4</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td>'+r.by+'</td></tr>';
+    }).join('');
   }else{fhMB.style.display='none';fhME.style.display='';}
 
   document.getElementById('ytdb-title').textContent='YTD submitters — Jan–'+MONTHS[mi];
   var yv=ORGS.map(function(o){return sumTo(od[o]||[],mi);});
-  if(CH.ytdB)CH.ytdB.destroy();
-  CH.ytdB=new Chart(document.getElementById('c-ytd'),{type:'bar',indexAxis:'y',data:{labels:ORGS,datasets:[{data:yv,backgroundColor:OC.map(function(c){return c+'BB';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
+  if(CH.ytdB) CH.ytdB.destroy();
+  CH.ytdB=new Chart(document.getElementById('c-ytd'),{
+    type:'bar',indexAxis:'y',
+    data:{labels:ORGS,datasets:[{data:yv,backgroundColor:OC.map(function(c){return c+'BB';}),borderColor:OC,borderWidth:1,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}
+  });
 }
 
-function renderSub(){
-  var od=getOD(),mi=M,exp=Math.round(100*(mi+1)/12);
+function renderSub() {
+  var od=getOD(),mi=M;
+  var exp=Math.round(100*(mi+1)/12);
   document.getElementById('sub-ystrip').innerHTML=[
     {l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},
     {l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},
@@ -924,20 +1102,22 @@ function renderSub(){
   document.getElementById('sub-tbl-t').textContent='Monthly breakdown — '+MONTHS[mi]+' highlighted';
   document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){
     var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;
-    return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:600;color:#1B3A6B':'')+'">'
-      +mn+(sel?' '+bx('selected','n'):'')+
-      '</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')
-      +'<td style="text-align:center;font-weight:500;color:#2563eb">'+mT+'</td>'
-      +'<td style="text-align:center;font-weight:500;color:#0d9488">'+yT+'</td>'
-      +'<td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';
+    return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:600;color:#1B3A6B':'')+'">' +
+      mn+(sel?' '+bx('selected','n'):'')+
+      '</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('') +
+      '<td style="text-align:center;font-weight:500;color:#2563eb">'+mT+'</td>' +
+      '<td style="text-align:center;font-weight:500;color:#0d9488">'+yT+'</td>' +
+      '<td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';
   }).join('');
 }
 
-function renderSL(){
+function renderSL() {
   var filter=document.getElementById('sl-filter')?document.getElementById('sl-filter').value:'all';
   var rows=allSubs().filter(function(r){
-    var raw=r.date||'';if(!raw)return false;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return false;
+    var raw=r.date||'';
+    if(!raw) return false;
+    var dt=new Date(raw);
+    if(isNaN(dt)||dt.getFullYear()!==2026) return false;
     return filter==='all'||dt.getMonth()===parseInt(filter);
   });
   var lbl=filter==='all'?'All 2026':MONTHS[parseInt(filter)];
@@ -951,17 +1131,16 @@ function renderSL(){
   var tb=document.getElementById('sl-tbody'),em=document.getElementById('sl-empty');
   if(rows.length){
     em.style.display='none';
-    // ▼ FIXED: use r.gen4===true (boolean) not string comparison
     tb.innerHTML=rows.map(function(r,i){
-      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+((r.gi||0)).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+(r.gen4===true?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:11px">'+(r.notes||'')+'</td></tr>';
+      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+((r.gi||0)).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+((r.gen4||'No')==='Yes'?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:11px">'+(r.notes||'')+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderGI(){
+function renderGI() {
   var gd=getGD(),mi=M,isY=V==='ytd';
   var giY=tGIY(gd,mi),giM=tGI(gd,mi);
-  var best=CONS.reduce(function(a,c){return((gd[c]||[])[mi]||0)>((gd[a]||[])[mi]||0)?c:a;},CONS[0]);
+  var best=CONS.reduce(function(a,c){return ((gd[c]||[])[mi]||0)>((gd[a]||[])[mi]||0)?c:a;},CONS[0]);
   document.getElementById('gi-ystrip').innerHTML=[
     {l:'This Month',v:giM.toLocaleString(),s:'All consultants'},
     {l:'YTD Total',v:giY.toLocaleString(),s:'Jan–'+MONS[mi]},
@@ -971,15 +1150,18 @@ function renderGI(){
     {l:'YTD Average',v:Math.round(giY/CONS.length).toLocaleString(),s:'Per consultant'}
   ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   document.getElementById('gi-pg-t').textContent='Get Involved — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
-  var maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
+  var maxGI=Math.max.apply(null,CONS.map(function(c){return (gd[c]||[])[mi]||0;}).concat([1]));
   document.getElementById('gi-bars').innerHTML=CONS.map(function(c,i){
     var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);
     return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+(val>=500?' <span style="color:#16a34a">✓</span>':'')+'</div></div>';
   }).join('');
   document.getElementById('gi-tleg').innerHTML=CONS.map(function(c,i){return '<span class="li"><span class="ld" style="background:'+CC[i]+'"></span>'+c+'</span>';}).join('');
-  if(CH.giT)CH.giT.destroy();
-  CH.giT=new Chart(document.getElementById('c-gitrd'),{type:'line',data:{labels:MONS,datasets:CONS.map(function(c,i){return{label:c,data:gd[c]||[],borderColor:CC[i],backgroundColor:CC[i]+'15',borderWidth:1.5,pointRadius:2,tension:.35,fill:false};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
-  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c){
+  if(CH.giT) CH.giT.destroy();
+  CH.giT=new Chart(document.getElementById('c-gitrd'),{
+    type:'line',data:{labels:MONS,datasets:CONS.map(function(c,i){return {label:c,data:gd[c]||[],borderColor:CC[i],backgroundColor:CC[i]+'15',borderWidth:1.5,pointRadius:2,tension:.35,fill:false};})},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}
+  });
+  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c,i){
     var total=(gd[c]||[]).reduce(function(a,b){return a+b;},0);
     return '<tr><td style="font-weight:500">'+c+'</td>'+(gd[c]||new Array(12).fill(0)).map(function(val,idx){
       return '<td style="text-align:center;'+(idx===mi?'background:#eff6ff;font-weight:500;color:#2563eb':'')+'">'+(val||0).toLocaleString()+'</td>';
@@ -987,7 +1169,7 @@ function renderGI(){
   }).join('');
 }
 
-function renderFH(){
+function renderFH() {
   var fh=getFHD(),done=fh.filter(function(r){return r.done;}).length;
   document.getElementById('fh-kpis').innerHTML=[
     {l:'4th Gen Completed',v:done,s:'Target 50/year',c:'green'},
@@ -996,17 +1178,18 @@ function renderFH(){
     {l:'5th Gen Started',v:fh.filter(function(r){return r.g5>0;}).length,s:'Beyond 4th gen',c:'teal'}
   ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('fh-tbody'),em=document.getElementById('fh-empty');
-  if(fh.length){em.style.display='none';
+  if(fh.length){
+    em.style.display='none';
     tb.innerHTML=fh.map(function(r){
-      return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+yno(r.ysa)+'</td>'+
-        r.g.map(function(v){return '<td style="text-align:center">'+v+'/4</td>';}).join('')+
-        '<td style="text-align:center">'+(r.g5||'—')+'</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td>'+
+      return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+yno(r.ysa)+'</td>' +
+        r.g.map(function(v){return '<td style="text-align:center">'+v+'/4</td>';}).join('') +
+        '<td style="text-align:center">'+(r.g5||'—')+'</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td>' +
         '<td style="text-align:center">'+r.entries+'</td><td>'+r.by+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderTC(){
+function renderTC() {
   var tc=getTCD(),count=tc.length;
   document.getElementById('tc-count').textContent=count+' of 10';
   document.getElementById('tc-kpis').innerHTML=[
@@ -1016,7 +1199,8 @@ function renderTC(){
     {l:'Remaining Slots',v:Math.max(0,10-count),s:'to target',c:'amber'}
   ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('tc-tbody'),em=document.getElementById('tc-empty');
-  if(tc.length){em.style.display='none';
+  if(tc.length){
+    em.style.display='none';
     tb.innerHTML=tc.map(function(r){
       var sb=r.status==='Completed'?bx('Completed','g'):r.status==='In Progress'?bx('In Progress','b'):r.status==='Dropped'?bx('Dropped','r'):bx('Enrolled','a');
       return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+r.cons+'</td><td style="text-align:center">'+r.sessions+'</td><td>'+sb+'</td></tr>';
@@ -1024,11 +1208,11 @@ function renderTC(){
   }else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderKPIs(){
+function renderKPIs() {
   var gd=getGD(),fh=getFHD(),mi=M,isY=V==='ytd';
   document.getElementById('cons-tbl-t').textContent='KPI — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
   document.getElementById('cons-krow').innerHTML=[
-    {l:'On Track',v:CONS.filter(function(c){return((gd[c]||[])[mi]||0)>=500;}).length+' of '+CONS.length,s:'Get Involved ≥500',c:'green'},
+    {l:'On Track',v:CONS.filter(function(c){return ((gd[c]||[])[mi]||0)>=500;}).length+' of '+CONS.length,s:'Get Involved ≥500',c:'green'},
     {l:'Total Get Involved',v:(isY?tGIY(gd,mi):tGI(gd,mi)).toLocaleString(),s:isY?'Jan–'+MONS[mi]:'This month',c:'amber'},
     {l:'4th Gen Done',v:fh.filter(function(r){return r.done;}).length,s:'Total done',c:'blue'},
     {l:'Temple Class',v:getTCD().length,s:'10/year target',c:'purple'}
@@ -1038,20 +1222,26 @@ function renderKPIs(){
     var tgt=isY?500*(mi+1):500,on=gi>=tgt;
     var fhD=fh.filter(function(r){return r.by===c&&r.done;}).length;
     var ns=fh.filter(function(r){return r.by===c;}).length;
-    return '<tr><td><b>'+c+'</b></td><td style="font-weight:500;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td>'+
-      '<td>'+(on?bx('On track','g'):bx('Below','a'))+'</td>'+
-      '<td>'+fhD+'<span style="color:#9ca3af">/50</span></td>'+
-      '<td>'+ns+'<span style="color:#9ca3af">/100</span></td>'+
+    return '<tr><td><b>'+c+'</b></td><td style="font-weight:500;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td>' +
+      '<td>'+(on?bx('On track','g'):bx('Below','a'))+'</td>' +
+      '<td>'+fhD+'<span style="color:#9ca3af">/50</span></td>' +
+      '<td>'+ns+'<span style="color:#9ca3af">/100</span></td>' +
       '<td>'+(gi>=500?bx('✓ Met','g'):bx('↓ Below','r'))+'</td></tr>';
   }).join('');
-  if(CH.cBar)CH.cBar.destroy();
+  if(CH.cBar) CH.cBar.destroy();
   var vals=CONS.map(function(c){return isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);});
-  CH.cBar=new Chart(document.getElementById('c-cons'),{type:'bar',indexAxis:'y',data:{labels:CONS,datasets:[{data:vals,backgroundColor:CC.map(function(c){return c+'CC';}),borderColor:CC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
+  CH.cBar=new Chart(document.getElementById('c-cons'),{
+    type:'bar',indexAxis:'y',
+    data:{labels:CONS,datasets:[{data:vals,backgroundColor:CC.map(function(c){return c+'CC';}),borderColor:CC,borderWidth:1,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}
+  });
 }
 
-function renderMtgs(){
-  var rows=allMtgs(),tb=document.getElementById('mtg-tbody'),em=document.getElementById('mtg-empty');
-  if(rows.length){em.style.display='none';
+function renderMtgs() {
+  var rows=allMtgs();
+  var tb=document.getElementById('mtg-tbody'),em=document.getElementById('mtg-empty');
+  if(rows.length){
+    em.style.display='none';
     tb.innerHTML=rows.map(function(r){
       var pres=(r.present||'No')==='Yes';
       var rb=r.role==='Consultant'?bx('Consultant','b'):bx(r.role||'Leadership','a');
@@ -1060,7 +1250,7 @@ function renderMtgs(){
   }else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderTrips(){
+function renderTrips() {
   var rows=allTrips();
   var lo=rows.filter(function(r){return r.lo==='Yes';}).length;
   var po=rows.filter(function(r){return r.po==='Yes';}).length;
@@ -1071,24 +1261,27 @@ function renderTrips(){
     {l:'Name Cards',v:nc,s:'Printed',c:'purple'}
   ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('trip-tbody'),em=document.getElementById('trip-empty');
-  if(rows.length){em.style.display='none';
+  if(rows.length){
+    em.style.display='none';
     tb.innerHTML=rows.map(function(r){
       return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+bx(r.org||'','b')+'</td><td>'+yno(r.lo==='Yes')+'</td><td>'+yno(r.po==='Yes')+'</td><td>'+yno(r.nc==='Yes')+'</td><td>'+(r.consultant||'')+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderRecent(){
+function renderRecent() {
   var rows=allSubs().slice().reverse().slice(0,20);
   var tb=document.getElementById('recent-body'),em=document.getElementById('recent-e');
-  if(!tb||!em)return;
-  if(rows.length){em.style.display='none';
+  if(!tb||!em) return;
+  if(rows.length){
+    em.style.display='none';
     tb.innerHTML=rows.map(function(r,i){
       return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+((r.gi||0)).toLocaleString()+'</td><td>'+((r.submitted||'No')==='Yes'?bx('Yes','g'):bx('No','a'))+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
 
+// ── CLEAR FUNCTIONS ──────────────────────────────────
 function clrEntry(){['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('e-date').value='2026-04-01';var s=document.getElementById('e-stat');if(s){s.textContent='';s.style.color='';}}
 function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s){s.textContent='';}}
 function clrMtg(){['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('m-date').value='2026-04-01';var s=document.getElementById('m-stat');if(s){s.textContent='';}}
