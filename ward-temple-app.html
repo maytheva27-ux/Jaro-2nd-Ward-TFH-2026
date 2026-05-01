@@ -277,6 +277,45 @@ tr:hover td{background:#fffbeb}
       <div class="cb"><div style="position:relative;height:195px"><canvas id="c-ytd"></canvas></div></div>
     </div>
   </div>
+
+<div class="g2" style="margin-top:13px">
+  <div class="card">
+    <div class="ch">
+      <div>
+        <div class="ct">New Members & YSA — monthly</div>
+        <div class="cs" id="nm-sub">All 2026 months</div>
+      </div>
+      <div style="display:flex;gap:8px;font-size:11px;align-items:center;color:#6b7280">
+        <span style="display:flex;align-items:center;gap:3px">
+          <span style="width:8px;height:8px;border-radius:2px;background:#7c3aed;display:inline-block"></span>New Members
+        </span>
+        <span style="display:flex;align-items:center;gap:3px">
+          <span style="width:8px;height:8px;border-radius:2px;background:#0d9488;display:inline-block"></span>YSA
+        </span>
+      </div>
+    </div>
+    <div class="cb">
+      <div style="position:relative;height:180px">
+        <canvas id="c-nm"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <div class="ct" id="nm-pie-t">New Member / YSA split</div>
+    </div>
+    <div class="cb">
+      <div style="position:relative;height:150px">
+        <canvas id="c-nm-pie"></canvas>
+      </div>
+      <div class="leg" style="margin-top:7px;justify-content:center">
+        <span class="li"><span class="ld" style="background:#7c3aed"></span>New Members</span>
+        <span class="li"><span class="ld" style="background:#0d9488"></span>YSA</span>
+        <span class="li"><span class="ld" style="background:#2563eb"></span>Regular</span>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="page" id="page-log">
@@ -1088,7 +1127,20 @@ function renderRecent(){
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
-
+function getNMD(){
+  var nm=new Array(12).fill(0);
+  var ysa=new Array(12).fill(0);
+  allSubs().forEach(function(r){
+    var raw=r.date||'';if(!raw)return;
+    var dt=new Date(raw);
+    if(isNaN(dt)||dt.getFullYear()!==2026)return;
+    var mi=dt.getMonth();
+    if((r.newMember||'No')==='Yes')nm[mi]++;
+    if((r.ysa||'No')==='Yes')ysa[mi]++;
+  });
+  return{nm:nm,ysa:ysa};
+}
+  
 function clrEntry(){['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('e-date').value='2026-04-01';var s=document.getElementById('e-stat');if(s){s.textContent='';s.style.color='';}}
 function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s){s.textContent='';}}
 function clrMtg(){['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('m-date').value='2026-04-01';var s=document.getElementById('m-stat');if(s){s.textContent='';}}
