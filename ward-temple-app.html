@@ -1006,7 +1006,7 @@ function renderDash() {
   var giM   = tGI(gd,mi), giY  = tGIY(gd,mi);
   var pct   = ySub > 0 ? Math.min(100, Math.round(ySub/100*100)) : 0;
   var fhDone = fh.filter(function(r){return r.done;}).length
-+ allSubs().filter(function(r){ return r.gen4 === true; }).length;
++ allSubs().filter(function(r){ return r.gen4 === Yes; }).length;
   var disp  = isY ? ySub : mSub;
   var exp   = Math.round(100*(mi+1)/12);
 
