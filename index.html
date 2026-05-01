@@ -836,6 +836,8 @@ function getOD(){
     var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
     var mi=dt.getMonth(),org=r.org||'',sub=r.submitted||'No';
     if(sub==='Yes'&&d[org]!==undefined)d[org][mi]++;
+    if((r.ysa||'No')==='Yes'&&d['YSA']!==undefined)d['YSA'][mi]++;
+    if((r.newMember||'No')==='Yes'&&d['New Members']!==undefined)d['New Members'][mi]++;
   });
   return d;
 }
@@ -864,8 +866,9 @@ function getTCD(){
 }
 
 function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
-function tM(od,mi){return ORGS.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
-function tY(od,mi){return ORGS.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
+var PRIME=['EQ','RS','Youth','Primary'];
+function tM(od,mi){return PRIME.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
+function tY(od,mi){return PRIME.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
 function tGI(gd,mi){return CONS.reduce(function(a,c){return a+((gd[c]||[])[mi]||0);},0);}
 function tGIY(gd,mi){return CONS.reduce(function(a,c){return a+sumTo(gd[c]||[],mi);},0);}
 function bx(t,c){return '<span class="bd b'+c+'">'+t+'</span>';}
