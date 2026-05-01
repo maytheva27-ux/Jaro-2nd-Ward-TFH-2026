@@ -8,46 +8,35 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
-  --navy:#b45309;
-  --navy2:#92400e;
-  --white:#ffffff;
-  --white2:#fef3c7;
-  --cream:#ffffff;
-  --text:#111827;
-  --muted:#374151;
-  --light:#6b7280;
-  --border:#e5e7eb;
-  --green:#16a34a;
-  --amber:#d97706;
-  --red:#dc2626;
-  --blue:#2563eb;
-  --purple:#a855f7;
-  --teal:#0d9488;
+  --navy:#b45309;--navy2:#92400e;--white:#ffffff;--white2:#fef3c7;
+  --cream:#ffffff;--text:#111827;--muted:#374151;--light:#6b7280;
+  --border:#e5e7eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --blue:#2563eb;--purple:#a855f7;--teal:#0d9488;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:20px}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px}
 .app{display:flex;min-height:100vh}
 .sidebar{width:230px;background:var(--navy);position:fixed;top:0;left:0;bottom:0;z-index:100;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s}
 .sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
 .sb-brand .ico{font-size:26px;margin-bottom:8px}
-.sb-brand h1{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;font-weight:600;line-height:1.3}
-.sb-brand p{font-size:28px;color:rgba(255,255,255,.6);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
+.sb-brand h1{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;font-weight:600;line-height:1.3}
+.sb-brand p{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
 .sb-nav{padding:10px;flex:1}
-.sb-group{font-size:15px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;padding:10px 8px 4px;font-weight:500}
-.nav-btn{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.65);font-size:17px;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.sb-group{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;padding:10px 8px 4px;font-weight:500}
+.nav-btn{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.65);font-size:13px;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
 .nav-btn:hover{background:rgba(255,255,255,.1);color:#fff}
 .nav-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:500}
-.nav-btn .ni{font-size:20px;width:17px;text-align:center;flex-shrink:0}
-.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(255,255,255,.25);line-height:1.7}
-.sb-quote{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:15px;color:rgba(255,255,255,.5);line-height:1.6;font-style:italic}
-.sb-quote cite{display:block;margin-top:5px;font-size:15px;color:rgba(255,255,255,.6);font-style:normal;font-weight:500}
+.nav-btn .ni{font-size:15px;width:17px;text-align:center;flex-shrink:0}
+.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.7}
+.sb-quote{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;font-style:italic}
+.sb-quote cite{display:block;margin-top:5px;font-size:10px;color:rgba(255,255,255,.6);font-style:normal;font-weight:500}
 .main{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
 .topbar{background:#fff;border-bottom:1px solid var(--border);padding:11px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .tb-left h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--navy)}
-.tb-left p{font-size:16px;color:var(--muted);margin-top:1px}
+.tb-left p{font-size:12px;color:var(--muted);margin-top:1px}
 .tb-right{display:flex;align-items:center;gap:8px}
 .mpill{display:flex;align-items:center;gap:6px;background:var(--navy);border-radius:8px;padding:5px 12px}
-.mpill label{font-size:15px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.06em;font-weight:500;white-space:nowrap}
+.mpill label{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.06em;font-weight:500;white-space:nowrap}
 .mpill select{background:transparent;border:none;color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none}
 .mpill select option{background:var(--navy);color:#fff}
 .vtog{display:flex;background:var(--cream);border:1px solid var(--border);border-radius:8px;overflow:hidden}
@@ -55,11 +44,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .vtog button.on{background:var(--navy);color:#fff;font-weight:500}
 .gear-btn{width:34px;height:34px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);transition:all .15s;flex-shrink:0}
 .gear-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.hamburger{display:none;background:none;border:none;font-size:28px;cursor:pointer;color:var(--navy);padding:2px 4px}
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--navy);padding:2px 4px}
 .page{padding:20px 24px;display:none}
 .page.active{display:block;animation:fu .22s ease}
 @keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.banner{display:flex;align-items:center;gap:8px;border-radius:8px;padding:9px 14px;font-size:15px;margin-bottom:16px}
+.banner{display:flex;align-items:center;gap:8px;border-radius:8px;padding:9px 14px;font-size:13px;margin-bottom:16px}
 .banner.ok{background:#f0fdf4;border:1px solid #86efac;color:#166534}
 .banner.warn{background:#fef9c3;border:1px solid #fcd34d;color:#92400e}
 .banner.err{background:#fff1f2;border:1px solid #fca5a5;color:#991b1b}
@@ -149,44 +138,56 @@ tr:hover td{background:#fffbeb}
 .toast.show{transform:translateY(0);opacity:1}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
 .overlay.show{display:block}
+
+/* ── GI LEADERBOARD ── */
+.lb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin-bottom:16px}
+.lb-card{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
+.lb-head{padding:11px 14px;display:flex;align-items:center;justify-content:space-between}
+.lb-title{font-size:14px;font-weight:600;color:#fff}
+.lb-month{font-size:11px;color:rgba(255,255,255,.7)}
+.lb-body{padding:10px 14px 14px}
+.lb-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.lb-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
+.lb-score{font-size:13px;font-weight:600;color:var(--navy)}
+.lb-bar-wrap{width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:3px}
+.lb-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.lb-footer{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.lb-empty{text-align:center;padding:18px;color:var(--light);font-size:12px}
+
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0}.hamburger{display:block}
   .g2,.g3{grid-template-columns:1fr}.krow{grid-template-columns:repeat(2,1fr)}
   .fg{grid-template-columns:1fr}.page{padding:14px}.topbar{padding:10px 14px}
+  .lb-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
 <div class="overlay" id="overlay" onclick="closeSB()"></div>
 
+<!-- SETTINGS MODAL -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
-    <div class="mh"><h3>⚙ Settings — Google Sheets</h3><button class="mc" onclick="closeMod()">✕</button></div>
+    <div class="mh"><h3>⚙ Settings</h3><button class="mc" onclick="closeMod()">✕</button></div>
     <div class="mb">
-      <div class="fi" style="margin-bottom:13px">
-        <label>Web App URL</label>
-        <input id="set-url" placeholder="https://script.google.com/macros/s/.../exec">
-        <div style="font-size:10px;color:var(--light);margin-top:3px">Must end with <strong>/exec</strong></div>
-      </div>
       <div style="background:#f9fafb;border-radius:8px;padding:11px 13px;margin-bottom:12px">
-        <div style="font-size:11px;font-weight:500;margin-bottom:4px">Status</div>
-        <div id="set-cur" style="font-size:10px;color:var(--muted);word-break:break-all"></div>
-        <div id="set-stat" style="font-size:11px;margin-top:5px"></div>
+        <div style="font-size:11px;font-weight:500;margin-bottom:4px">Connection Status</div>
+        <div id="set-cur" style="font-size:10px;color:var(--muted)">Using Firebase Firestore</div>
+        <div id="set-stat" style="font-size:11px;margin-top:5px;color:#16a34a">✓ Firebase connected</div>
       </div>
-      <div style="font-size:11px;font-weight:500;margin-bottom:5px">Apps Script — paste into Extensions → Apps Script</div>
-      <div class="code-box" id="set-script"></div>
     </div>
     <div class="mf">
-      <button class="btn bnn" onclick="saveUrl()">Save &amp; Connect</button>
-      <button class="btn bng" onclick="testConn()">Test</button>
-      <button class="btn" style="background:#f3f4f6;color:var(--muted)" onclick="copyScript()">📋 Copy Script</button>
+      <button class="btn bnn" onclick="closeMod()">Close</button>
+      <button class="btn bng" onclick="testConn()">Test Connection</button>
     </div>
   </div>
 </div>
 
 <div class="app">
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-brand">
     <div class="ico">⛪</div>
@@ -198,12 +199,12 @@ tr:hover td{background:#fffbeb}
     <button class="nav-btn active" data-page="dashboard"><span class="ni">▣</span>Dashboard</button>
     <div class="sb-group">Data Entry</div>
     <button class="nav-btn" data-page="log"><span class="ni">✚</span>Log My Work</button>
+    <button class="nav-btn" data-page="gilog"><span class="ni">✎</span>GI Log Entry</button>
     <button class="nav-btn" data-page="addmeeting"><span class="ni">◆</span>Add Meeting</button>
     <button class="nav-btn" data-page="addtrip"><span class="ni">✶</span>Add Temple Trip</button>
     <div class="sb-group">Tracking</div>
     <button class="nav-btn" data-page="submitters"><span class="ni">✦</span>Temple Submitters</button>
     <button class="nav-btn" data-page="sublist"><span class="ni">📝</span>Submitters List</button>
-    <button class="nav-btn" data-page="gilog"><span class="ni">✎</span>GI Log Entry</button>
     <button class="nav-btn" data-page="getinvolved"><span class="ni">◈</span>Get Involved</button>
     <button class="nav-btn" data-page="familyhistory"><span class="ni">❧</span>Family History</button>
     <button class="nav-btn" data-page="templeclass"><span class="ni">🎓</span>Temple Class</button>
@@ -213,9 +214,10 @@ tr:hover td{background:#fffbeb}
     <button class="nav-btn" data-page="trips"><span class="ni">🏛</span>Temple Trips Log</button>
   </div>
   <div class="sb-foot">Jaro 2nd Ward · Iloilo City<br>Leader: Romeo Alejandro<br>Built with ♥ for the ward</div>
-  <div class="sb-quote">"The doctrine of The Church of Jesus Christ centers on the family. Essential to our doctrine on the family is the temple."<cite>— President Dallin H. Oaks<br>18th Prophet &amp; President</cite></div>
+  <div class="sb-quote">"The doctrine of The Church of Jesus Christ centers on the family."<cite>— President Dallin H. Oaks</cite></div>
 </aside>
 
+<!-- MAIN -->
 <main class="main">
 <header class="topbar">
   <div style="display:flex;align-items:center;gap:9px">
@@ -240,6 +242,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </header>
 
+<!-- ═══════ DASHBOARD ═══════ -->
 <section class="page active" id="page-dashboard">
   <div class="banner warn" id="conn-banner"><div class="bdot"></div><span id="conn-msg">Connecting to Firebase...</span></div>
   <div class="krow" id="kpi-grid"></div>
@@ -278,47 +281,9 @@ tr:hover td{background:#fffbeb}
       <div class="cb"><div style="position:relative;height:195px"><canvas id="c-ytd"></canvas></div></div>
     </div>
   </div>
-
-<div class="g2" style="margin-top:13px">
-  <div class="card">
-    <div class="ch">
-      <div>
-        <div class="ct">New Members & YSA — monthly</div>
-        <div class="cs" id="nm-sub">All 2026 months</div>
-      </div>
-      <div style="display:flex;gap:8px;font-size:11px;align-items:center;color:#6b7280">
-        <span style="display:flex;align-items:center;gap:3px">
-          <span style="width:8px;height:8px;border-radius:2px;background:#7c3aed;display:inline-block"></span>New Members
-        </span>
-        <span style="display:flex;align-items:center;gap:3px">
-          <span style="width:8px;height:8px;border-radius:2px;background:#0d9488;display:inline-block"></span>YSA
-        </span>
-      </div>
-    </div>
-    <div class="cb">
-      <div style="position:relative;height:180px">
-        <canvas id="c-nm"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="ch">
-      <div class="ct" id="nm-pie-t">New Member / YSA split</div>
-    </div>
-    <div class="cb">
-      <div style="position:relative;height:150px">
-        <canvas id="c-nm-pie"></canvas>
-      </div>
-      <div class="leg" style="margin-top:7px;justify-content:center">
-        <span class="li"><span class="ld" style="background:#7c3aed"></span>New Members</span>
-        <span class="li"><span class="ld" style="background:#0d9488"></span>YSA</span>
-        <span class="li"><span class="ld" style="background:#2563eb"></span>Regular</span>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 
+<!-- ═══════ LOG MY WORK ═══════ -->
 <section class="page" id="page-log">
   <div class="sh"><h2>Log My Work</h2><div class="ln"></div></div>
   <div class="g2">
@@ -371,11 +336,76 @@ tr:hover td{background:#fffbeb}
     <div class="cb tw" style="padding-top:8px">
       <table><thead><tr><th>#</th><th>Name</th><th>Date</th><th>Org</th><th>Consultant</th><th>Get Involved</th><th>Submitted?</th></tr></thead>
       <tbody id="recent-body"></tbody></table>
-      <div id="recent-e" class="empty"><div class="eico">✦</div>No records yet. Save a record above!</div>
+      <div id="recent-e" class="empty"><div class="eico">✦</div>No records yet.</div>
     </div>
   </div>
 </section>
 
+<!-- ═══════ GI LOG ENTRY ═══════ -->
+<section class="page" id="page-gilog">
+  <div class="sh"><h2>GI Log Entry</h2><div class="ln"></div></div>
+
+  <!-- Entry Form -->
+  <div class="card" style="max-width:620px;margin-bottom:16px">
+    <div class="ch"><div><div class="ct">✎ Log Get Involved Entries</div><div class="cs">Record member GI activity per organization</div></div></div>
+    <div class="cb">
+      <div class="fg">
+        <div class="fi"><label>Month</label>
+          <select id="gi-month">
+            <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+            <option value="3" selected>April</option><option value="4">May</option><option value="5">June</option>
+            <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+            <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+          </select>
+        </div>
+        <div class="fi"><label>Organization</label>
+          <select id="gi-org">
+            <option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option><option>New Members</option>
+          </select>
+        </div>
+        <div class="fi"><label>Member Name</label><input id="gi-mname" placeholder="Full name of member"></div>
+        <div class="fi"><label>Consultant Assisting</label><select id="gi-cons2"></select></div>
+        <div class="fi"><label>GI Entries Count</label><input type="number" id="gi-count" placeholder="0" min="0"></div>
+        <div class="fi"><label>&nbsp;</label>
+          <button class="btn bnn" onclick="saveGILog()" style="margin-top:2px">💾 Save Entry</button>
+        </div>
+      </div>
+      <div class="brow">
+        <button class="btn bng" onclick="clrGILog()">Clear</button>
+        <span class="fst" id="gi-log-stat"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Month selector for leaderboards -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--navy)">🏆 Monthly Leaderboards</div>
+    <select id="gi-lb-month" onchange="renderGILogPage()" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:#fff">
+      <option value="0">January</option><option value="1">February</option><option value="2">March</option>
+      <option value="3" selected>April</option><option value="4">May</option><option value="5">June</option>
+      <option value="6">July</option><option value="7">August</option><option value="8">September</option>
+      <option value="9">October</option><option value="10">November</option><option value="11">December</option>
+    </select>
+    <span style="font-size:12px;color:var(--muted)">Top members per organization — give them prizes! 🎁</span>
+  </div>
+
+  <!-- Leaderboard cards grid -->
+  <div class="lb-grid" id="gi-leaderboards"></div>
+
+  <!-- Full log table -->
+  <div class="card">
+    <div class="ch"><div class="ct">📋 All GI Log Entries</div><div class="cs">Complete record</div></div>
+    <div class="cb tw" style="padding-top:8px">
+      <table>
+        <thead><tr><th>#</th><th>Month</th><th>Org</th><th>Member Name</th><th>Consultant</th><th>GI Entries</th></tr></thead>
+        <tbody id="gi-log-body"></tbody>
+      </table>
+      <div id="gi-log-empty" class="empty"><div class="eico">✎</div>No GI entries yet. Add one above!</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ADD MEETING ═══════ -->
 <section class="page" id="page-addmeeting">
   <div class="sh"><h2>Add Monthly Meeting</h2><div class="ln"></div></div>
   <div class="card" style="max-width:580px">
@@ -400,6 +430,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- ═══════ ADD TRIP ═══════ -->
 <section class="page" id="page-addtrip">
   <div class="sh"><h2>Add Temple Trip</h2><div class="ln"></div></div>
   <div class="card" style="max-width:580px">
@@ -421,6 +452,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
+<!-- ═══════ TEMPLE SUBMITTERS ═══════ -->
 <section class="page" id="page-submitters">
   <div class="sh"><h2>Temple Name Submitters</h2><div class="ln"></div></div>
   <div class="ystrip" id="sub-ystrip"></div>
@@ -431,6 +463,7 @@ tr:hover td{background:#fffbeb}
   </div></div>
 </section>
 
+<!-- ═══════ SUBMITTERS LIST ═══════ -->
 <section class="page" id="page-sublist">
   <div class="sh"><h2>Submitters List</h2><div class="ln"></div></div>
   <div class="ystrip" id="sl-ystrip"></div>
@@ -453,29 +486,7 @@ tr:hover td{background:#fffbeb}
   </div>
 </section>
 
-window.saveGILog = async function(){
-  var name=document.getElementById('gi-mname').value.trim();
-  if(!name){showToast('Please enter a member name');return;}
-  var stat=document.getElementById('gi-log-stat');
-  stat.textContent='Saving...';
-  try{
-    await addDoc(collection(db,'giLog'),{
-      month: Number(document.getElementById('gi-month').value),
-      org:   document.getElementById('gi-org').value,
-      name:  name,
-      consultant: document.getElementById('gi-cons2').value,
-      entries: Number(document.getElementById('gi-count').value||0),
-      createdAt: new Date().toISOString()
-    });
-    stat.textContent='✓ Saved!';stat.style.color='#16a34a';
-    showToast('✓ GI entry saved!');clrGILog();
-    setTimeout(function(){stat.textContent='';},3000);
-  }catch(e){
-    stat.textContent='✗ Error: '+e.message;
-    stat.style.color='#dc2626';
-  }
-};
-  
+<!-- ═══════ GET INVOLVED ═══════ -->
 <section class="page" id="page-getinvolved">
   <div class="sh"><h2>Get Involved Records</h2><div class="ln"></div></div>
   <div class="ystrip" id="gi-ystrip"></div>
@@ -490,6 +501,7 @@ window.saveGILog = async function(){
   </div></div>
 </section>
 
+<!-- ═══════ FAMILY HISTORY ═══════ -->
 <section class="page" id="page-familyhistory">
   <div class="sh"><h2>Family History — 4 Generations</h2><div class="ln"></div></div>
   <div class="krow" id="fh-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div>
@@ -501,6 +513,7 @@ window.saveGILog = async function(){
   </div></div>
 </section>
 
+<!-- ═══════ TEMPLE CLASS ═══════ -->
 <section class="page" id="page-templeclass">
   <div class="sh"><h2>Temple Preparation Class</h2><div class="ln"></div></div>
   <div class="krow" id="tc-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
@@ -533,6 +546,7 @@ window.saveGILog = async function(){
   </div>
 </section>
 
+<!-- ═══════ CONSULTANT KPIS ═══════ -->
 <section class="page" id="page-kpis">
   <div class="sh"><h2>Consultant KPIs</h2><div class="ln"></div></div>
   <div class="krow" id="cons-krow" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
@@ -544,6 +558,7 @@ window.saveGILog = async function(){
   <div class="card"><div class="ch"><div class="ct">Get Involved comparison</div></div><div class="cb"><div style="position:relative;height:240px"><canvas id="c-cons"></canvas></div></div></div>
 </section>
 
+<!-- ═══════ MEETINGS LOG ═══════ -->
 <section class="page" id="page-meetings">
   <div class="sh"><h2>Meetings Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addmeeting')">+ Add Meeting</button></div>
   <div class="card"><div class="cb tw" style="padding-top:8px">
@@ -553,6 +568,7 @@ window.saveGILog = async function(){
   </div></div>
 </section>
 
+<!-- ═══════ TRIPS LOG ═══════ -->
 <section class="page" id="page-trips">
   <div class="sh"><h2>Temple Trips Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addtrip')">+ Add Trip</button></div>
   <div class="krow" id="trip-krow" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px"></div>
@@ -565,260 +581,235 @@ window.saveGILog = async function(){
 
 </main>
 </div>
-
 <div class="toast" id="toast"></div>
 
+<!-- ═══════════════════════════════════════════ -->
+<!-- FIREBASE MODULE                             -->
+<!-- ═══════════════════════════════════════════ -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCqRBzjo5FP_5Zhp9e9WF8w1mONvZs0-lM",
-    authDomain: "jaro-2nd-ward-tracker.firebaseapp.com",
-    projectId: "jaro-2nd-ward-tracker",
-    storageBucket: "jaro-2nd-ward-tracker.firebasestorage.app",
-    messagingSenderId: "524591622323",
-    appId: "1:524591622323:web:08591b43469e5a6d64a8c6"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyCqRBzjo5FP_5Zhp9e9WF8w1mONvZs0-lM",
+  authDomain: "jaro-2nd-ward-tracker.firebaseapp.com",
+  projectId: "jaro-2nd-ward-tracker",
+  storageBucket: "jaro-2nd-ward-tracker.firebasestorage.app",
+  messagingSenderId: "524591622323",
+  appId: "1:524591622323:web:08591b43469e5a6d64a8c6"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  window.__db = db;
-  window.__fbReady = true;
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+window.__db = db;
+window.__fbReady = true;
 
-  const subsRef = collection(db, "submitters");
-  onSnapshot(subsRef, (snapshot) => {
-    window.__submitters = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (window.__renderDash) window.__renderDash();
-    if (window.__renderRecent) window.__renderRecent();
-  });
+// ── Real-time listeners ──
+onSnapshot(collection(db,'submitters'),  s => { window.__submitters   = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderDash)window.__renderDash(); if(window.__renderRecent)window.__renderRecent(); });
+onSnapshot(collection(db,'familyHistory'),s=>{ window.__familyHistory = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderFH)window.__renderFH(); });
+onSnapshot(collection(db,'meetings'),    s=>{ window.__meetings      = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderMtgs)window.__renderMtgs(); });
+onSnapshot(collection(db,'wardTrips'),   s=>{ window.__wardTrips     = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderTrips)window.__renderTrips(); });
+onSnapshot(collection(db,'templeClass'), s=>{ window.__templeClass   = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderTC)window.__renderTC(); });
+onSnapshot(collection(db,'giLog'),       s=>{ window.__giLog         = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderGILogPage)window.__renderGILogPage(); if(window.__renderDash)window.__renderDash(); if(window.__renderGI)window.__renderGI(); });
 
-  const fhRef = collection(db, "familyHistory");
-  onSnapshot(fhRef, (snapshot) => {
-    window.__familyHistory = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (window.__renderFH) window.__renderFH();
-  });
+setBanner('ok','✓ Live — connected to Firebase');
 
-  const mtgRef = collection(db, "meetings");
-  onSnapshot(mtgRef, (snapshot) => {
-    window.__meetings = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (window.__renderMtgs) window.__renderMtgs();
-  });
+// ── SAVE: Temple Name Submitter ──
+window.saveEntry = async function(){
+  var name=document.getElementById('e-name').value.trim();
+  if(!name){showToast('Please enter a member name');return;}
+  var stat=document.getElementById('e-stat'); stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'submitters'),{
+      name, date:document.getElementById('e-date').value,
+      org:document.getElementById('e-org').value,
+      consultant:document.getElementById('e-cons').value,
+      gi:Number(document.getElementById('e-gi').value||0),
+      newMember:document.getElementById('e-new').value,
+      ysa:document.getElementById('e-ysa').value,
+      submitted:document.getElementById('e-sub').value,
+      gen4:document.getElementById('e-gen4').value==='Yes',
+      meeting:document.getElementById('e-mtg').value,
+      notes:document.getElementById('e-notes').value,
+      createdAt:new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ Submitter saved!'); clrEntry();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
 
-  const tripRef = collection(db, "wardTrips");
-  onSnapshot(tripRef, (snapshot) => {
-    window.__wardTrips = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (window.__renderTrips) window.__renderTrips();
-  });
+// ── SAVE: Family History ──
+window.saveFH = async function(){
+  var name=document.getElementById('fh-name').value.trim();
+  if(!name){showToast('Please enter a member name');return;}
+  var stat=document.getElementById('fh-stat'); stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'familyHistory'),{
+      name, org:document.getElementById('fh-org').value,
+      consultant:document.getElementById('fh-cons').value,
+      ysa:document.getElementById('fh-ysa').value,
+      g1:Number(document.getElementById('fh-g1').value||0),
+      g2:Number(document.getElementById('fh-g2').value||0),
+      g3:Number(document.getElementById('fh-g3').value||0),
+      g4:Number(document.getElementById('fh-g4').value||0),
+      g5:Number(document.getElementById('fh-g5').value||0),
+      done:document.getElementById('fh-done').value,
+      entries:Number(document.getElementById('fh-entries').value||0),
+      notes:document.getElementById('fh-notes').value,
+      createdAt:new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ Family history saved!'); clrFH();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
 
-  const tcRef = collection(db, "templeClass");
-  onSnapshot(tcRef, (snapshot) => {
-    window.__templeClass = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    if (window.__renderTC) window.__renderTC();
-  });
-
-  window.saveEntry = async function () {
-    var name = document.getElementById('e-name').value.trim();
-    if (!name) { showToast('Please enter a member name'); return; }
-    var stat = document.getElementById('e-stat');
-    stat.textContent = 'Saving...';
-    try {
-      await addDoc(collection(db, "submitters"), {
-        name: name,
-        date: document.getElementById('e-date').value,
-        org:  document.getElementById('e-org').value,
-        consultant: document.getElementById('e-cons').value,
-        gi:   Number(document.getElementById('e-gi').value || 0),
-        newMember: document.getElementById('e-new').value,
-        ysa:  document.getElementById('e-ysa').value,
-        submitted: document.getElementById('e-sub').value,
-        gen4: document.getElementById('e-gen4').value === "Yes",
-        meeting: document.getElementById('e-mtg').value,
-        notes: document.getElementById('e-notes').value,
-        createdAt: new Date().toISOString()
-      });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Submitter saved to Firebase!');
-      clrEntry();
-      setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; showToast('Error saving: ' + e.message); }
-  };
-
-  window.saveFH = async function () {
-    var name = document.getElementById('fh-name').value.trim();
-    if (!name) { showToast('Please enter a member name'); return; }
-    var stat = document.getElementById('fh-stat');
-    stat.textContent = 'Saving...';
-    try {
-      await addDoc(collection(db, "familyHistory"), {
-        name: name, org: document.getElementById('fh-org').value,
-        consultant: document.getElementById('fh-cons').value,
-        ysa: document.getElementById('fh-ysa').value,
-        g1: Number(document.getElementById('fh-g1').value || 0),
-        g2: Number(document.getElementById('fh-g2').value || 0),
-        g3: Number(document.getElementById('fh-g3').value || 0),
-        g4: Number(document.getElementById('fh-g4').value || 0),
-        g5: Number(document.getElementById('fh-g5').value || 0),
-        done: document.getElementById('fh-done').value,
-        entries: Number(document.getElementById('fh-entries').value || 0),
-        notes: document.getElementById('fh-notes').value,
-        createdAt: new Date().toISOString()
-      });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Family history saved!'); clrFH();
-      setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
-  };
-
-  window.saveMtg = async function () {
-    var name = document.getElementById('m-name').value.trim();
-    if (!name) { showToast('Please enter an attendee name'); return; }
-    var stat = document.getElementById('m-stat'); stat.textContent = 'Saving...';
-    try {
-      await addDoc(collection(db, "meetings"), {
-        date: document.getElementById('m-date').value, name: name,
-        role: document.getElementById('m-role').value,
-        present: document.getElementById('m-present').value,
-        topic: document.getElementById('m-topic').value,
-        action: document.getElementById('m-action').value,
-        notes: document.getElementById('m-notes').value,
-        createdAt: new Date().toISOString()
-      });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Meeting record saved!'); clrMtg();
-      setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
-  };
-
-  window.saveTrip = async function () {
-    var name = document.getElementById('t-name').value.trim();
-    if (!name) { showToast('Please enter an attendee name'); return; }
-    var stat = document.getElementById('t-stat'); stat.textContent = 'Saving...';
-    try {
-      await addDoc(collection(db, "wardTrips"), {
-        date: document.getElementById('t-date').value, name: name,
-        org: document.getElementById('t-org').value,
-        consultant: document.getElementById('t-cons').value,
-        ysa: document.getElementById('t-ysa').value,
-        lo: document.getElementById('t-lo').value,
-        po: document.getElementById('t-po').value,
-        nc: document.getElementById('t-nc').value,
-        notes: document.getElementById('t-notes').value,
-        createdAt: new Date().toISOString()
-      });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Temple trip saved!'); clrTrip();
-      setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
-  };
+// ── SAVE: GI Log Entry ──
 window.saveGILog = async function(){
   var name=document.getElementById('gi-mname').value.trim();
   if(!name){showToast('Please enter a member name');return;}
-  var stat=document.getElementById('gi-log-stat');
-  stat.textContent='Saving...';
+  var stat=document.getElementById('gi-log-stat'); stat.textContent='Saving...';
   try{
     await addDoc(collection(db,'giLog'),{
-      month: Number(document.getElementById('gi-month').value),
-      name: name,
-      consultant: document.getElementById('gi-cons2').value,
-      entries: Number(document.getElementById('gi-count').value||0),
-      createdAt: new Date().toISOString()
+      month:Number(document.getElementById('gi-month').value),
+      org:document.getElementById('gi-org').value,
+      name,
+      consultant:document.getElementById('gi-cons2').value,
+      entries:Number(document.getElementById('gi-count').value||0),
+      createdAt:new Date().toISOString()
     });
-    stat.textContent='✓ Saved!';stat.style.color='#16a34a';
-    showToast('✓ GI entry saved!');clrGILog();
-    setTimeout(function(){stat.textContent='';},3000);
-  }catch(e){stat.textContent='✗ Error: '+e.message;stat.style.color='#dc2626';}
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ GI entry saved!'); clrGILog();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
-  window.saveTC = async function () {
-    var name = document.getElementById('tc-name').value.trim();
-    if (!name) { showToast('Please enter a student name'); return; }
-    var stat = document.getElementById('tc-stat-msg'); stat.textContent = 'Saving...';
-    try {
-      await addDoc(collection(db, "templeClass"), {
-        name: name, date: document.getElementById('tc-date').value,
-        org: document.getElementById('tc-org').value,
-        consultant: document.getElementById('tc-cons').value,
-        newMember: document.getElementById('tc-new').value,
-        ysa: document.getElementById('tc-ysa').value,
-        sessions: Number(document.getElementById('tc-ses').value || 0),
-        status: document.getElementById('tc-status').value,
-        notes: document.getElementById('tc-notes').value,
-        createdAt: new Date().toISOString()
-      });
-      stat.textContent = '✓ Saved!'; stat.style.color = '#16a34a';
-      showToast('✓ Student saved!'); clrTC();
-      setTimeout(() => { stat.textContent = ''; }, 3000);
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
-  };
 
-  window.quickAll = async function () {
-    var date = document.getElementById('m-date').value || '2026-04-01';
-    var topic = document.getElementById('m-topic').value || 'Monthly Coordination Meeting';
-    var action = document.getElementById('m-action').value || '';
-    var stat = document.getElementById('q-stat');
-    stat.textContent = 'Saving all...'; stat.style.color = 'var(--muted)';
-    try {
-      var all = ['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie','Romeo Alejandro'];
-      for (var i = 0; i < all.length; i++) {
-        var n = all[i];
-        await addDoc(collection(db, "meetings"), {
-          date: date, name: n,
-          role: n === 'Romeo Alejandro' ? 'Leadership' : 'Consultant',
-          present: 'Yes', topic: topic, action: action, notes: '',
-          createdAt: new Date().toISOString()
-        });
-      }
-      stat.textContent = '✓ All ' + all.length + ' saved!'; stat.style.color = '#16a34a';
-      showToast('✓ All consultants + Romeo Alejandro added!');
-    } catch(e) { stat.textContent = '✗ Error: ' + e.message; stat.style.color = '#dc2626'; }
-  };
-const giLogRef = collection(db, "giLog");
-onSnapshot(giLogRef, (snapshot) => {
-  window.__giLog = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-  if (window.__renderGILogPage) window.__renderGILogPage();
-  if (window.__renderDash) window.__renderDash();
-  if (window.__renderGI) window.__renderGI();
-});
-  
-  setBanner('ok', '✓ Live — connected to Firebase');
+// ── SAVE: Meeting ──
+window.saveMtg = async function(){
+  var name=document.getElementById('m-name').value.trim();
+  if(!name){showToast('Please enter an attendee name');return;}
+  var stat=document.getElementById('m-stat'); stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'meetings'),{
+      date:document.getElementById('m-date').value, name,
+      role:document.getElementById('m-role').value,
+      present:document.getElementById('m-present').value,
+      topic:document.getElementById('m-topic').value,
+      action:document.getElementById('m-action').value,
+      notes:document.getElementById('m-notes').value,
+      createdAt:new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ Meeting saved!'); clrMtg();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
+
+// ── SAVE: Temple Trip ──
+window.saveTrip = async function(){
+  var name=document.getElementById('t-name').value.trim();
+  if(!name){showToast('Please enter an attendee name');return;}
+  var stat=document.getElementById('t-stat'); stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'wardTrips'),{
+      date:document.getElementById('t-date').value, name,
+      org:document.getElementById('t-org').value,
+      consultant:document.getElementById('t-cons').value,
+      ysa:document.getElementById('t-ysa').value,
+      lo:document.getElementById('t-lo').value,
+      po:document.getElementById('t-po').value,
+      nc:document.getElementById('t-nc').value,
+      notes:document.getElementById('t-notes').value,
+      createdAt:new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ Trip saved!'); clrTrip();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
+
+// ── SAVE: Temple Class ──
+window.saveTC = async function(){
+  var name=document.getElementById('tc-name').value.trim();
+  if(!name){showToast('Please enter a student name');return;}
+  var stat=document.getElementById('tc-stat-msg'); stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'templeClass'),{
+      name, date:document.getElementById('tc-date').value,
+      org:document.getElementById('tc-org').value,
+      consultant:document.getElementById('tc-cons').value,
+      newMember:document.getElementById('tc-new').value,
+      ysa:document.getElementById('tc-ysa').value,
+      sessions:Number(document.getElementById('tc-ses').value||0),
+      status:document.getElementById('tc-status').value,
+      notes:document.getElementById('tc-notes').value,
+      createdAt:new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!'; stat.style.color='#16a34a';
+    showToast('✓ Student saved!'); clrTC();
+    setTimeout(()=>{stat.textContent='';},3000);
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
+
+// ── SAVE: Quick All Meeting ──
+window.quickAll = async function(){
+  var date=document.getElementById('m-date').value||'2026-04-01';
+  var topic=document.getElementById('m-topic').value||'Monthly Coordination Meeting';
+  var action=document.getElementById('m-action').value||'';
+  var stat=document.getElementById('q-stat');
+  stat.textContent='Saving all...'; stat.style.color='var(--muted)';
+  try{
+    var all=['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie','Romeo Alejandro'];
+    for(var i=0;i<all.length;i++){
+      await addDoc(collection(db,'meetings'),{date,name:all[i],role:all[i]==='Romeo Alejandro'?'Leadership':'Consultant',present:'Yes',topic,action,notes:'',createdAt:new Date().toISOString()});
+    }
+    stat.textContent='✓ All '+all.length+' saved!'; stat.style.color='#16a34a';
+    showToast('✓ All consultants added!');
+  }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
+};
 </script>
 
+<!-- ═══════════════════════════════════════════ -->
+<!-- MAIN APP LOGIC                              -->
+<!-- ═══════════════════════════════════════════ -->
 <script>
-var GAS = 'const SHEET_ID = \'1Rb5BmSSUqupk70Dw4M4iO3iTRgXhCsgdgN4sJ8s5o6Q\';\n\nfunction doGet(e) {\n  const action = e.parameter.action;\n  const ss = SpreadsheetApp.openById(SHEET_ID);\n  let data = {};\n  if (action === \'getAll\') {\n    data.submitters    = getData(ss, \'Temple_Submitters\');\n    data.familyHistory = getData(ss, \'Family_History\');\n    data.wardTrips     = getData(ss, \'Ward_Temple_Trips\');\n    data.meetings      = getData(ss, \'Monthly_Meeting\');\n    data.templeClass   = getData(ss, \'Temple_Class\');\n  } else if (action === \'ping\') {\n    data.status = \'connected\';\n    data.sheetName = ss.getName();\n  }\n  return out(data);\n}\n\nfunction doPost(e) {\n  try {\n    const p = JSON.parse(e.postData.contents);\n    const ss = SpreadsheetApp.openById(SHEET_ID);\n    const sheet = ss.getSheetByName(p.sheet);\n    if (!sheet) return out({ error: \'Sheet not found: \' + p.sheet });\n    sheet.appendRow(p.row);\n    return out({ success: true });\n  } catch(err) {\n    return out({ error: err.toString() });\n  }\n}\n\nfunction getData(ss, name) {\n  const s = ss.getSheetByName(name);\n  if (!s) return [];\n  const all = s.getDataRange().getValues();\n  if (all.length < 3) return [];\n  const h = all[1];\n  return all.slice(2)\n    .filter(r => r.some(c => c !== \'\'))\n    .map(r => {\n      const o = {};\n      h.forEach((k, i) => { if (String(k).trim()) o[String(k).trim()] = r[i]; });\n      return o;\n    });\n}\n\nfunction out(data) {\n  return ContentService\n    .createTextOutput(JSON.stringify(data))\n    .setMimeType(ContentService.MimeType.JSON);\n}';
-
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var MONS  =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var ORGS  =['EQ','RS','Youth','New Members','Primary','YSA'];
+var GI_ORGS=['EQ','RS','Youth','Primary','New Members'];
 var CONS  =['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
 var OC    =['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
 var CC    =['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
-var M=3,V='monthly',CH={};
+var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed','New Members':'#dc2626'};
+var MEDALS=['🥇','🥈','🥉','4th','5th'];
 
+var M=3, V='monthly', CH={};
 window.__submitters=window.__submitters||[];
 window.__familyHistory=window.__familyHistory||[];
 window.__meetings=window.__meetings||[];
 window.__wardTrips=window.__wardTrips||[];
 window.__templeClass=window.__templeClass||[];
+window.__giLog=window.__giLog||[];
 
 var PM={
-  'dashboard':['Dashboard','All KPIs · 2026 Overview'],
-  'log':['Log My Work','Save data to Firebase'],
-  'addmeeting':['Add Meeting','Log coordination meeting'],
-  'addtrip':['Add Temple Trip','Log ward temple trip'],
-  'submitters':['Temple Submitters','Monthly & YTD breakdown'],
-  'sublist':['Submitters List','Names of all members who submitted'],
-  'gilog':['GI Log Entry','Quick get involved log'],
-  'getinvolved':['Get Involved','Records per consultant'],
+  'dashboard':    ['Dashboard','All KPIs · 2026 Overview'],
+  'log':          ['Log My Work','Save data to Firebase'],
+  'gilog':        ['GI Log Entry','Monthly member leaderboard per org'],
+  'addmeeting':   ['Add Meeting','Log coordination meeting'],
+  'addtrip':      ['Add Temple Trip','Log ward temple trip'],
+  'submitters':   ['Temple Submitters','Monthly & YTD breakdown'],
+  'sublist':      ['Submitters List','Names of all members who submitted'],
+  'getinvolved':  ['Get Involved','Records per consultant'],
   'familyhistory':['Family History','4-generation tracker'],
-  'templeclass':['Temple Preparation Class','Log students'],
-  'kpis':['Consultant KPIs','Performance vs targets'],
-  'meetings':['Meetings Log','All meeting records'],
-  'trips':['Temple Trips Log','All temple trip records']
+  'templeclass':  ['Temple Preparation Class','Log students'],
+  'kpis':         ['Consultant KPIs','Performance vs targets'],
+  'meetings':     ['Meetings Log','All meeting records'],
+  'trips':        ['Temple Trips Log','All temple trip records']
 };
 
 window.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('set-script').textContent=GAS;
-  ['e-cons','fh-cons','t-cons','tc-cons'].forEach(function(id){
+  ['e-cons','fh-cons','t-cons','tc-cons','gi-cons2'].forEach(function(id){
     var el=document.getElementById(id);
     if(el) el.innerHTML=CONS.map(function(c){return '<option>'+c+'</option>';}).join('');
   });
@@ -828,12 +819,15 @@ window.addEventListener('DOMContentLoaded',function(){
   renderDash();
 });
 
-window.__renderDash  =function(){if(document.getElementById('page-dashboard').classList.contains('active'))renderDash();};
-window.__renderRecent=function(){if(document.getElementById('page-log').classList.contains('active'))renderRecent();};
-window.__renderFH    =function(){if(document.getElementById('page-familyhistory').classList.contains('active'))renderFH();};
-window.__renderMtgs  =function(){if(document.getElementById('page-meetings').classList.contains('active'))renderMtgs();};
-window.__renderTrips =function(){if(document.getElementById('page-trips').classList.contains('active'))renderTrips();};
-window.__renderTC    =function(){if(document.getElementById('page-templeclass').classList.contains('active'))renderTC();};
+// Expose render hooks for Firebase listeners
+window.__renderDash      =function(){if(document.getElementById('page-dashboard').classList.contains('active'))renderDash();};
+window.__renderRecent    =function(){if(document.getElementById('page-log').classList.contains('active'))renderRecent();};
+window.__renderFH        =function(){if(document.getElementById('page-familyhistory').classList.contains('active'))renderFH();};
+window.__renderMtgs      =function(){if(document.getElementById('page-meetings').classList.contains('active'))renderMtgs();};
+window.__renderTrips     =function(){if(document.getElementById('page-trips').classList.contains('active'))renderTrips();};
+window.__renderTC        =function(){if(document.getElementById('page-templeclass').classList.contains('active'))renderTC();};
+window.__renderGI        =function(){if(document.getElementById('page-getinvolved').classList.contains('active'))renderGI();};
+window.__renderGILogPage =function(){if(document.getElementById('page-gilog').classList.contains('active'))renderGILogPage();};
 
 function goPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
@@ -851,13 +845,9 @@ function goPage(id){
 function renderPg(id){
   if(id==='dashboard')renderDash();
   else if(id==='log')renderRecent();
+  else if(id==='gilog')renderGILogPage();
   else if(id==='submitters')renderSub();
   else if(id==='sublist')renderSL();
-  else if(id==='gilog'){
-  var gc=document.getElementById('gi-cons2');
-  if(gc&&!gc.options.length)gc.innerHTML=CONS.map(function(c){return '<option>'+c+'</option>';}).join('');
-  renderGILogPage();
-}
   else if(id==='getinvolved')renderGI();
   else if(id==='familyhistory')renderFH();
   else if(id==='templeclass')renderTC();
@@ -870,18 +860,23 @@ function onMC(){M=parseInt(document.getElementById('msel').value);var a=document
 function setV(v,btn){V=v;document.querySelectorAll('.vtog button').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');var a=document.querySelector('.page.active');if(a)renderPg(a.id.replace('page-',''));}
 function toggleSB(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
 function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
-function openMod(){document.getElementById('set-url').value='';document.getElementById('set-cur').textContent='Using Firebase (real-time database)';document.getElementById('set-stat').textContent='✓ Firebase connected';document.getElementById('set-stat').style.color='#16a34a';document.getElementById('settingsModal').classList.add('open');}
+function openMod(){document.getElementById('settingsModal').classList.add('open');}
 function closeMod(){document.getElementById('settingsModal').classList.remove('open');}
-function saveUrl(){closeMod();showToast('App uses Firebase — no URL needed!');}
-async function testConn(){var s=document.getElementById('set-stat');s.textContent='Testing Firebase...';s.style.color='var(--muted)';try{if(window.__fbReady){s.textContent='✓ Firebase connected!';s.style.color='#16a34a';}else{s.textContent='Still initializing...';s.style.color='#d97706';}}catch(e){s.textContent='✗ Error: '+e.message;s.style.color='#dc2626';}}
-function copyScript(){navigator.clipboard.writeText(GAS).then(function(){showToast('Script copied! Paste into Apps Script.');});}
+function saveUrl(){closeMod();}
+function testConn(){var s=document.getElementById('set-stat');s.textContent=window.__fbReady?'✓ Firebase connected!':'Still initializing...';s.style.color=window.__fbReady?'#16a34a':'#d97706';}
 function setBanner(type,msg){var b=document.getElementById('conn-banner');if(!b)return;b.className='banner '+type;document.getElementById('conn-msg').textContent=msg;}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
+function bx(t,c){return '<span class="bd b'+c+'">'+t+'</span>';}
+function yno(v){return v?bx('Yes','g'):bx('No','r');}
 
 function allSubs() {return window.__submitters||[];}
 function allFH()   {return window.__familyHistory||[];}
 function allMtgs() {return window.__meetings||[];}
 function allTrips(){return window.__wardTrips||[];}
 function allTC()   {return window.__templeClass||[];}
+function allGILog(){return window.__giLog||[];}
+
+function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
 
 function getOD(){
   var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
@@ -890,8 +885,6 @@ function getOD(){
     var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
     var mi=dt.getMonth(),org=r.org||'',sub=r.submitted||'No';
     if(sub==='Yes'&&d[org]!==undefined)d[org][mi]++;
-    if((r.ysa||'No')==='Yes'&&d['YSA']!==undefined)d['YSA'][mi]++;
-    if((r.newMember||'No')==='Yes'&&d['New Members']!==undefined)d['New Members'][mi]++;
   });
   return d;
 }
@@ -904,9 +897,8 @@ function getGD(){
     var mi=dt.getMonth(),cons=r.consultant||'',gi=parseFloat(r.gi||0)||0;
     if(d[cons]!==undefined)d[cons][mi]+=gi;
   });
-  (window.__giLog||[]).forEach(function(r){
-    var mi=Number(r.month);
-    if(isNaN(mi)||mi<0||mi>11)return;
+  allGILog().forEach(function(r){
+    var mi=Number(r.month);if(isNaN(mi)||mi<0||mi>11)return;
     var cons=r.consultant||'',entries=parseFloat(r.entries||0)||0;
     if(d[cons]!==undefined)d[cons][mi]+=entries;
   });
@@ -925,36 +917,23 @@ function getTCD(){
   }).filter(function(r){return r.name;});
 }
 
-function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
-var PRIME=['EQ','RS','Youth','Primary'];
-function tM(od,mi){return PRIME.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
-function tY(od,mi){return PRIME.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
+function tM(od,mi){return ORGS.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
+function tY(od,mi){return ORGS.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
 function tGI(gd,mi){return CONS.reduce(function(a,c){return a+((gd[c]||[])[mi]||0);},0);}
 function tGIY(gd,mi){return CONS.reduce(function(a,c){return a+sumTo(gd[c]||[],mi);},0);}
-function bx(t,c){return '<span class="bd b'+c+'">'+t+'</span>';}
-function yno(v){return v?bx('Yes','g'):bx('No','r');}
-function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
 
-// ═══════════════════════════════════════════
-// BUG FIX: fhDone now counts BOTH sources:
-//   1. familyHistory collection (done === 'Yes')
-//   2. submitters collection    (gen4 === true)
-// This ensures "4th Gen Completed?" logged via
-// "Log My Work" appears on the dashboard.
-// ═══════════════════════════════════════════
+// ── RENDER DASHBOARD ──
 function renderDash(){
   var od=getOD(),gd=getGD(),fh=getFHD();
   var mi=M,isY=V==='ytd';
   var mSub=tM(od,mi),ySub=tY(od,mi);
   var giM=tGI(gd,mi),giY=tGIY(gd,mi);
   var pct=ySub>0?Math.min(100,Math.round(ySub/100*100)):0;
-
-  // ▼ FIXED: combine familyHistory + submitters gen4 completions
+  var exp=Math.round(100*(mi+1)/12);
+  // BUG FIX: count gen4 from BOTH familyHistory AND submitters
   var fhDone=fh.filter(function(r){return r.done;}).length
             +allSubs().filter(function(r){return r.gen4===true;}).length;
-
   var disp=isY?ySub:mSub;
-  var exp=Math.round(100*(mi+1)/12);
 
   document.getElementById('kpi-grid').innerHTML=[
     {l:isY?'YTD Submitters':'Monthly Submitters',v:disp,s:isY?'Jan–'+MONS[mi]:'~8/month target',c:'blue',p:Math.min(100,Math.round(disp/8*100)),f:'#2563eb',ytd:isY},
@@ -984,196 +963,148 @@ function renderDash(){
   document.getElementById('sc-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+' <b>'+sv[i]+'</b></span>';}).join('');
   if(CH.sub)CH.sub.destroy();
   CH.sub=new Chart(document.getElementById('c-sub'),{type:'bar',data:{labels:ORGS,datasets:[{data:sv,backgroundColor:OC.map(function(c){return c+'CC';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,ticks:{font:{size:11}}}}}});
-
   var pv=ORGS.map(function(o){return(od[o]||[])[mi]||0;});
   document.getElementById('pie-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+'</span>';}).join('');
   if(CH.pie)CH.pie.destroy();
   CH.pie=new Chart(document.getElementById('c-pie'),{type:'doughnut',data:{labels:ORGS,datasets:[{data:pv,backgroundColor:OC,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}});
-
-  var tgt=isY?500*(mi+1):500;
-  var maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
+  var tgt=isY?500*(mi+1):500,maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
   document.getElementById('gi-lbl').textContent=(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi])+' · target '+tgt.toLocaleString();
-  document.getElementById('prog-bars').innerHTML=CONS.map(function(c,i){
-    var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);
-    return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+' '+(val>=tgt?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>')+'</div></div>';
-  }).join('');
-
-  var combined=MONS.map(function(_,i){return tGI(gd,i);});
+  document.getElementById('prog-bars').innerHTML=CONS.map(function(c,i){var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+' '+(val>=tgt?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>')+'</div></div>';}).join('');
   if(CH.trend)CH.trend.destroy();
-  CH.trend=new Chart(document.getElementById('c-trend'),{type:'line',data:{labels:MONS,datasets:[{data:combined,borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
-
+  CH.trend=new Chart(document.getElementById('c-trend'),{type:'line',data:{labels:MONS,datasets:[{data:MONS.map(function(_,i){return tGI(gd,i);}),borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
   var fhMB=document.getElementById('fh-mini'),fhME=document.getElementById('fh-mini-e');
-  if(fh.length){fhME.style.display='none';fhMB.style.display='';
-    fhMB.innerHTML=fh.map(function(r){return '<tr><td><b>'+r.name.split(' ').slice(0,2).join(' ')+'</b></td><td>'+bx(r.org,'b')+'</td><td style="text-align:center">'+r.g[3]+'/4</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td>'+r.by+'</td></tr>';}).join('');
-  }else{fhMB.style.display='none';fhME.style.display='';}
-
+  if(fh.length){fhME.style.display='none';fhMB.style.display='';fhMB.innerHTML=fh.map(function(r){return '<tr><td><b>'+r.name.split(' ').slice(0,2).join(' ')+'</b></td><td>'+bx(r.org,'b')+'</td><td style="text-align:center">'+r.g[3]+'/4</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td>'+r.by+'</td></tr>';}).join('');}
+  else{fhMB.style.display='none';fhME.style.display='';}
   document.getElementById('ytdb-title').textContent='YTD submitters — Jan–'+MONTHS[mi];
   var yv=ORGS.map(function(o){return sumTo(od[o]||[],mi);});
   if(CH.ytdB)CH.ytdB.destroy();
   CH.ytdB=new Chart(document.getElementById('c-ytd'),{type:'bar',indexAxis:'y',data:{labels:ORGS,datasets:[{data:yv,backgroundColor:OC.map(function(c){return c+'BB';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
 }
 
-var nmd=getNMD(),nmM=nmd.nm[mi],ysaM=nmd.ysa[mi];
-var nmDisp=isY?sumTo(nmd.nm,mi):nmM;
-var ysaDisp=isY?sumTo(nmd.ysa,mi):ysaM;
-var nmSub=document.getElementById('nm-sub');
-if(nmSub)nmSub.textContent=(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
-if(CH.nmBar)CH.nmBar.destroy();
-var nmCtx=document.getElementById('c-nm');
-if(nmCtx){CH.nmBar=new Chart(nmCtx,{
-  type:'bar',
-  data:{labels:MONS,datasets:[
-    {label:'New Members',data:nmd.nm,backgroundColor:'#7c3aed99',borderColor:'#7c3aed',borderWidth:1,borderRadius:5},
-    {label:'YSA',data:nmd.ysa,backgroundColor:'#0d948899',borderColor:'#0d9488',borderWidth:1,borderRadius:5}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false}},
-    scales:{x:{ticks:{autoSkip:false,font:{size:9}},grid:{display:false}},
-            y:{min:0,ticks:{font:{size:9}}}}}
-});}
-if(CH.nmPie)CH.nmPie.destroy();
-var nmPieCtx=document.getElementById('c-nm-pie');
-if(nmPieCtx){CH.nmPie=new Chart(nmPieCtx,{
-  type:'doughnut',
-  data:{labels:['New Members','YSA','Regular'],
-    datasets:[{data:[nmM,ysaM,Math.max(0,mSub-nmM-ysaM)],
-      backgroundColor:['#7c3aed','#0d9488','#2563eb'],borderWidth:2,borderColor:'#fff'}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}
-});}  
-  
+// ── RENDER GI LOG PAGE ── (leaderboard + full log table)
+function renderGILogPage(){
+  var sel=document.getElementById('gi-lb-month');
+  var mi=sel?Number(sel.value):M;
+  var rows=allGILog().filter(function(r){return Number(r.month)===mi;});
+
+  // Build leaderboard per org
+  var lb=document.getElementById('gi-leaderboards');
+  if(!lb)return;
+  var html='';
+  GI_ORGS.forEach(function(org){
+    var color=ORG_COLORS[org]||'#374151';
+    var orgRows=rows.filter(function(r){return r.org===org;});
+    // group by member name, sum entries
+    var grouped={};
+    orgRows.forEach(function(r){
+      var n=r.name||'Unknown';
+      grouped[n]=(grouped[n]||0)+(Number(r.entries)||0);
+    });
+    var sorted=Object.keys(grouped).map(function(n){return{name:n,total:grouped[n]};}).sort(function(a,b){return b.total-a.total;});
+    var topTotal=sorted.length>0?sorted[0].total:1;
+    var grandTotal=sorted.reduce(function(a,r){return a+r.total;},0);
+
+    html+='<div class="lb-card">';
+    html+='<div class="lb-head" style="background:'+color+'">';
+    html+='<span class="lb-title">'+org+'</span>';
+    html+='<span class="lb-month">'+MONTHS[mi]+'</span>';
+    html+='</div>';
+    html+='<div class="lb-body">';
+
+    if(sorted.length===0){
+      html+='<div class="lb-empty">No entries yet for '+MONTHS[mi]+'</div>';
+    }else{
+      sorted.slice(0,5).forEach(function(r,i){
+        var pct=topTotal>0?Math.round(r.total/topTotal*100):0;
+        var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'th';
+        html+='<div class="lb-row">';
+        html+='<div class="lb-rank">'+medal+'</div>';
+        html+='<div style="flex:1"><div class="lb-name">'+r.name+'</div>';
+        html+='<div class="lb-bar-wrap"><div class="lb-bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div></div>';
+        html+='<div class="lb-score">'+r.total.toLocaleString()+'</div>';
+        html+='</div>';
+      });
+      html+='<div class="lb-footer">';
+      html+='<span>'+sorted.length+' member'+(sorted.length!==1?'s':'')+'</span>';
+      html+='<span>Total: <b>'+grandTotal.toLocaleString()+'</b></span>';
+      html+='</div>';
+    }
+    html+='</div></div>';
+  });
+  lb.innerHTML=html;
+
+  // Full log table
+  var allRows=allGILog().slice().sort(function(a,b){return b.createdAt>a.createdAt?1:-1;});
+  var tb=document.getElementById('gi-log-body'),em=document.getElementById('gi-log-empty');
+  if(!tb||!em)return;
+  if(allRows.length){
+    em.style.display='none';
+    tb.innerHTML=allRows.map(function(r,i){
+      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td>'+
+        '<td>'+MONS[Number(r.month)]+'</td>'+
+        '<td><span class="bd bb">'+(r.org||'')+'</span></td>'+
+        '<td><b>'+(r.name||'')+'</b></td>'+
+        '<td>'+(r.consultant||'')+'</td>'+
+        '<td style="text-align:center;font-weight:500;color:#2563eb">'+Number(r.entries||0).toLocaleString()+'</td></tr>';
+    }).join('');
+  }else{em.style.display='';tb.innerHTML='';}
+}
+window.__renderGILogPage=renderGILogPage;
+
 function renderSub(){
   var od=getOD(),mi=M,exp=Math.round(100*(mi+1)/12);
-  document.getElementById('sub-ystrip').innerHTML=[
-    {l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},
-    {l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},
-    {l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},
-    {l:'On Track?',v:tY(od,mi)>=exp?'YES':'NO',s:'Based on pace'},
-    {l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'},
-    {l:'Months Left',v:12-mi,s:'of 12'}
-  ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  document.getElementById('sub-ystrip').innerHTML=[{l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},{l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},{l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},{l:'On Track?',v:tY(od,mi)>=exp?'YES':'NO',s:'Based on pace'},{l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'},{l:'Months Left',v:12-mi,s:'of 12'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   document.getElementById('sub-tbl-t').textContent='Monthly breakdown — '+MONTHS[mi]+' highlighted';
-  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){
-    var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;
-    return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:600;color:#1B3A6B':'')+'">'
-      +mn+(sel?' '+bx('selected','n'):'')+
-      '</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')
-      +'<td style="text-align:center;font-weight:500;color:#2563eb">'+mT+'</td>'
-      +'<td style="text-align:center;font-weight:500;color:#0d9488">'+yT+'</td>'
-      +'<td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';
-  }).join('');
+  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:600;color:#1B3A6B':'')+'">'+(mn+(sel?' '+bx('selected','n'):''))+'</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')+'<td style="text-align:center;font-weight:500;color:#2563eb">'+mT+'</td><td style="text-align:center;font-weight:500;color:#0d9488">'+yT+'</td><td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';}).join('');
 }
 
 function renderSL(){
   var filter=document.getElementById('sl-filter')?document.getElementById('sl-filter').value:'all';
-  var rows=allSubs().filter(function(r){
-    var raw=r.date||'';if(!raw)return false;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return false;
-    return filter==='all'||dt.getMonth()===parseInt(filter);
-  });
+  var rows=allSubs().filter(function(r){var raw=r.date||'';if(!raw)return false;var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return false;return filter==='all'||dt.getMonth()===parseInt(filter);});
   var lbl=filter==='all'?'All 2026':MONTHS[parseInt(filter)];
   document.getElementById('sl-title').textContent='All submitters — '+lbl+' 2026';
-  document.getElementById('sl-ystrip').innerHTML=[
-    {l:'Showing',v:rows.length,s:lbl},
-    {l:'Annual Target',v:100,s:'Names/year'},
-    {l:'% Complete',v:Math.round(rows.length/100*100)+'%',s:'of 100 goal'},
-    {l:'Remaining',v:Math.max(0,100-rows.length),s:'names needed'}
-  ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  document.getElementById('sl-ystrip').innerHTML=[{l:'Showing',v:rows.length,s:lbl},{l:'Annual Target',v:100,s:'Names/year'},{l:'% Complete',v:Math.round(rows.length/100*100)+'%',s:'of 100 goal'},{l:'Remaining',v:Math.max(0,100-rows.length),s:'names needed'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   var tb=document.getElementById('sl-tbody'),em=document.getElementById('sl-empty');
-  if(rows.length){
-    em.style.display='none';
-    // ▼ FIXED: use r.gen4===true (boolean) not string comparison
-    tb.innerHTML=rows.map(function(r,i){
-      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+((r.gi||0)).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+(r.gen4===true?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:11px">'+(r.notes||'')+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+(r.gen4===true?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:11px">'+(r.notes||'')+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
 function renderGI(){
   var gd=getGD(),mi=M,isY=V==='ytd';
   var giY=tGIY(gd,mi),giM=tGI(gd,mi);
   var best=CONS.reduce(function(a,c){return((gd[c]||[])[mi]||0)>((gd[a]||[])[mi]||0)?c:a;},CONS[0]);
-  document.getElementById('gi-ystrip').innerHTML=[
-    {l:'This Month',v:giM.toLocaleString(),s:'All consultants'},
-    {l:'YTD Total',v:giY.toLocaleString(),s:'Jan–'+MONS[mi]},
-    {l:'Monthly Target',v:'3,500',s:'All combined'},
-    {l:'Best Consultant',v:best,s:((gd[best]||[])[mi]||0).toLocaleString()+' entries'},
-    {l:'Months Elapsed',v:mi+1,s:'of 12'},
-    {l:'YTD Average',v:Math.round(giY/CONS.length).toLocaleString(),s:'Per consultant'}
-  ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  document.getElementById('gi-ystrip').innerHTML=[{l:'This Month',v:giM.toLocaleString(),s:'All consultants'},{l:'YTD Total',v:giY.toLocaleString(),s:'Jan–'+MONS[mi]},{l:'Monthly Target',v:'3,500',s:'All combined'},{l:'Best Consultant',v:best,s:((gd[best]||[])[mi]||0).toLocaleString()+' entries'},{l:'Months Elapsed',v:mi+1,s:'of 12'},{l:'YTD Average',v:Math.round(giY/CONS.length).toLocaleString(),s:'Per consultant'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   document.getElementById('gi-pg-t').textContent='Get Involved — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
   var maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
-  document.getElementById('gi-bars').innerHTML=CONS.map(function(c,i){
-    var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);
-    return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+(val>=500?' <span style="color:#16a34a">✓</span>':'')+'</div></div>';
-  }).join('');
+  document.getElementById('gi-bars').innerHTML=CONS.map(function(c,i){var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+(val>=500?' <span style="color:#16a34a">✓</span>':'')+'</div></div>';}).join('');
   document.getElementById('gi-tleg').innerHTML=CONS.map(function(c,i){return '<span class="li"><span class="ld" style="background:'+CC[i]+'"></span>'+c+'</span>';}).join('');
   if(CH.giT)CH.giT.destroy();
   CH.giT=new Chart(document.getElementById('c-gitrd'),{type:'line',data:{labels:MONS,datasets:CONS.map(function(c,i){return{label:c,data:gd[c]||[],borderColor:CC[i],backgroundColor:CC[i]+'15',borderWidth:1.5,pointRadius:2,tension:.35,fill:false};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
-  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c){
-    var total=(gd[c]||[]).reduce(function(a,b){return a+b;},0);
-    return '<tr><td style="font-weight:500">'+c+'</td>'+(gd[c]||new Array(12).fill(0)).map(function(val,idx){
-      return '<td style="text-align:center;'+(idx===mi?'background:#eff6ff;font-weight:500;color:#2563eb':'')+'">'+(val||0).toLocaleString()+'</td>';
-    }).join('')+'<td style="text-align:center;font-weight:500;color:#16a34a">'+total.toLocaleString()+'</td></tr>';
-  }).join('');
+  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c){var total=(gd[c]||[]).reduce(function(a,b){return a+b;},0);return '<tr><td style="font-weight:500">'+c+'</td>'+(gd[c]||new Array(12).fill(0)).map(function(val,idx){return '<td style="text-align:center;'+(idx===M?'background:#eff6ff;font-weight:500;color:#2563eb':'')+'">'+(val||0).toLocaleString()+'</td>';}).join('')+'<td style="text-align:center;font-weight:500;color:#16a34a">'+total.toLocaleString()+'</td></tr>';}).join('');
 }
 
 function renderFH(){
   var fh=getFHD(),done=fh.filter(function(r){return r.done;}).length;
-  document.getElementById('fh-kpis').innerHTML=[
-    {l:'4th Gen Completed',v:done,s:'Target 50/year',c:'green'},
-    {l:'In Progress',v:fh.length-done,s:'Working on gens',c:'amber'},
-    {l:'Total Members',v:fh.length,s:'In tracker',c:'blue'},
-    {l:'5th Gen Started',v:fh.filter(function(r){return r.g5>0;}).length,s:'Beyond 4th gen',c:'teal'}
-  ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
+  document.getElementById('fh-kpis').innerHTML=[{l:'4th Gen Completed',v:done,s:'Target 50/year',c:'green'},{l:'In Progress',v:fh.length-done,s:'Working on gens',c:'amber'},{l:'Total Members',v:fh.length,s:'In tracker',c:'blue'},{l:'5th Gen Started',v:fh.filter(function(r){return r.g5>0;}).length,s:'Beyond 4th gen',c:'teal'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('fh-tbody'),em=document.getElementById('fh-empty');
-  if(fh.length){em.style.display='none';
-    tb.innerHTML=fh.map(function(r){
-      return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+yno(r.ysa)+'</td>'+
-        r.g.map(function(v){return '<td style="text-align:center">'+v+'/4</td>';}).join('')+
-        '<td style="text-align:center">'+(r.g5||'—')+'</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td>'+
-        '<td style="text-align:center">'+r.entries+'</td><td>'+r.by+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
+  if(fh.length){em.style.display='none';tb.innerHTML=fh.map(function(r){return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+yno(r.ysa)+'</td>'+r.g.map(function(v){return '<td style="text-align:center">'+v+'/4</td>';}).join('')+'<td style="text-align:center">'+(r.g5||'—')+'</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td style="text-align:center">'+r.entries+'</td><td>'+r.by+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
 function renderTC(){
   var tc=getTCD(),count=tc.length;
   document.getElementById('tc-count').textContent=count+' of 10';
-  document.getElementById('tc-kpis').innerHTML=[
-    {l:'Students Enrolled',v:count,s:'Target 10/year',c:'purple'},
-    {l:'Completed',v:tc.filter(function(r){return r.status==='Completed';}).length,s:'Finished',c:'green'},
-    {l:'In Progress',v:tc.filter(function(r){return r.status==='In Progress';}).length,s:'Attending',c:'blue'},
-    {l:'Remaining Slots',v:Math.max(0,10-count),s:'to target',c:'amber'}
-  ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
+  document.getElementById('tc-kpis').innerHTML=[{l:'Students Enrolled',v:count,s:'Target 10/year',c:'purple'},{l:'Completed',v:tc.filter(function(r){return r.status==='Completed';}).length,s:'Finished',c:'green'},{l:'In Progress',v:tc.filter(function(r){return r.status==='In Progress';}).length,s:'Attending',c:'blue'},{l:'Remaining Slots',v:Math.max(0,10-count),s:'to target',c:'amber'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('tc-tbody'),em=document.getElementById('tc-empty');
-  if(tc.length){em.style.display='none';
-    tb.innerHTML=tc.map(function(r){
-      var sb=r.status==='Completed'?bx('Completed','g'):r.status==='In Progress'?bx('In Progress','b'):r.status==='Dropped'?bx('Dropped','r'):bx('Enrolled','a');
-      return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+r.cons+'</td><td style="text-align:center">'+r.sessions+'</td><td>'+sb+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
+  if(tc.length){em.style.display='none';tb.innerHTML=tc.map(function(r){var sb=r.status==='Completed'?bx('Completed','g'):r.status==='In Progress'?bx('In Progress','b'):r.status==='Dropped'?bx('Dropped','r'):bx('Enrolled','a');return '<tr><td><b>'+r.name+'</b></td><td>'+bx(r.org,'b')+'</td><td>'+r.cons+'</td><td style="text-align:center">'+r.sessions+'</td><td>'+sb+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
 function renderKPIs(){
   var gd=getGD(),fh=getFHD(),mi=M,isY=V==='ytd';
   document.getElementById('cons-tbl-t').textContent='KPI — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
-  document.getElementById('cons-krow').innerHTML=[
-    {l:'On Track',v:CONS.filter(function(c){return((gd[c]||[])[mi]||0)>=500;}).length+' of '+CONS.length,s:'Get Involved ≥500',c:'green'},
-    {l:'Total Get Involved',v:(isY?tGIY(gd,mi):tGI(gd,mi)).toLocaleString(),s:isY?'Jan–'+MONS[mi]:'This month',c:'amber'},
-    {l:'4th Gen Done',v:fh.filter(function(r){return r.done;}).length,s:'Total done',c:'blue'},
-    {l:'Temple Class',v:getTCD().length,s:'10/year target',c:'purple'}
-  ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
-  document.getElementById('cons-tbody').innerHTML=CONS.map(function(c){
-    var gi=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);
-    var tgt=isY?500*(mi+1):500,on=gi>=tgt;
-    var fhD=fh.filter(function(r){return r.by===c&&r.done;}).length;
-    var ns=fh.filter(function(r){return r.by===c;}).length;
-    return '<tr><td><b>'+c+'</b></td><td style="font-weight:500;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td>'+
-      '<td>'+(on?bx('On track','g'):bx('Below','a'))+'</td>'+
-      '<td>'+fhD+'<span style="color:#9ca3af">/50</span></td>'+
-      '<td>'+ns+'<span style="color:#9ca3af">/100</span></td>'+
-      '<td>'+(gi>=500?bx('✓ Met','g'):bx('↓ Below','r'))+'</td></tr>';
-  }).join('');
+  document.getElementById('cons-krow').innerHTML=[{l:'On Track',v:CONS.filter(function(c){return((gd[c]||[])[mi]||0)>=500;}).length+' of '+CONS.length,s:'Get Involved ≥500',c:'green'},{l:'Total Get Involved',v:(isY?tGIY(gd,mi):tGI(gd,mi)).toLocaleString(),s:isY?'Jan–'+MONS[mi]:'This month',c:'amber'},{l:'4th Gen Done',v:fh.filter(function(r){return r.done;}).length,s:'Total done',c:'blue'},{l:'Temple Class',v:getTCD().length,s:'10/year target',c:'purple'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
+  document.getElementById('cons-tbody').innerHTML=CONS.map(function(c){var gi=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);var tgt=isY?500*(mi+1):500,on=gi>=tgt;var fhD=fh.filter(function(r){return r.by===c&&r.done;}).length;var ns=fh.filter(function(r){return r.by===c;}).length;return '<tr><td><b>'+c+'</b></td><td style="font-weight:500;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td><td>'+(on?bx('On track','g'):bx('Below','a'))+'</td><td>'+fhD+'<span style="color:#9ca3af">/50</span></td><td>'+ns+'<span style="color:#9ca3af">/100</span></td><td>'+(gi>=500?bx('✓ Met','g'):bx('↓ Below','r'))+'</td></tr>';}).join('');
   if(CH.cBar)CH.cBar.destroy();
   var vals=CONS.map(function(c){return isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);});
   CH.cBar=new Chart(document.getElementById('c-cons'),{type:'bar',indexAxis:'y',data:{labels:CONS,datasets:[{data:vals,backgroundColor:CC.map(function(c){return c+'CC';}),borderColor:CC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
@@ -1181,13 +1112,8 @@ function renderKPIs(){
 
 function renderMtgs(){
   var rows=allMtgs(),tb=document.getElementById('mtg-tbody'),em=document.getElementById('mtg-empty');
-  if(rows.length){em.style.display='none';
-    tb.innerHTML=rows.map(function(r){
-      var pres=(r.present||'No')==='Yes';
-      var rb=r.role==='Consultant'?bx('Consultant','b'):bx(r.role||'Leadership','a');
-      return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+rb+'</td><td>'+yno(pres)+'</td><td>'+(r.topic||'')+'</td><td style="color:var(--muted)">'+(r.action||'')+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r){return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.role==='Consultant'?bx('Consultant','b'):bx(r.role||'Leadership','a'))+'</td><td>'+yno((r.present||'No')==='Yes')+'</td><td>'+(r.topic||'')+'</td><td style="color:var(--muted)">'+(r.action||'')+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
 function renderTrips(){
@@ -1195,134 +1121,27 @@ function renderTrips(){
   var lo=rows.filter(function(r){return r.lo==='Yes';}).length;
   var po=rows.filter(function(r){return r.po==='Yes';}).length;
   var nc=rows.filter(function(r){return r.nc==='Yes';}).length;
-  document.getElementById('trip-krow').innerHTML=[
-    {l:'Living Ordinances',v:lo,s:'Target 10/trip',c:'blue'},
-    {l:'Proxy Ordinances',v:po,s:'Target 200/trip',c:'green'},
-    {l:'Name Cards',v:nc,s:'Printed',c:'purple'}
-  ].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
+  document.getElementById('trip-krow').innerHTML=[{l:'Living Ordinances',v:lo,s:'Target 10/trip',c:'blue'},{l:'Proxy Ordinances',v:po,s:'Target 200/trip',c:'green'},{l:'Name Cards',v:nc,s:'Printed',c:'purple'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('trip-tbody'),em=document.getElementById('trip-empty');
-  if(rows.length){em.style.display='none';
-    tb.innerHTML=rows.map(function(r){
-      return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+bx(r.org||'','b')+'</td><td>'+yno(r.lo==='Yes')+'</td><td>'+yno(r.po==='Yes')+'</td><td>'+yno(r.nc==='Yes')+'</td><td>'+(r.consultant||'')+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r){return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+bx(r.org||'','b')+'</td><td>'+yno(r.lo==='Yes')+'</td><td>'+yno(r.po==='Yes')+'</td><td>'+yno(r.nc==='Yes')+'</td><td>'+(r.consultant||'')+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
 function renderRecent(){
   var rows=allSubs().slice().reverse().slice(0,20);
   var tb=document.getElementById('recent-body'),em=document.getElementById('recent-e');
   if(!tb||!em)return;
-  if(rows.length){em.style.display='none';
-    tb.innerHTML=rows.map(function(r,i){
-      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+((r.gi||0)).toLocaleString()+'</td><td>'+((r.submitted||'No')==='Yes'?bx('Yes','g'):bx('No','a'))+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
-}
-function getNMD(){
-  var nm=new Array(12).fill(0);
-  var ysa=new Array(12).fill(0);
-  allSubs().forEach(function(r){
-    var raw=r.date||'';if(!raw)return;
-    var dt=new Date(raw);
-    if(isNaN(dt)||dt.getFullYear()!==2026)return;
-    var mi=dt.getMonth();
-    if((r.newMember||'No')==='Yes')nm[mi]++;
-    if((r.ysa||'No')==='Yes')ysa[mi]++;
-  });
-  return{nm:nm,ysa:ysa};
-}
-function clrGILog(){
-  document.getElementById('gi-mname').value='';
-  document.getElementById('gi-count').value='';
-  var s=document.getElementById('gi-log-stat');
-  if(s){s.textContent='';}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+((r.submitted||'No')==='Yes'?bx('Yes','g'):bx('No','a'))+'</td></tr>';}).join('');}
+  else{em.style.display='';tb.innerHTML='';}
 }
 
-function renderGILogPage(){
-  var sel=document.getElementById('gi-lb-month');
-  var mi=sel?Number(sel.value):M;
-  var MONS2=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var MONTHS2=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var GI_ORGS=['EQ','RS','Youth','Primary','New Members'];
-  var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed','New Members':'#dc2626'};
-  var MEDALS=['🥇','🥈','🥉'];
-
-  var rows=(window.__giLog||[]).filter(function(r){
-    return Number(r.month)===mi;
-  });
-
-  // Build leaderboard per org
-  var lb=document.getElementById('gi-leaderboards');
-  if(lb){
-    var html='';
-    GI_ORGS.forEach(function(org){
-      var orgRows=rows.filter(function(r){return r.org===org;});
-      var grouped={};
-      orgRows.forEach(function(r){
-        var n=r.name||'';
-        grouped[n]=(grouped[n]||0)+(Number(r.entries)||0);
-      });
-      var sorted=Object.keys(grouped).map(function(n){return{name:n,total:grouped[n]};})
-        .sort(function(a,b){return b.total-a.total;});
-      var color=ORG_COLORS[org]||'#374151';
-      html+='';
-      html+='';
-      html+=''+org+'';
-      html+=''+MONTHS2[mi]+'';
-      html+='';
-      if(sorted.length===0){
-        html+='No entries yet';
-      }else{
-        html+='';
-        sorted.slice(0,5).forEach(function(r,i){
-          var pct=sorted[0].total>0?Math.round(r.total/sorted[0].total*100):0;
-          html+='';
-          html+='';
-          html+=''+(MEDALS[i]||'  ')+' '+r.name+'';
-          html+=''+r.total.toLocaleString()+'';
-          html+='';
-          html+='';
-          html+='';
-        });
-        html+='';
-        if(sorted.length>0){
-          html+='';
-          html+=''+sorted.length+' member'+(sorted.length>1?'s':'')+'';
-          var tot=sorted.reduce(function(a,r){return a+r.total;},0);
-          html+='Total: '+tot.toLocaleString()+'';
-          html+='';
-        }
-      }
-      html+='';
-    });
-    html+='';
-    lb.innerHTML=html;
-  }
-
-  // Full log table
-  var allRows=(window.__giLog||[]).slice().reverse();
-  var tb=document.getElementById('gi-log-body');
-  var em=document.getElementById('gi-log-empty');
-  if(!tb||!em)return;
-  if(allRows.length){
-    em.style.display='none';
-    tb.innerHTML=allRows.map(function(r,i){
-      return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td>'+
-        '<td>'+(MONS2[Number(r.month)]||r.month)+'</td>'+
-        '<td><span class="bd bb">'+(r.org||'')+'</span></td>'+
-        '<td><b>'+(r.name||'')+'</b></td>'+
-        '<td>'+(r.consultant||'')+'</td>'+
-        '<td style="text-align:center;font-weight:500;color:#2563eb">'+(r.entries||0).toLocaleString()+'</td></tr>';
-    }).join('');
-  }else{em.style.display='';tb.innerHTML='';}
-}
-window.__renderGILogPage=renderGILogPage;
-  
+// ── CLEAR FUNCTIONS ──
 function clrEntry(){['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('e-date').value='2026-04-01';var s=document.getElementById('e-stat');if(s){s.textContent='';s.style.color='';}}
-function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s){s.textContent='';}}
-function clrMtg(){['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('m-date').value='2026-04-01';var s=document.getElementById('m-stat');if(s){s.textContent='';}}
-function clrTrip(){['t-name','t-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('t-date').value='2026-04-01';var s=document.getElementById('t-stat');if(s){s.textContent='';}}
-function clrTC(){['tc-name','tc-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('tc-ses').value=0;document.getElementById('tc-date').value='2026-04-01';var s=document.getElementById('tc-stat-msg');if(s){s.textContent='';}}
+function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s)s.textContent='';}
+function clrMtg(){['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('m-date').value='2026-04-01';var s=document.getElementById('m-stat');if(s)s.textContent='';}
+function clrTrip(){['t-name','t-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('t-date').value='2026-04-01';var s=document.getElementById('t-stat');if(s)s.textContent='';}
+function clrTC(){['tc-name','tc-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('tc-ses').value=0;document.getElementById('tc-date').value='2026-04-01';var s=document.getElementById('tc-stat-msg');if(s)s.textContent='';}
+function clrGILog(){document.getElementById('gi-mname').value='';document.getElementById('gi-count').value='';var s=document.getElementById('gi-log-stat');if(s){s.textContent='';s.style.color='';}}
 </script>
 </body>
 </html>
