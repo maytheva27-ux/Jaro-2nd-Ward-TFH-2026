@@ -452,51 +452,29 @@ tr:hover td{background:#fffbeb}
     </div>
   </div>
 </section>
-<section class="page" id="page-gilog">
-  <div class="sh"><h2>Get Involved Log Entry</h2><div class="ln"></div></div>
-  <div class="g2">
-    <div class="card">
-      <div class="ch"><div><div class="ct">✎ Log Get Involved Entries</div>
-      <div class="cs">Quick entry — month, name, count</div></div></div>
-      <div class="cb">
-        <div class="fg">
-          <div class="fi"><label>Month</label>
-            <select id="gi-month">
-              <option value="0">January</option><option value="1">February</option>
-              <option value="2">March</option><option value="3">April</option>
-              <option value="4">May</option><option value="5">June</option>
-              <option value="6">July</option><option value="7">August</option>
-              <option value="8">September</option><option value="9">October</option>
-              <option value="10">November</option><option value="11">December</option>
-            </select>
-          </div>
-          <div class="fi"><label>Member Name</label>
-            <input id="gi-mname" placeholder="Member name">
-          </div>
-          <div class="fi"><label>Consultant</label>
-            <select id="gi-cons2"></select>
-          </div>
-          <div class="fi"><label>Get Involved Entries</label>
-            <input type="number" id="gi-count" placeholder="0" min="0">
-          </div>
-        </div>
-        <div class="brow">
-          <button class="btn bnn" onclick="saveGILog()">💾 Save to Firebase</button>
-          <button class="btn bng" onclick="clrGILog()">Clear</button>
-          <span class="fst" id="gi-log-stat"></span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="ch"><div class="ct">Recent GI entries</div></div>
-      <div class="cb tw" style="padding-top:8px">
-        <table><thead><tr><th>#</th><th>Month</th><th>Member</th><th>Consultant</th><th>Entries</th></tr></thead>
-        <tbody id="gi-log-body"></tbody></table>
-        <div id="gi-log-empty" class="empty"><div class="eico">✎</div>No entries yet.</div>
-      </div>
-    </div>
-  </div>
-</section>
+
+window.saveGILog = async function(){
+  var name=document.getElementById('gi-mname').value.trim();
+  if(!name){showToast('Please enter a member name');return;}
+  var stat=document.getElementById('gi-log-stat');
+  stat.textContent='Saving...';
+  try{
+    await addDoc(collection(db,'giLog'),{
+      month: Number(document.getElementById('gi-month').value),
+      org:   document.getElementById('gi-org').value,
+      name:  name,
+      consultant: document.getElementById('gi-cons2').value,
+      entries: Number(document.getElementById('gi-count').value||0),
+      createdAt: new Date().toISOString()
+    });
+    stat.textContent='✓ Saved!';stat.style.color='#16a34a';
+    showToast('✓ GI entry saved!');clrGILog();
+    setTimeout(function(){stat.textContent='';},3000);
+  }catch(e){
+    stat.textContent='✗ Error: '+e.message;
+    stat.style.color='#dc2626';
+  }
+};
   
 <section class="page" id="page-getinvolved">
   <div class="sh"><h2>Get Involved Records</h2><div class="ln"></div></div>
@@ -1261,21 +1239,84 @@ function clrGILog(){
 }
 
 function renderGILogPage(){
-  var rows=(window.__giLog||[]).slice().reverse().slice(0,30);
+  var sel=document.getElementById('gi-lb-month');
+  var mi=sel?Number(sel.value):M;
+  var MONS2=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONTHS2=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var GI_ORGS=['EQ','RS','Youth','Primary','New Members'];
+  var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed','New Members':'#dc2626'};
+  var MEDALS=['🥇','🥈','🥉'];
+
+  var rows=(window.__giLog||[]).filter(function(r){
+    return Number(r.month)===mi;
+  });
+
+  // Build leaderboard per org
+  var lb=document.getElementById('gi-leaderboards');
+  if(lb){
+    var html='';
+    GI_ORGS.forEach(function(org){
+      var orgRows=rows.filter(function(r){return r.org===org;});
+      var grouped={};
+      orgRows.forEach(function(r){
+        var n=r.name||'';
+        grouped[n]=(grouped[n]||0)+(Number(r.entries)||0);
+      });
+      var sorted=Object.keys(grouped).map(function(n){return{name:n,total:grouped[n]};})
+        .sort(function(a,b){return b.total-a.total;});
+      var color=ORG_COLORS[org]||'#374151';
+      html+='';
+      html+='';
+      html+=''+org+'';
+      html+=''+MONTHS2[mi]+'';
+      html+='';
+      if(sorted.length===0){
+        html+='No entries yet';
+      }else{
+        html+='';
+        sorted.slice(0,5).forEach(function(r,i){
+          var pct=sorted[0].total>0?Math.round(r.total/sorted[0].total*100):0;
+          html+='';
+          html+='';
+          html+=''+(MEDALS[i]||'  ')+' '+r.name+'';
+          html+=''+r.total.toLocaleString()+'';
+          html+='';
+          html+='';
+          html+='';
+        });
+        html+='';
+        if(sorted.length>0){
+          html+='';
+          html+=''+sorted.length+' member'+(sorted.length>1?'s':'')+'';
+          var tot=sorted.reduce(function(a,r){return a+r.total;},0);
+          html+='Total: '+tot.toLocaleString()+'';
+          html+='';
+        }
+      }
+      html+='';
+    });
+    html+='';
+    lb.innerHTML=html;
+  }
+
+  // Full log table
+  var allRows=(window.__giLog||[]).slice().reverse();
   var tb=document.getElementById('gi-log-body');
   var em=document.getElementById('gi-log-empty');
   if(!tb||!em)return;
-  if(rows.length){
+  if(allRows.length){
     em.style.display='none';
-    tb.innerHTML=rows.map(function(r,i){
+    tb.innerHTML=allRows.map(function(r,i){
       return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td>'+
-        '<td>'+(['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][r.month]||r.month)+'</td>'+
+        '<td>'+(MONS2[Number(r.month)]||r.month)+'</td>'+
+        '<td><span class="bd bb">'+(r.org||'')+'</span></td>'+
         '<td><b>'+(r.name||'')+'</b></td>'+
         '<td>'+(r.consultant||'')+'</td>'+
         '<td style="text-align:center;font-weight:500;color:#2563eb">'+(r.entries||0).toLocaleString()+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
-}  
+}
+window.__renderGILogPage=renderGILogPage;
   
 function clrEntry(){['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('e-date').value='2026-04-01';var s=document.getElementById('e-stat');if(s){s.textContent='';s.style.color='';}}
 function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s){s.textContent='';}}
