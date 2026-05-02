@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jaro 2nd Ward — Temple & Family History Iloilo Central Stake 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -14,152 +14,153 @@
   --blue:#2563eb;--purple:#a855f7;--teal:#0d9488;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px}
 .app{display:flex;min-height:100vh}
-.sidebar{width:240px;background:var(--navy);position:fixed;top:0;left:0;bottom:0;z-index:100;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s}
+.sidebar{width:230px;background:var(--navy);position:fixed;top:0;left:0;bottom:0;z-index:100;display:flex;flex-direction:column;overflow-y:auto;transition:transform .3s}
 .sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
-.sb-brand .ico{font-size:30px;margin-bottom:8px}
-.sb-brand h1{font-family:'Lora',serif;font-size:18px;color:#fff;font-weight:600;line-height:1.3}
-.sb-brand p{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.sb-brand .ico{font-size:26px;margin-bottom:8px}
+.sb-brand h1{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;font-weight:600;line-height:1.3}
+.sb-brand p{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
 .sb-nav{padding:10px;flex:1}
-.sb-group{font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;padding:12px 8px 5px;font-weight:700}
-.nav-btn{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.75);font-size:15px;font-weight:500;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'Nunito',sans-serif}
-.nav-btn:hover{background:rgba(255,255,255,.12);color:#fff}
-.nav-btn.active{background:rgba(255,255,255,.22);color:#fff;font-weight:700}
-.nav-btn .ni{font-size:17px;width:19px;text-align:center;flex-shrink:0}
-.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.3);line-height:1.8}
-.sb-quote{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;font-style:italic}
-.sb-quote cite{display:block;margin-top:5px;font-size:11px;color:rgba(255,255,255,.65);font-style:normal;font-weight:700}
-.main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh}
-.topbar{background:#fff;border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.tb-left h2{font-family:'Lora',serif;font-size:24px;font-weight:700;color:var(--navy)}
-.tb-left p{font-size:14px;color:var(--muted);margin-top:2px;font-weight:500}
+.sb-group{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;padding:10px 8px 4px;font-weight:500}
+.nav-btn{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.65);font-size:13px;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.nav-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:500}
+.nav-btn .ni{font-size:15px;width:17px;text-align:center;flex-shrink:0}
+.sb-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.7}
+.sb-quote{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;font-style:italic}
+.sb-quote cite{display:block;margin-top:5px;font-size:10px;color:rgba(255,255,255,.6);font-style:normal;font-weight:500}
+.main{margin-left:230px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:11px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.tb-left h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--navy)}
+.tb-left p{font-size:12px;color:var(--muted);margin-top:1px}
 .tb-right{display:flex;align-items:center;gap:8px}
-.mpill{display:flex;align-items:center;gap:6px;background:var(--navy);border-radius:8px;padding:6px 13px}
-.mpill label{font-size:12px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.06em;font-weight:700;white-space:nowrap}
-.mpill select{background:transparent;border:none;color:#fff;font-size:14px;font-weight:600;font-family:'Nunito',sans-serif;cursor:pointer;outline:none}
+.mpill{display:flex;align-items:center;gap:6px;background:var(--navy);border-radius:8px;padding:5px 12px}
+.mpill label{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.06em;font-weight:500;white-space:nowrap}
+.mpill select{background:transparent;border:none;color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none}
 .mpill select option{background:var(--navy);color:#fff}
 .vtog{display:flex;background:var(--cream);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.vtog button{padding:6px 13px;font-size:13px;font-family:'Nunito',sans-serif;font-weight:600;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
-.vtog button.on{background:var(--navy);color:#fff}
-.gear-btn{width:36px;height:36px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--muted);transition:all .15s;flex-shrink:0}
+.vtog button{padding:5px 12px;font-size:12px;font-family:'DM Sans',sans-serif;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
+.vtog button.on{background:var(--navy);color:#fff;font-weight:500}
+.gear-btn{width:34px;height:34px;border-radius:8px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);transition:all .15s;flex-shrink:0}
 .gear-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.hamburger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--navy);padding:2px 4px}
-.page{padding:22px 26px;display:none}
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--navy);padding:2px 4px}
+.page{padding:20px 24px;display:none}
 .page.active{display:block;animation:fu .22s ease}
 @keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.banner{display:flex;align-items:center;gap:8px;border-radius:8px;padding:10px 15px;font-size:14px;font-weight:500;margin-bottom:16px}
+.banner{display:flex;align-items:center;gap:8px;border-radius:8px;padding:9px 14px;font-size:13px;margin-bottom:16px}
 .banner.ok{background:#f0fdf4;border:1px solid #86efac;color:#166534}
 .banner.warn{background:#fef9c3;border:1px solid #fcd34d;color:#92400e}
 .banner.err{background:#fff1f2;border:1px solid #fca5a5;color:#991b1b}
-.bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .banner.ok .bdot{background:#16a34a}
 .banner.warn .bdot{background:#d97706;animation:pulse 1.5s infinite}
 .banner.err .bdot{background:#dc2626}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:18px}
-.kpi{background:#fff;border-radius:12px;padding:16px 18px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);position:relative;overflow:hidden}
-.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:12px 12px 0 0}
+.krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-bottom:16px}
+.kpi{background:#fff;border-radius:12px;padding:14px 16px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
 .kpi.blue::before{background:#2563eb}.kpi.green::before{background:var(--green)}
 .kpi.amber::before{background:var(--amber)}.kpi.red::before{background:var(--red)}
 .kpi.purple::before{background:var(--purple)}.kpi.teal::before{background:var(--teal)}
 .kpi.navy::before{background:var(--navy)}
-.kl{font-size:12px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
-.kv{font-size:28px;font-weight:700;line-height:1;margin-bottom:3px;font-family:'Lora',serif}
+.kl{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.kv{font-size:24px;font-weight:500;line-height:1;margin-bottom:2px}
 .kpi.blue .kv{color:#2563eb}.kpi.green .kv{color:var(--green)}
 .kpi.amber .kv{color:var(--amber)}.kpi.red .kv{color:var(--red)}
 .kpi.purple .kv{color:var(--purple)}.kpi.teal .kv{color:var(--teal)}
 .kpi.navy .kv{color:var(--navy)}
-.ks{font-size:12px;color:var(--light);font-weight:500}
-.kbar{height:4px;background:var(--border);border-radius:2px;margin-top:10px}
+.ks{font-size:11px;color:var(--light)}
+.kbar{height:3px;background:var(--border);border-radius:2px;margin-top:9px}
 .kfill{height:100%;border-radius:2px;transition:width .6s ease}
-.ytag{display:inline-block;font-size:10px;background:var(--navy);color:#fff;padding:1px 6px;border-radius:10px;margin-left:4px;vertical-align:middle;font-weight:700}
-.ystrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:15px}
-.ym{background:var(--navy);border-radius:8px;padding:11px 13px;text-align:center}
-.yml{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;font-weight:700}
-.ymv{font-size:24px;font-weight:700;color:#fff;font-family:'Lora',serif}
-.yms{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;font-weight:500}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.g3{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.ytag{display:inline-block;font-size:10px;background:var(--navy);color:#fff;padding:1px 5px;border-radius:10px;margin-left:3px;vertical-align:middle}
+.ystrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:9px;margin-bottom:14px}
+.ym{background:var(--navy);border-radius:8px;padding:10px 12px;text-align:center}
+.yml{font-size:10px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.ymv{font-size:22px;font-weight:500;color:#fff}
+.yms{font-size:10px;color:rgba(255,255,255,.4);margin-top:1px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:13px;margin-bottom:13px}
 .card{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
-.ch{padding:14px 17px 0;display:flex;align-items:flex-start;justify-content:space-between}
-.ct{font-size:16px;font-weight:700;color:var(--text);font-family:'Lora',serif}
-.cs{font-size:13px;color:var(--muted);margin-top:2px;font-weight:500}
-.cb{padding:12px 17px 16px}
+.ch{padding:13px 16px 0;display:flex;align-items:flex-start;justify-content:space-between}
+.ct{font-size:14px;font-weight:500;color:var(--text)}
+.cs{font-size:12px;color:var(--muted);margin-top:1px}
+.cb{padding:11px 16px 15px}
 .tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:700;font-size:13px}
-td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--navy);color:#fff;padding:8px 11px;text-align:left;font-weight:500;font-size:12px}
+td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;font-size:13px}
 tr:last-child td{border-bottom:none}
 tr:nth-child(even) td{background:#fafafa}
 tr:hover td{background:#fffbeb}
-.bd{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
+.bd{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
 .bg{background:#f0fdf4;color:#166534}.bb{background:#eff6ff;color:#1d4ed8}
 .ba{background:#fffbeb;color:#92400e}.br{background:#fff1f2;color:#991b1b}
 .bp{background:#faf5ff;color:#6d28d9}.bt{background:#f0fdfa;color:#0f766e}
 .bn{background:var(--navy);color:#fff}
-.pl{display:flex;flex-direction:column;gap:9px}
-.pr{display:flex;align-items:center;gap:8px}
-.pn{font-size:13px;font-weight:600;width:75px;flex-shrink:0}
-.pb{flex:1;height:11px;background:var(--border);border-radius:5px;overflow:hidden}
+.pl{display:flex;flex-direction:column;gap:8px}
+.pr{display:flex;align-items:center;gap:7px}
+.pn{font-size:12px;font-weight:500;width:70px;flex-shrink:0}
+.pb{flex:1;height:10px;background:var(--border);border-radius:5px;overflow:hidden}
 .pf{height:100%;border-radius:5px;transition:width .5s ease}
-.pv{font-size:12px;width:70px;text-align:right;color:var(--muted);flex-shrink:0;font-weight:600}
-.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-.li{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:500}
-.ld{width:9px;height:9px;border-radius:2px;flex-shrink:0}
-.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.sh h2{font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--navy);white-space:nowrap}
+.pv{font-size:11px;width:65px;text-align:right;color:var(--muted);flex-shrink:0}
+.leg{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:7px}
+.li{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.sh{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.sh h2{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--navy);white-space:nowrap}
 .sh .ln{flex:1;height:1px;background:var(--border)}
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fi{display:flex;flex-direction:column;gap:5px}
-.fi label{font-size:13px;font-weight:700;color:var(--muted)}
-.fi input,.fi select,.fi textarea{padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:'Nunito',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .15s;font-weight:500}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.fi{display:flex;flex-direction:column;gap:4px}
+.fi label{font-size:12px;font-weight:500;color:var(--muted)}
+.fi input,.fi select,.fi textarea{padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;outline:none;transition:border-color .15s}
 .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--navy)}
 .ff{grid-column:1/-1}
-.btn{padding:10px 22px;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn{padding:9px 20px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
 .bnn{background:var(--navy);color:#fff}.bnn:hover{background:var(--navy2)}
 .bng{background:#f3f4f6;color:var(--text)}.bng:hover{background:#e5e7eb}
-.bsm{padding:7px 14px;font-size:13px}
-.brow{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap;align-items:center}
-.fst{font-size:14px;color:var(--muted);font-weight:500}
-.empty{text-align:center;padding:32px;color:var(--light);font-size:15px;font-weight:500}
-.eico{font-size:30px;margin-bottom:7px}
+.bsm{padding:6px 13px;font-size:12px}
+.brow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.fst{font-size:13px;color:var(--muted)}
+.empty{text-align:center;padding:28px;color:var(--light);font-size:13px}
+.eico{font-size:26px;margin-bottom:6px}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:16px}
 .modal-bg.open{display:flex}
 .modal{background:#fff;border-radius:12px;width:100%;max-width:520px;box-shadow:0 8px 40px rgba(0,0,0,.18);overflow:hidden;max-height:90vh;overflow-y:auto}
-.mh{background:var(--navy);padding:17px 21px;display:flex;align-items:center;justify-content:space-between}
-.mh h3{font-family:'Lora',serif;font-size:18px;color:#fff;font-weight:700}
-.mc{background:none;border:none;color:rgba(255,255,255,.6);font-size:22px;cursor:pointer;line-height:1}
+.mh{background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.mh h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;font-weight:600}
+.mc{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;line-height:1}
 .mc:hover{color:#fff}
-.mb{padding:21px}
-.mf{padding:14px 21px;border-top:1px solid var(--border);display:flex;gap:9px}
-.toast{position:fixed;bottom:20px;right:20px;background:#1B3A6B;color:#fff;padding:11px 17px;border-radius:8px;font-size:14px;font-weight:600;border-left:3px solid var(--amber);box-shadow:0 4px 20px rgba(0,0,0,.15);transform:translateY(80px);opacity:0;transition:all .3s;z-index:999;max-width:290px;pointer-events:none}
+.mb{padding:20px}
+.mf{padding:13px 20px;border-top:1px solid var(--border);display:flex;gap:8px}
+.code-box{background:#1e293b;color:#e2e8f0;border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;line-height:1.6;max-height:150px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;margin:7px 0}
+.toast{position:fixed;bottom:20px;right:20px;background:#1B3A6B;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;border-left:3px solid var(--amber);box-shadow:0 4px 20px rgba(0,0,0,.15);transform:translateY(80px);opacity:0;transition:all .3s;z-index:999;max-width:280px;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
 .overlay.show{display:block}
 
 /* ── GI LEADERBOARD ── */
-.lb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:17px}
+.lb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin-bottom:16px}
 .lb-card{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden}
-.lb-head{padding:12px 15px;display:flex;align-items:center;justify-content:space-between}
-.lb-title{font-size:15px;font-weight:700;color:#fff;font-family:'Lora',serif}
-.lb-month{font-size:12px;color:rgba(255,255,255,.75);font-weight:600}
-.lb-body{padding:11px 15px 15px}
-.lb-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
+.lb-head{padding:11px 14px;display:flex;align-items:center;justify-content:space-between}
+.lb-title{font-size:14px;font-weight:600;color:#fff}
+.lb-month{font-size:11px;color:rgba(255,255,255,.7)}
+.lb-body{padding:10px 14px 14px}
+.lb-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)}
 .lb-row:last-child{border-bottom:none}
-.lb-rank{font-size:17px;width:24px;text-align:center;flex-shrink:0}
-.lb-name{flex:1;font-size:14px;font-weight:600;color:var(--text)}
-.lb-score{font-size:14px;font-weight:700;color:var(--navy)}
+.lb-rank{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.lb-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
+.lb-score{font-size:13px;font-weight:600;color:var(--navy)}
 .lb-bar-wrap{width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:3px}
 .lb-bar-fill{height:100%;border-radius:2px;transition:width .5s}
-.lb-footer{margin-top:11px;padding-top:9px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600}
-.lb-empty{text-align:center;padding:19px;color:var(--light);font-size:13px;font-weight:500}
+.lb-footer{margin-top:10px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.lb-empty{text-align:center;padding:18px;color:var(--light);font-size:12px}
 
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0}.hamburger{display:block}
   .g2,.g3{grid-template-columns:1fr}.krow{grid-template-columns:repeat(2,1fr)}
-  .fg{grid-template-columns:1fr}.page{padding:15px}.topbar{padding:11px 15px}
+  .fg{grid-template-columns:1fr}.page{padding:14px}.topbar{padding:10px 14px}
   .lb-grid{grid-template-columns:1fr}
 }
 </style>
@@ -172,10 +173,10 @@ tr:hover td{background:#fffbeb}
   <div class="modal">
     <div class="mh"><h3>⚙ Settings</h3><button class="mc" onclick="closeMod()">✕</button></div>
     <div class="mb">
-      <div style="background:#f9fafb;border-radius:8px;padding:12px 14px;margin-bottom:12px">
-        <div style="font-size:13px;font-weight:700;margin-bottom:5px">Connection Status</div>
-        <div id="set-cur" style="font-size:12px;color:var(--muted)">Using Firebase Firestore</div>
-        <div id="set-stat" style="font-size:13px;margin-top:6px;color:#16a34a;font-weight:600">✓ Firebase connected</div>
+      <div style="background:#f9fafb;border-radius:8px;padding:11px 13px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:500;margin-bottom:4px">Connection Status</div>
+        <div id="set-cur" style="font-size:10px;color:var(--muted)">Using Firebase Firestore</div>
+        <div id="set-stat" style="font-size:11px;margin-top:5px;color:#16a34a">✓ Firebase connected</div>
       </div>
     </div>
     <div class="mf">
@@ -186,7 +187,7 @@ tr:hover td{background:#fffbeb}
 </div>
 
 <div class="app">
-<!-- SIDEBAR — reordered per user request -->
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-brand">
     <div class="ico">⛪</div>
@@ -194,32 +195,19 @@ tr:hover td{background:#fffbeb}
     <p>2026</p>
   </div>
   <div class="sb-nav">
-    <!-- OVERVIEW -->
     <div class="sb-group">Overview</div>
     <button class="nav-btn active" data-page="dashboard"><span class="ni">▣</span>Dashboard</button>
-
-    <!-- SUBMITTERS -->
-    <div class="sb-group">Submitters</div>
-    <button class="nav-btn" data-page="sublist"><span class="ni">📝</span>Names of Submitters</button>
-    <button class="nav-btn" data-page="submitters"><span class="ni">✦</span>Temple Submitters</button>
-
-    <!-- GET INVOLVED -->
-    <div class="sb-group">Get Involved</div>
-    <button class="nav-btn" data-page="getinvolved"><span class="ni">◈</span>Get Involved</button>
-    <button class="nav-btn" data-page="gilog"><span class="ni">✎</span>GI Log Entry</button>
-
-    <!-- TRACKING -->
-    <div class="sb-group">Tracking</div>
-    <button class="nav-btn" data-page="familyhistory"><span class="ni">❧</span>Family History</button>
-    <button class="nav-btn" data-page="templeclass"><span class="ni">🎓</span>Temple Class</button>
-
-    <!-- DATA ENTRY -->
     <div class="sb-group">Data Entry</div>
     <button class="nav-btn" data-page="log"><span class="ni">✚</span>Log My Work</button>
+    <button class="nav-btn" data-page="gilog"><span class="ni">✎</span>GI Log Entry</button>
     <button class="nav-btn" data-page="addmeeting"><span class="ni">◆</span>Add Meeting</button>
     <button class="nav-btn" data-page="addtrip"><span class="ni">✶</span>Add Temple Trip</button>
-
-    <!-- TEAM -->
+    <div class="sb-group">Tracking</div>
+    <button class="nav-btn" data-page="submitters"><span class="ni">✦</span>Temple Submitters</button>
+    <button class="nav-btn" data-page="sublist"><span class="ni">📝</span>Submitters List</button>
+    <button class="nav-btn" data-page="getinvolved"><span class="ni">◈</span>Get Involved</button>
+    <button class="nav-btn" data-page="familyhistory"><span class="ni">❧</span>Family History</button>
+    <button class="nav-btn" data-page="templeclass"><span class="ni">🎓</span>Temple Class</button>
     <div class="sb-group">Team</div>
     <button class="nav-btn" data-page="kpis"><span class="ni">◉</span>Consultant KPIs</button>
     <button class="nav-btn" data-page="meetings"><span class="ni">📋</span>Meetings Log</button>
@@ -232,7 +220,7 @@ tr:hover td{background:#fffbeb}
 <!-- MAIN -->
 <main class="main">
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:10px">
+  <div style="display:flex;align-items:center;gap:9px">
     <button class="hamburger" onclick="toggleSB()">☰</button>
     <div class="tb-left"><h2 id="pgTitle">Dashboard</h2><p id="pgSub">All KPIs · 2026 Overview</p></div>
   </div>
@@ -262,11 +250,11 @@ tr:hover td{background:#fffbeb}
   <div class="g3">
     <div class="card">
       <div class="ch"><div><div class="ct" id="sc-title">Temple Submitters — April</div><div class="cs">By organization</div></div></div>
-      <div class="cb"><div class="leg" id="sc-leg"></div><div style="position:relative;height:200px"><canvas id="c-sub"></canvas></div></div>
+      <div class="cb"><div class="leg" id="sc-leg"></div><div style="position:relative;height:180px"><canvas id="c-sub"></canvas></div></div>
     </div>
     <div class="card">
       <div class="ch"><div class="ct">Org split</div></div>
-      <div class="cb"><div style="position:relative;height:160px"><canvas id="c-pie"></canvas></div><div class="leg" id="pie-leg" style="margin-top:8px;justify-content:center"></div></div>
+      <div class="cb"><div style="position:relative;height:150px"><canvas id="c-pie"></canvas></div><div class="leg" id="pie-leg" style="margin-top:7px;justify-content:center"></div></div>
     </div>
   </div>
   <div class="g2">
@@ -276,13 +264,13 @@ tr:hover td{background:#fffbeb}
     </div>
     <div class="card">
       <div class="ch"><div class="ct">Get Involved trend 2026</div></div>
-      <div class="cb"><div style="position:relative;height:200px"><canvas id="c-trend"></canvas></div></div>
+      <div class="cb"><div style="position:relative;height:180px"><canvas id="c-trend"></canvas></div></div>
     </div>
   </div>
   <div class="g2">
     <div class="card">
       <div class="ch"><div class="ct">4th generation tracker</div><div class="cs">Target: 50/year</div></div>
-      <div class="cb" style="padding-top:9px">
+      <div class="cb" style="padding-top:8px">
         <table><thead><tr><th>Member</th><th>Org</th><th>Gen4</th><th>Done?</th><th>Consultant</th></tr></thead>
         <tbody id="fh-mini"></tbody></table>
         <div id="fh-mini-e" class="empty" style="display:none"><div class="eico">❧</div>No records yet</div>
@@ -290,7 +278,7 @@ tr:hover td{background:#fffbeb}
     </div>
     <div class="card">
       <div class="ch"><div class="ct" id="ytdb-title">YTD submitters by org</div></div>
-      <div class="cb"><div style="position:relative;height:210px"><canvas id="c-ytd"></canvas></div></div>
+      <div class="cb"><div style="position:relative;height:195px"><canvas id="c-ytd"></canvas></div></div>
     </div>
   </div>
 </section>
@@ -305,7 +293,7 @@ tr:hover td{background:#fffbeb}
         <div class="fg">
           <div class="fi"><label>Member Name</label><input id="e-name" placeholder="Sister / Bro. Name"></div>
           <div class="fi"><label>Date</label><input type="date" id="e-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
-          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
+          <div class="fi"><label>Organization</label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
           <div class="fi"><label>Your Name (Consultant)</label><select id="e-cons"></select></div>
           <div class="fi"><label>Get Involved # entries</label><input type="number" id="e-gi" placeholder="0" min="0"></div>
           <div class="fi"><label>Is New Member?</label><select id="e-new"><option>No</option><option>Yes</option></select></div>
@@ -327,7 +315,7 @@ tr:hover td{background:#fffbeb}
       <div class="cb">
         <div class="fg">
           <div class="fi"><label>Member Name</label><input id="fh-name" placeholder="Member name"></div>
-          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="fh-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
+          <div class="fi"><label>Organization</label><select id="fh-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
           <div class="fi"><label>Your Name (Consultant)</label><select id="fh-cons"></select></div>
           <div class="fi"><label>Is YSA?</label><select id="fh-ysa"><option>No</option><option>Yes</option></select></div>
           <div class="fi"><label>Gen 1 Parents (0-4)</label><input type="number" id="fh-g1" min="0" max="4" value="0"></div>
@@ -343,9 +331,9 @@ tr:hover td{background:#fffbeb}
       </div>
     </div>
   </div>
-  <div class="card" style="margin-top:14px">
+  <div class="card" style="margin-top:13px">
     <div class="ch"><div class="ct">📝 Recently logged submitters</div><div class="cs">Last 20 records saved</div></div>
-    <div class="cb tw" style="padding-top:9px">
+    <div class="cb tw" style="padding-top:8px">
       <table><thead><tr><th>#</th><th>Name</th><th>Date</th><th>Org</th><th>Consultant</th><th>Get Involved</th><th>Submitted?</th></tr></thead>
       <tbody id="recent-body"></tbody></table>
       <div id="recent-e" class="empty"><div class="eico">✦</div>No records yet.</div>
@@ -356,7 +344,9 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ GI LOG ENTRY ═══════ -->
 <section class="page" id="page-gilog">
   <div class="sh"><h2>GI Log Entry</h2><div class="ln"></div></div>
-  <div class="card" style="max-width:640px;margin-bottom:17px">
+
+  <!-- Entry Form -->
+  <div class="card" style="max-width:620px;margin-bottom:16px">
     <div class="ch"><div><div class="ct">✎ Log Get Involved Entries</div><div class="cs">Record member GI activity per organization</div></div></div>
     <div class="cb">
       <div class="fg">
@@ -369,7 +359,9 @@ tr:hover td{background:#fffbeb}
           </select>
         </div>
         <div class="fi"><label>Organization</label>
-          <select id="gi-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option><option>New Members</option></select>
+          <select id="gi-org">
+            <option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option><option>New Members</option>
+          </select>
         </div>
         <div class="fi"><label>Member Name</label><input id="gi-mname" placeholder="Full name of member"></div>
         <div class="fi"><label>Consultant Assisting</label><select id="gi-cons2"></select></div>
@@ -378,23 +370,32 @@ tr:hover td{background:#fffbeb}
           <button class="btn bnn" onclick="saveGILog()" style="margin-top:2px">💾 Save Entry</button>
         </div>
       </div>
-      <div class="brow"><button class="btn bng" onclick="clrGILog()">Clear</button><span class="fst" id="gi-log-stat"></span></div>
+      <div class="brow">
+        <button class="btn bng" onclick="clrGILog()">Clear</button>
+        <span class="fst" id="gi-log-stat"></span>
+      </div>
     </div>
   </div>
-  <div style="display:flex;align-items:center;gap:13px;margin-bottom:14px">
-    <div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--navy)">🏆 Monthly Leaderboards</div>
-    <select id="gi-lb-month" onchange="renderGILogPage()" style="font-size:13px;padding:6px 11px;border:1px solid var(--border);border-radius:8px;background:#fff;font-weight:600">
+
+  <!-- Month selector for leaderboards -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--navy)">🏆 Monthly Leaderboards</div>
+    <select id="gi-lb-month" onchange="renderGILogPage()" style="font-size:12px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:#fff">
       <option value="0">January</option><option value="1">February</option><option value="2">March</option>
       <option value="3" selected>April</option><option value="4">May</option><option value="5">June</option>
       <option value="6">July</option><option value="7">August</option><option value="8">September</option>
       <option value="9">October</option><option value="10">November</option><option value="11">December</option>
     </select>
-    <span style="font-size:13px;color:var(--muted);font-weight:500">Top members per organization — give them prizes! 🎁</span>
+    <span style="font-size:12px;color:var(--muted)">Top members per organization — give them prizes! 🎁</span>
   </div>
+
+  <!-- Leaderboard cards grid -->
   <div class="lb-grid" id="gi-leaderboards"></div>
+
+  <!-- Full log table -->
   <div class="card">
     <div class="ch"><div class="ct">📋 All GI Log Entries</div><div class="cs">Complete record</div></div>
-    <div class="cb tw" style="padding-top:9px">
+    <div class="cb tw" style="padding-top:8px">
       <table>
         <thead><tr><th>#</th><th>Month</th><th>Org</th><th>Member Name</th><th>Consultant</th><th>GI Entries</th></tr></thead>
         <tbody id="gi-log-body"></tbody>
@@ -407,7 +408,7 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ ADD MEETING ═══════ -->
 <section class="page" id="page-addmeeting">
   <div class="sh"><h2>Add Monthly Meeting</h2><div class="ln"></div></div>
-  <div class="card" style="max-width:600px">
+  <div class="card" style="max-width:580px">
     <div class="ch"><div><div class="ct">◆ Monthly Coordination Meeting</div><div class="cs">c/o Romeo Alejandro</div></div></div>
     <div class="cb">
       <div class="fg">
@@ -420,10 +421,10 @@ tr:hover td{background:#fffbeb}
         <div class="fi ff"><label>Notes</label><textarea id="m-notes" rows="2"></textarea></div>
       </div>
       <div class="brow"><button class="btn bnn" onclick="saveMtg()">💾 Save to Firebase</button><button class="btn bng" onclick="clrMtg()">Clear</button><span class="fst" id="m-stat"></span></div>
-      <div style="margin-top:15px;padding-top:13px;border-top:1px solid var(--border)">
-        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:9px">Quick add — all consultants + Romeo Alejandro</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+        <div style="font-size:12px;font-weight:500;color:var(--muted);margin-bottom:8px">Quick add — all consultants + Romeo Alejandro</div>
         <button class="btn bng bsm" onclick="quickAll()">Add All 10 Consultants + Leader</button>
-        <span class="fst" id="q-stat" style="margin-left:9px"></span>
+        <span class="fst" id="q-stat" style="margin-left:8px"></span>
       </div>
     </div>
   </div>
@@ -432,13 +433,13 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ ADD TRIP ═══════ -->
 <section class="page" id="page-addtrip">
   <div class="sh"><h2>Add Temple Trip</h2><div class="ln"></div></div>
-  <div class="card" style="max-width:600px">
+  <div class="card" style="max-width:580px">
     <div class="ch"><div><div class="ct">✶ Ward Temple Trip</div><div class="cs">Log attendance and ordinances</div></div></div>
     <div class="cb">
       <div class="fg">
         <div class="fi"><label>Trip Date</label><input type="date" id="t-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
         <div class="fi"><label>Attendee Name</label><input id="t-name" placeholder="Full name"></div>
-        <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="t-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
+        <div class="fi"><label>Organization</label><select id="t-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
         <div class="fi"><label>Consultant Assisting</label><select id="t-cons"></select></div>
         <div class="fi"><label>Is YSA?</label><select id="t-ysa"><option>No</option><option>Yes</option></select></div>
         <div class="fi"><label>Living Ordinance?</label><select id="t-lo"><option>No</option><option>Yes</option></select></div>
@@ -453,23 +454,23 @@ tr:hover td{background:#fffbeb}
 
 <!-- ═══════ TEMPLE SUBMITTERS ═══════ -->
 <section class="page" id="page-submitters">
-  <div class="sh"><h2>Temple Submitters</h2><div class="ln"></div></div>
+  <div class="sh"><h2>Temple Name Submitters</h2><div class="ln"></div></div>
   <div class="ystrip" id="sub-ystrip"></div>
   <div class="card"><div class="ch"><div class="ct" id="sub-tbl-t">Monthly breakdown</div></div>
-  <div class="cb tw" style="padding-top:9px">
-    <table><thead><tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>Primary</th><th>Monthly Total</th><th>New Members 🆕</th><th>YSA ⭐</th><th>YTD Total</th><th>% of Target</th></tr></thead>
+  <div class="cb tw" style="padding-top:8px">
+    <table><thead><tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>New Members</th><th>Primary</th><th>YSA</th><th>Monthly Total</th><th>YTD Total</th><th>% of Target</th></tr></thead>
     <tbody id="sub-tbody"></tbody></table>
   </div></div>
 </section>
 
-<!-- ═══════ SUBMITTERS LIST (Names of Submitters) ═══════ -->
+<!-- ═══════ SUBMITTERS LIST ═══════ -->
 <section class="page" id="page-sublist">
-  <div class="sh"><h2>Names of Submitters</h2><div class="ln"></div></div>
+  <div class="sh"><h2>Submitters List</h2><div class="ln"></div></div>
   <div class="ystrip" id="sl-ystrip"></div>
   <div class="card">
     <div class="ch">
       <div><div class="ct" id="sl-title">All submitters — April 2026</div><div class="cs">Names of members who submitted a temple name</div></div>
-      <select id="sl-filter" onchange="renderSL()" style="font-size:13px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#fff;font-weight:600">
+      <select id="sl-filter" onchange="renderSL()" style="font-size:12px;padding:5px 9px;border:1px solid var(--border);border-radius:8px;background:#fff">
         <option value="all">All Months</option>
         <option value="0">January</option><option value="1">February</option><option value="2">March</option>
         <option value="3" selected>April</option><option value="4">May</option><option value="5">June</option>
@@ -477,7 +478,7 @@ tr:hover td{background:#fffbeb}
         <option value="9">October</option><option value="10">November</option><option value="11">December</option>
       </select>
     </div>
-    <div class="cb tw" style="padding-top:9px">
+    <div class="cb tw" style="padding-top:8px">
       <table><thead><tr><th>#</th><th>Name</th><th>Date</th><th>Org</th><th>Consultant</th><th>Get Involved</th><th>New Member</th><th>YSA</th><th>4th Gen Done</th><th>Notes</th></tr></thead>
       <tbody id="sl-tbody"></tbody></table>
       <div id="sl-empty" class="empty"><div class="eico">✦</div>No records for this period.</div>
@@ -491,10 +492,10 @@ tr:hover td{background:#fffbeb}
   <div class="ystrip" id="gi-ystrip"></div>
   <div class="g2">
     <div class="card"><div class="ch"><div class="ct" id="gi-pg-t">Monthly Get Involved</div></div><div class="cb"><div class="pl" id="gi-bars"></div></div></div>
-    <div class="card"><div class="ch"><div class="ct">Trend per consultant</div></div><div class="cb"><div class="leg" id="gi-tleg"></div><div style="position:relative;height:210px"><canvas id="c-gitrd"></canvas></div></div></div>
+    <div class="card"><div class="ch"><div class="ct">Trend per consultant</div></div><div class="cb"><div class="leg" id="gi-tleg"></div><div style="position:relative;height:200px"><canvas id="c-gitrd"></canvas></div></div></div>
   </div>
   <div class="card"><div class="ch"><div class="ct">Full year — all consultants</div></div>
-  <div class="cb tw" style="padding-top:9px">
+  <div class="cb tw" style="padding-top:8px">
     <table><thead><tr><th>Consultant</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th><th>TOTAL</th></tr></thead>
     <tbody id="gi-tbody"></tbody></table>
   </div></div>
@@ -503,9 +504,9 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ FAMILY HISTORY ═══════ -->
 <section class="page" id="page-familyhistory">
   <div class="sh"><h2>Family History — 4 Generations</h2><div class="ln"></div></div>
-  <div class="krow" id="fh-kpis" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))"></div>
+  <div class="krow" id="fh-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr))"></div>
   <div class="card"><div class="ch"><div class="ct">Member genealogy progress</div></div>
-  <div class="cb tw" style="padding-top:9px">
+  <div class="cb tw" style="padding-top:8px">
     <table><thead><tr><th>Member</th><th>Org</th><th>YSA</th><th>Gen1</th><th>Gen2</th><th>Gen3</th><th>Gen4</th><th>Gen5+</th><th>4th Gen Done</th><th>New Entries</th><th>Consultant</th></tr></thead>
     <tbody id="fh-tbody"></tbody></table>
     <div id="fh-empty" class="empty"><div class="eico">❧</div>No family history records yet.</div>
@@ -515,7 +516,7 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ TEMPLE CLASS ═══════ -->
 <section class="page" id="page-templeclass">
   <div class="sh"><h2>Temple Preparation Class</h2><div class="ln"></div></div>
-  <div class="krow" id="tc-kpis" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:15px"></div>
+  <div class="krow" id="tc-kpis" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
   <div class="g2">
     <div class="card">
       <div class="ch"><div><div class="ct">🎓 Add Student</div><div class="cs">Target: 10 candidates/year</div></div></div>
@@ -523,7 +524,7 @@ tr:hover td{background:#fffbeb}
         <div class="fg">
           <div class="fi"><label>Student Name</label><input id="tc-name" placeholder="Full name"></div>
           <div class="fi"><label>Date Started</label><input type="date" id="tc-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
-          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="tc-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
+          <div class="fi"><label>Organization</label><select id="tc-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
           <div class="fi"><label>Assigned Consultant</label><select id="tc-cons"></select></div>
           <div class="fi"><label>Is New Member?</label><select id="tc-new"><option>No</option><option>Yes</option></select></div>
           <div class="fi"><label>Is YSA?</label><select id="tc-ysa"><option>No</option><option>Yes</option></select></div>
@@ -536,7 +537,7 @@ tr:hover td{background:#fffbeb}
     </div>
     <div class="card">
       <div class="ch"><div class="ct">Students enrolled</div><div class="cs" id="tc-count">0 of 10</div></div>
-      <div class="cb tw" style="padding-top:9px">
+      <div class="cb tw" style="padding-top:8px">
         <table><thead><tr><th>Name</th><th>Org</th><th>Consultant</th><th>Sessions</th><th>Status</th></tr></thead>
         <tbody id="tc-tbody"></tbody></table>
         <div id="tc-empty" class="empty"><div class="eico">🎓</div>No students yet.</div>
@@ -548,19 +549,19 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ CONSULTANT KPIS ═══════ -->
 <section class="page" id="page-kpis">
   <div class="sh"><h2>Consultant KPIs</h2><div class="ln"></div></div>
-  <div class="krow" id="cons-krow" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:15px"></div>
-  <div class="card" style="margin-bottom:14px"><div class="ch"><div class="ct" id="cons-tbl-t">KPI performance</div></div>
-  <div class="cb tw" style="padding-top:9px">
+  <div class="krow" id="cons-krow" style="grid-template-columns:repeat(auto-fit,minmax(130px,1fr));margin-bottom:14px"></div>
+  <div class="card" style="margin-bottom:13px"><div class="ch"><div class="ct" id="cons-tbl-t">KPI performance</div></div>
+  <div class="cb tw" style="padding-top:8px">
     <table><thead><tr><th>Consultant</th><th>Get Involved</th><th>vs Target</th><th>4th Gen</th><th>Submitted</th><th>Status</th></tr></thead>
     <tbody id="cons-tbody"></tbody></table>
   </div></div>
-  <div class="card"><div class="ch"><div class="ct">Get Involved comparison</div></div><div class="cb"><div style="position:relative;height:250px"><canvas id="c-cons"></canvas></div></div></div>
+  <div class="card"><div class="ch"><div class="ct">Get Involved comparison</div></div><div class="cb"><div style="position:relative;height:240px"><canvas id="c-cons"></canvas></div></div></div>
 </section>
 
 <!-- ═══════ MEETINGS LOG ═══════ -->
 <section class="page" id="page-meetings">
   <div class="sh"><h2>Meetings Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addmeeting')">+ Add Meeting</button></div>
-  <div class="card"><div class="cb tw" style="padding-top:9px">
+  <div class="card"><div class="cb tw" style="padding-top:8px">
     <table><thead><tr><th>Date</th><th>Attendee</th><th>Role</th><th>Present</th><th>Topic</th><th>Action Item</th></tr></thead>
     <tbody id="mtg-tbody"></tbody></table>
     <div id="mtg-empty" class="empty"><div class="eico">◆</div>No meeting records yet.</div>
@@ -570,8 +571,8 @@ tr:hover td{background:#fffbeb}
 <!-- ═══════ TRIPS LOG ═══════ -->
 <section class="page" id="page-trips">
   <div class="sh"><h2>Temple Trips Log</h2><div class="ln"></div><button class="btn bnn bsm" onclick="goPage('addtrip')">+ Add Trip</button></div>
-  <div class="krow" id="trip-krow" style="grid-template-columns:repeat(3,1fr);margin-bottom:15px"></div>
-  <div class="card"><div class="cb tw" style="padding-top:9px">
+  <div class="krow" id="trip-krow" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px"></div>
+  <div class="card"><div class="cb tw" style="padding-top:8px">
     <table><thead><tr><th>Date</th><th>Attendee</th><th>Org</th><th>Living Ord.</th><th>Proxy Ord.</th><th>Name Cards</th><th>Consultant</th></tr></thead>
     <tbody id="trip-tbody"></tbody></table>
     <div id="trip-empty" class="empty"><div class="eico">🏛</div>No temple trip records yet.</div>
@@ -603,6 +604,7 @@ const db  = getFirestore(app);
 window.__db = db;
 window.__fbReady = true;
 
+// ── Real-time listeners ──
 onSnapshot(collection(db,'submitters'),  s => { window.__submitters   = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderDash)window.__renderDash(); if(window.__renderRecent)window.__renderRecent(); });
 onSnapshot(collection(db,'familyHistory'),s=>{ window.__familyHistory = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderFH)window.__renderFH(); });
 onSnapshot(collection(db,'meetings'),    s=>{ window.__meetings      = s.docs.map(d=>({id:d.id,...d.data()})); if(window.__renderMtgs)window.__renderMtgs(); });
@@ -612,6 +614,7 @@ onSnapshot(collection(db,'giLog'),       s=>{ window.__giLog         = s.docs.ma
 
 setBanner('ok','✓ Live — connected to Firebase');
 
+// ── SAVE: Temple Name Submitter ──
 window.saveEntry = async function(){
   var name=document.getElementById('e-name').value.trim();
   if(!name){showToast('Please enter a member name');return;}
@@ -636,6 +639,7 @@ window.saveEntry = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: Family History ──
 window.saveFH = async function(){
   var name=document.getElementById('fh-name').value.trim();
   if(!name){showToast('Please enter a member name');return;}
@@ -661,6 +665,7 @@ window.saveFH = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: GI Log Entry ──
 window.saveGILog = async function(){
   var name=document.getElementById('gi-mname').value.trim();
   if(!name){showToast('Please enter a member name');return;}
@@ -680,6 +685,7 @@ window.saveGILog = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: Meeting ──
 window.saveMtg = async function(){
   var name=document.getElementById('m-name').value.trim();
   if(!name){showToast('Please enter an attendee name');return;}
@@ -700,6 +706,7 @@ window.saveMtg = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: Temple Trip ──
 window.saveTrip = async function(){
   var name=document.getElementById('t-name').value.trim();
   if(!name){showToast('Please enter an attendee name');return;}
@@ -722,6 +729,7 @@ window.saveTrip = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: Temple Class ──
 window.saveTC = async function(){
   var name=document.getElementById('tc-name').value.trim();
   if(!name){showToast('Please enter a student name');return;}
@@ -744,6 +752,7 @@ window.saveTC = async function(){
   }catch(e){stat.textContent='✗ Error: '+e.message; stat.style.color='#dc2626';}
 };
 
+// ── SAVE: Quick All Meeting ──
 window.quickAll = async function(){
   var date=document.getElementById('m-date').value||'2026-04-01';
   var topic=document.getElementById('m-topic').value||'Monthly Coordination Meeting';
@@ -767,13 +776,13 @@ window.quickAll = async function(){
 <script>
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var MONS  =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-// ORGS = 4 main orgs for charts/tables. YSA and New Members are FLAGS (checkboxes), not orgs.
-var ORGS  =['EQ','RS','Youth','Primary'];
-var GI_ORGS=['EQ','RS','Youth','Primary'];
+var ORGS  =['EQ','RS','Youth','New Members','Primary','YSA'];
+var GI_ORGS=['EQ','RS','Youth','Primary','New Members'];
 var CONS  =['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
-var OC    =['#2563eb','#16a34a','#d97706','#7c3aed'];
+var OC    =['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
 var CC    =['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
-var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed'};
+var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed','New Members':'#dc2626'};
+var MEDALS=['🥇','🥈','🥉','4th','5th'];
 
 var M=3, V='monthly', CH={};
 window.__submitters=window.__submitters||[];
@@ -790,7 +799,7 @@ var PM={
   'addmeeting':   ['Add Meeting','Log coordination meeting'],
   'addtrip':      ['Add Temple Trip','Log ward temple trip'],
   'submitters':   ['Temple Submitters','Monthly & YTD breakdown'],
-  'sublist':      ['Names of Submitters','Names of all members who submitted'],
+  'sublist':      ['Submitters List','Names of all members who submitted'],
   'getinvolved':  ['Get Involved','Records per consultant'],
   'familyhistory':['Family History','4-generation tracker'],
   'templeclass':  ['Temple Preparation Class','Log students'],
@@ -810,6 +819,7 @@ window.addEventListener('DOMContentLoaded',function(){
   renderDash();
 });
 
+// Expose render hooks for Firebase listeners
 window.__renderDash      =function(){if(document.getElementById('page-dashboard').classList.contains('active'))renderDash();};
 window.__renderRecent    =function(){if(document.getElementById('page-log').classList.contains('active'))renderRecent();};
 window.__renderFH        =function(){if(document.getElementById('page-familyhistory').classList.contains('active'))renderFH();};
@@ -852,6 +862,7 @@ function toggleSB(){document.getElementById('sidebar').classList.toggle('open');
 function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 function openMod(){document.getElementById('settingsModal').classList.add('open');}
 function closeMod(){document.getElementById('settingsModal').classList.remove('open');}
+function saveUrl(){closeMod();}
 function testConn(){var s=document.getElementById('set-stat');s.textContent=window.__fbReady?'✓ Firebase connected!':'Still initializing...';s.style.color=window.__fbReady?'#16a34a':'#d97706';}
 function setBanner(type,msg){var b=document.getElementById('conn-banner');if(!b)return;b.className='banner '+type;document.getElementById('conn-msg').textContent=msg;}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
@@ -867,53 +878,15 @@ function allGILog(){return window.__giLog||[];}
 
 function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
 
-// ── Normalize: YSA and New Members are FLAGS not main orgs.
-// Main orgs are EQ, RS, Youth, Primary only.
-// Legacy records saved with org="New Members" or "YSA" are mapped to RS (most common).
-function normalizeOrg(raw){
-  var s=(raw||'').trim();
-  if(s==='New Members'||s==='New Member') return 'RS';
-  if(s==='YSA') return 'EQ';
-  // valid main orgs
-  if(s==='EQ'||s==='RS'||s==='Youth'||s==='Primary') return s;
-  return s; // pass through anything else
-}
-
-// getOD: count ALL logged submitters by main org (for chart — regardless of submitted flag)
-// YSA flag and New Member flag are separate — they still count under their main org
 function getOD(){
   var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
   allSubs().forEach(function(r){
     var raw=r.date||'';if(!raw)return;
     var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
-    var mi=dt.getMonth();
-    var org=normalizeOrg(r.org);
-    if(d[org]!==undefined) d[org][mi]++;
+    var mi=dt.getMonth(),org=r.org||'',sub=r.submitted||'No';
+    if(sub==='Yes'&&d[org]!==undefined)d[org][mi]++;
   });
   return d;
-}
-
-// getOD_submitted: only submitted=Yes records (for KPI totals)
-function getOD_submitted(){
-  var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
-  allSubs().forEach(function(r){
-    var raw=r.date||'';if(!raw)return;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
-    var mi=dt.getMonth();
-    var org=normalizeOrg(r.org);
-    if((r.submitted||'No')==='Yes'&&d[org]!==undefined) d[org][mi]++;
-  });
-  return d;
-}
-
-// Count New Member or YSA flags for a given month (mi) or YTD
-function countFlag(flag,mi,ytd){
-  return allSubs().filter(function(r){
-    var raw=r.date||'';if(!raw)return false;
-    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return false;
-    var m=dt.getMonth();
-    return (ytd?m<=mi:m===mi)&&(r[flag]||'No')==='Yes';
-  }).length;
 }
 
 function getGD(){
@@ -934,18 +907,16 @@ function getGD(){
 
 function getFHD(){
   return allFH().map(function(r){
-    return{name:r.name||'',org:normalizeOrg(r.org),ysa:r.ysa==='Yes',g:[+r.g1||0,+r.g2||0,+r.g3||0,+r.g4||0],g5:+r.g5||0,done:r.done==='Yes',entries:+r.entries||0,by:r.consultant||''};
+    return{name:r.name||'',org:r.org||'',ysa:r.ysa==='Yes',g:[+r.g1||0,+r.g2||0,+r.g3||0,+r.g4||0],g5:+r.g5||0,done:r.done==='Yes',entries:+r.entries||0,by:r.consultant||''};
   }).filter(function(r){return r.name;});
 }
 
 function getTCD(){
   return allTC().map(function(r){
-    return{name:r.name||'',org:normalizeOrg(r.org),cons:r.consultant||'',sessions:+r.sessions||0,status:r.status||'Enrolled'};
+    return{name:r.name||'',org:r.org||'',cons:r.consultant||'',sessions:+r.sessions||0,status:r.status||'Enrolled'};
   }).filter(function(r){return r.name;});
 }
 
-// use getOD (all submitters by org) for chart display
-// use getOD_submitted for KPI total counts
 function tM(od,mi){return ORGS.reduce(function(a,o){return a+((od[o]||[])[mi]||0);},0);}
 function tY(od,mi){return ORGS.reduce(function(a,o){return a+sumTo(od[o]||[],mi);},0);}
 function tGI(gd,mi){return CONS.reduce(function(a,c){return a+((gd[c]||[])[mi]||0);},0);}
@@ -953,14 +924,13 @@ function tGIY(gd,mi){return CONS.reduce(function(a,c){return a+sumTo(gd[c]||[],m
 
 // ── RENDER DASHBOARD ──
 function renderDash(){
-  // od_all = all entries per org (for chart — includes New Members)
-  // od_sub = only submitted=Yes (for KPI totals)
-  var od=getOD(), od_sub=getOD_submitted(), gd=getGD(), fh=getFHD();
-  var mi=M, isY=V==='ytd';
-  var mSub=tM(od_sub,mi), ySub=tY(od_sub,mi);
-  var giM=tGI(gd,mi), giY=tGIY(gd,mi);
+  var od=getOD(),gd=getGD(),fh=getFHD();
+  var mi=M,isY=V==='ytd';
+  var mSub=tM(od,mi),ySub=tY(od,mi);
+  var giM=tGI(gd,mi),giY=tGIY(gd,mi);
   var pct=ySub>0?Math.min(100,Math.round(ySub/100*100)):0;
   var exp=Math.round(100*(mi+1)/12);
+  // BUG FIX: count gen4 from BOTH familyHistory AND submitters
   var fhDone=fh.filter(function(r){return r.done;}).length
             +allSubs().filter(function(r){return r.gen4===true;}).length;
   var disp=isY?ySub:mSub;
@@ -983,51 +953,48 @@ function renderDash(){
     {l:'YTD Submitters',v:ySub,s:'Jan–'+MONS[mi]},
     {l:'YTD Get Involved',v:giY.toLocaleString(),s:'All consultants'},
     {l:'% of Annual Target',v:pct+'%',s:'vs 100 goal'},
-    {l:'New Members 🆕',v:countFlag('newMember',mi,true),s:'Flagged this YTD'},
-    {l:'YSA ⭐',v:countFlag('ysa',mi,true),s:'Flagged this YTD'},
     {l:'On Track?',v:ySub>=exp?'YES':'NO',s:'Need ≥'+exp},
     {l:'Months Elapsed',v:mi+1,s:'of 12'},
     {l:'Remaining',v:Math.max(0,100-ySub),s:'names needed'}
   ].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
 
-  // CHART: use od (all submitters, including New Members) so New Members bars show
   var sv=ORGS.map(function(o){return isY?sumTo(od[o]||[],mi):((od[o]||[])[mi]||0);});
   document.getElementById('sc-title').textContent='Temple Submitters — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
   document.getElementById('sc-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+' <b>'+sv[i]+'</b></span>';}).join('');
   if(CH.sub)CH.sub.destroy();
-  CH.sub=new Chart(document.getElementById('c-sub'),{type:'bar',data:{labels:ORGS,datasets:[{data:sv,backgroundColor:OC.map(function(c){return c+'CC';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' '+ctx.raw+' members';}}}},scales:{x:{grid:{display:false},ticks:{font:{size:13,weight:'600'}}},y:{min:0,ticks:{font:{size:12}},grid:{color:'#f3f4f6'}}}}});
-
+  CH.sub=new Chart(document.getElementById('c-sub'),{type:'bar',data:{labels:ORGS,datasets:[{data:sv,backgroundColor:OC.map(function(c){return c+'CC';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{min:0,ticks:{font:{size:11}}}}}});
   var pv=ORGS.map(function(o){return(od[o]||[])[mi]||0;});
   document.getElementById('pie-leg').innerHTML=ORGS.map(function(o,i){return '<span class="li"><span class="ld" style="background:'+OC[i]+'"></span>'+o+'</span>';}).join('');
   if(CH.pie)CH.pie.destroy();
   CH.pie=new Chart(document.getElementById('c-pie'),{type:'doughnut',data:{labels:ORGS,datasets:[{data:pv,backgroundColor:OC,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false}}}});
-
   var tgt=isY?500*(mi+1):500,maxGI=Math.max.apply(null,CONS.map(function(c){return(gd[c]||[])[mi]||0;}).concat([1]));
   document.getElementById('gi-lbl').textContent=(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi])+' · target '+tgt.toLocaleString();
   document.getElementById('prog-bars').innerHTML=CONS.map(function(c,i){var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+' '+(val>=tgt?'<span style="color:#16a34a">✓</span>':'<span style="color:#dc2626">↓</span>')+'</div></div>';}).join('');
   if(CH.trend)CH.trend.destroy();
-  CH.trend=new Chart(document.getElementById('c-trend'),{type:'line',data:{labels:MONS,datasets:[{data:MONS.map(function(_,i){return tGI(gd,i);}),borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:10}}},y:{min:0,ticks:{font:{size:10}}}}}});
-
+  CH.trend=new Chart(document.getElementById('c-trend'),{type:'line',data:{labels:MONS,datasets:[{data:MONS.map(function(_,i){return tGI(gd,i);}),borderColor:'#1B3A6B',backgroundColor:'#1B3A6B10',borderWidth:2,fill:true,pointRadius:3,tension:.35}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
   var fhMB=document.getElementById('fh-mini'),fhME=document.getElementById('fh-mini-e');
   if(fh.length){fhME.style.display='none';fhMB.style.display='';fhMB.innerHTML=fh.map(function(r){return '<tr><td><b>'+r.name.split(' ').slice(0,2).join(' ')+'</b></td><td>'+bx(r.org,'b')+'</td><td style="text-align:center">'+r.g[3]+'/4</td><td>'+(r.done?bx('Done ✓','g'):bx('In prog','a'))+'</td><td>'+r.by+'</td></tr>';}).join('');}
   else{fhMB.style.display='none';fhME.style.display='';}
-
   document.getElementById('ytdb-title').textContent='YTD submitters — Jan–'+MONTHS[mi];
   var yv=ORGS.map(function(o){return sumTo(od[o]||[],mi);});
   if(CH.ytdB)CH.ytdB.destroy();
-  CH.ytdB=new Chart(document.getElementById('c-ytd'),{type:'bar',indexAxis:'y',data:{labels:ORGS,datasets:[{data:yv,backgroundColor:OC.map(function(c){return c+'BB';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:12}}},y:{ticks:{font:{size:13,weight:'600'}},grid:{display:false}}}}});
+  CH.ytdB=new Chart(document.getElementById('c-ytd'),{type:'bar',indexAxis:'y',data:{labels:ORGS,datasets:[{data:yv,backgroundColor:OC.map(function(c){return c+'BB';}),borderColor:OC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
 }
 
+// ── RENDER GI LOG PAGE ── (leaderboard + full log table)
 function renderGILogPage(){
   var sel=document.getElementById('gi-lb-month');
   var mi=sel?Number(sel.value):M;
   var rows=allGILog().filter(function(r){return Number(r.month)===mi;});
+
+  // Build leaderboard per org
   var lb=document.getElementById('gi-leaderboards');
   if(!lb)return;
   var html='';
   GI_ORGS.forEach(function(org){
     var color=ORG_COLORS[org]||'#374151';
-    var orgRows=rows.filter(function(r){return normalizeOrg(r.org)===org;});
+    var orgRows=rows.filter(function(r){return r.org===org;});
+    // group by member name, sum entries
     var grouped={};
     orgRows.forEach(function(r){
       var n=r.name||'Unknown';
@@ -1036,12 +1003,14 @@ function renderGILogPage(){
     var sorted=Object.keys(grouped).map(function(n){return{name:n,total:grouped[n]};}).sort(function(a,b){return b.total-a.total;});
     var topTotal=sorted.length>0?sorted[0].total:1;
     var grandTotal=sorted.reduce(function(a,r){return a+r.total;},0);
+
     html+='<div class="lb-card">';
     html+='<div class="lb-head" style="background:'+color+'">';
     html+='<span class="lb-title">'+org+'</span>';
     html+='<span class="lb-month">'+MONTHS[mi]+'</span>';
     html+='</div>';
     html+='<div class="lb-body">';
+
     if(sorted.length===0){
       html+='<div class="lb-empty">No entries yet for '+MONTHS[mi]+'</div>';
     }else{
@@ -1063,6 +1032,8 @@ function renderGILogPage(){
     html+='</div></div>';
   });
   lb.innerHTML=html;
+
+  // Full log table
   var allRows=allGILog().slice().sort(function(a,b){return b.createdAt>a.createdAt?1:-1;});
   var tb=document.getElementById('gi-log-body'),em=document.getElementById('gi-log-empty');
   if(!tb||!em)return;
@@ -1074,7 +1045,7 @@ function renderGILogPage(){
         '<td><span class="bd bb">'+(r.org||'')+'</span></td>'+
         '<td><b>'+(r.name||'')+'</b></td>'+
         '<td>'+(r.consultant||'')+'</td>'+
-        '<td style="text-align:center;font-weight:700;color:#2563eb">'+Number(r.entries||0).toLocaleString()+'</td></tr>';
+        '<td style="text-align:center;font-weight:500;color:#2563eb">'+Number(r.entries||0).toLocaleString()+'</td></tr>';
     }).join('');
   }else{em.style.display='';tb.innerHTML='';}
 }
@@ -1082,22 +1053,9 @@ window.__renderGILogPage=renderGILogPage;
 
 function renderSub(){
   var od=getOD(),mi=M,exp=Math.round(100*(mi+1)/12);
-  document.getElementById('sub-ystrip').innerHTML=[{l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},{l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},{l:'New Members 🆕',v:countFlag('newMember',mi,false),s:MONTHS[mi]+' flagged'},{l:'YSA ⭐',v:countFlag('ysa',mi,false),s:MONTHS[mi]+' flagged'},{l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},{l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  document.getElementById('sub-ystrip').innerHTML=[{l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},{l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},{l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},{l:'On Track?',v:tY(od,mi)>=exp?'YES':'NO',s:'Based on pace'},{l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'},{l:'Months Left',v:12-mi,s:'of 12'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   document.getElementById('sub-tbl-t').textContent='Monthly breakdown — '+MONTHS[mi]+' highlighted';
-  // build per-month New Member and YSA flag counts
-  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){
-    var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;
-    var nm=countFlag('newMember',i,false), ysa=countFlag('ysa',i,false);
-    return '<tr style="'+(sel?'background:#eff6ff!important':'')+'">'+
-      '<td style="'+(sel?'font-weight:700;color:#1B3A6B':'')+'">'+(mn+(sel?' '+bx('selected','n'):''))+'</td>'+
-      ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')+
-      '<td style="text-align:center;font-weight:700;color:#2563eb">'+mT+'</td>'+
-      '<td style="text-align:center">'+(nm>0?'<span style="font-weight:700;color:#dc2626">'+nm+'</span>':'—')+'</td>'+
-      '<td style="text-align:center">'+(ysa>0?'<span style="font-weight:700;color:#7c3aed">'+ysa+'</span>':'—')+'</td>'+
-      '<td style="text-align:center;font-weight:700;color:#0d9488">'+yT+'</td>'+
-      '<td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td>'+
-      '</tr>';
-  }).join('');
+  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:600;color:#1B3A6B':'')+'">'+(mn+(sel?' '+bx('selected','n'):''))+'</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')+'<td style="text-align:center;font-weight:500;color:#2563eb">'+mT+'</td><td style="text-align:center;font-weight:500;color:#0d9488">'+yT+'</td><td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';}).join('');
 }
 
 function renderSL(){
@@ -1107,7 +1065,7 @@ function renderSL(){
   document.getElementById('sl-title').textContent='All submitters — '+lbl+' 2026';
   document.getElementById('sl-ystrip').innerHTML=[{l:'Showing',v:rows.length,s:lbl},{l:'Annual Target',v:100,s:'Names/year'},{l:'% Complete',v:Math.round(rows.length/100*100)+'%',s:'of 100 goal'},{l:'Remaining',v:Math.max(0,100-rows.length),s:'names needed'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   var tb=document.getElementById('sl-tbody'),em=document.getElementById('sl-empty');
-  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(normalizeOrg(r.org)||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+(r.gen4===true?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:12px">'+(r.notes||'')+'</td></tr>';}).join('');}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+yno((r.newMember||'No')==='Yes')+'</td><td>'+yno((r.ysa||'No')==='Yes')+'</td><td>'+(r.gen4===true?bx('Yes ✓','g'):bx('No','a'))+'</td><td style="color:var(--muted);font-size:11px">'+(r.notes||'')+'</td></tr>';}).join('');}
   else{em.style.display='';tb.innerHTML='';}
 }
 
@@ -1121,8 +1079,8 @@ function renderGI(){
   document.getElementById('gi-bars').innerHTML=CONS.map(function(c,i){var val=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);return '<div class="pr"><div class="pn">'+c+'</div><div class="pb"><div class="pf" style="width:'+Math.round(val/maxGI*100)+'%;background:'+CC[i]+'"></div></div><div class="pv">'+val.toLocaleString()+(val>=500?' <span style="color:#16a34a">✓</span>':'')+'</div></div>';}).join('');
   document.getElementById('gi-tleg').innerHTML=CONS.map(function(c,i){return '<span class="li"><span class="ld" style="background:'+CC[i]+'"></span>'+c+'</span>';}).join('');
   if(CH.giT)CH.giT.destroy();
-  CH.giT=new Chart(document.getElementById('c-gitrd'),{type:'line',data:{labels:MONS,datasets:CONS.map(function(c,i){return{label:c,data:gd[c]||[],borderColor:CC[i],backgroundColor:CC[i]+'15',borderWidth:1.5,pointRadius:2,tension:.35,fill:false};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:10}}},y:{min:0,ticks:{font:{size:10}}}}}});
-  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c){var total=(gd[c]||[]).reduce(function(a,b){return a+b;},0);return '<tr><td style="font-weight:600">'+c+'</td>'+(gd[c]||new Array(12).fill(0)).map(function(val,idx){return '<td style="text-align:center;'+(idx===M?'background:#eff6ff;font-weight:700;color:#2563eb':'')+'">'+(val||0).toLocaleString()+'</td>';}).join('')+'<td style="text-align:center;font-weight:700;color:#16a34a">'+total.toLocaleString()+'</td></tr>';}).join('');
+  CH.giT=new Chart(document.getElementById('c-gitrd'),{type:'line',data:{labels:MONS,datasets:CONS.map(function(c,i){return{label:c,data:gd[c]||[],borderColor:CC[i],backgroundColor:CC[i]+'15',borderWidth:1.5,pointRadius:2,tension:.35,fill:false};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,font:{size:9}}},y:{min:0,ticks:{font:{size:9}}}}}});
+  document.getElementById('gi-tbody').innerHTML=CONS.map(function(c){var total=(gd[c]||[]).reduce(function(a,b){return a+b;},0);return '<tr><td style="font-weight:500">'+c+'</td>'+(gd[c]||new Array(12).fill(0)).map(function(val,idx){return '<td style="text-align:center;'+(idx===M?'background:#eff6ff;font-weight:500;color:#2563eb':'')+'">'+(val||0).toLocaleString()+'</td>';}).join('')+'<td style="text-align:center;font-weight:500;color:#16a34a">'+total.toLocaleString()+'</td></tr>';}).join('');
 }
 
 function renderFH(){
@@ -1146,10 +1104,10 @@ function renderKPIs(){
   var gd=getGD(),fh=getFHD(),mi=M,isY=V==='ytd';
   document.getElementById('cons-tbl-t').textContent='KPI — '+(isY?'YTD Jan–'+MONS[mi]:MONTHS[mi]);
   document.getElementById('cons-krow').innerHTML=[{l:'On Track',v:CONS.filter(function(c){return((gd[c]||[])[mi]||0)>=500;}).length+' of '+CONS.length,s:'Get Involved ≥500',c:'green'},{l:'Total Get Involved',v:(isY?tGIY(gd,mi):tGI(gd,mi)).toLocaleString(),s:isY?'Jan–'+MONS[mi]:'This month',c:'amber'},{l:'4th Gen Done',v:fh.filter(function(r){return r.done;}).length,s:'Total done',c:'blue'},{l:'Temple Class',v:getTCD().length,s:'10/year target',c:'purple'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
-  document.getElementById('cons-tbody').innerHTML=CONS.map(function(c){var gi=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);var tgt=isY?500*(mi+1):500,on=gi>=tgt;var fhD=fh.filter(function(r){return r.by===c&&r.done;}).length;var ns=fh.filter(function(r){return r.by===c;}).length;return '<tr><td><b>'+c+'</b></td><td style="font-weight:700;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td><td>'+(on?bx('On track','g'):bx('Below','a'))+'</td><td>'+fhD+'<span style="color:#9ca3af">/50</span></td><td>'+ns+'<span style="color:#9ca3af">/100</span></td><td>'+(gi>=500?bx('✓ Met','g'):bx('↓ Below','r'))+'</td></tr>';}).join('');
+  document.getElementById('cons-tbody').innerHTML=CONS.map(function(c){var gi=isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);var tgt=isY?500*(mi+1):500,on=gi>=tgt;var fhD=fh.filter(function(r){return r.by===c&&r.done;}).length;var ns=fh.filter(function(r){return r.by===c;}).length;return '<tr><td><b>'+c+'</b></td><td style="font-weight:500;color:'+(on?'#16a34a':'#dc2626')+'">'+gi.toLocaleString()+'</td><td>'+(on?bx('On track','g'):bx('Below','a'))+'</td><td>'+fhD+'<span style="color:#9ca3af">/50</span></td><td>'+ns+'<span style="color:#9ca3af">/100</span></td><td>'+(gi>=500?bx('✓ Met','g'):bx('↓ Below','r'))+'</td></tr>';}).join('');
   if(CH.cBar)CH.cBar.destroy();
   var vals=CONS.map(function(c){return isY?sumTo(gd[c]||[],mi):((gd[c]||[])[mi]||0);});
-  CH.cBar=new Chart(document.getElementById('c-cons'),{type:'bar',indexAxis:'y',data:{labels:CONS,datasets:[{data:vals,backgroundColor:CC.map(function(c){return c+'CC';}),borderColor:CC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:12}}},y:{ticks:{font:{size:13,weight:'600'}},grid:{display:false}}}}});
+  CH.cBar=new Chart(document.getElementById('c-cons'),{type:'bar',indexAxis:'y',data:{labels:CONS,datasets:[{data:vals,backgroundColor:CC.map(function(c){return c+'CC';}),borderColor:CC,borderWidth:1,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{min:0,ticks:{font:{size:11}}},y:{ticks:{font:{size:12}},grid:{display:false}}}}});
 }
 
 function renderMtgs(){
@@ -1165,7 +1123,7 @@ function renderTrips(){
   var nc=rows.filter(function(r){return r.nc==='Yes';}).length;
   document.getElementById('trip-krow').innerHTML=[{l:'Living Ordinances',v:lo,s:'Target 10/trip',c:'blue'},{l:'Proxy Ordinances',v:po,s:'Target 200/trip',c:'green'},{l:'Name Cards',v:nc,s:'Printed',c:'purple'}].map(function(k){return '<div class="kpi '+k.c+'"><div class="kl">'+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';}).join('');
   var tb=document.getElementById('trip-tbody'),em=document.getElementById('trip-empty');
-  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r){return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+bx(normalizeOrg(r.org)||'','b')+'</td><td>'+yno(r.lo==='Yes')+'</td><td>'+yno(r.po==='Yes')+'</td><td>'+yno(r.nc==='Yes')+'</td><td>'+(r.consultant||'')+'</td></tr>';}).join('');}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r){return '<tr><td>'+(r.date||'')+'</td><td><b>'+(r.name||'')+'</b></td><td>'+bx(r.org||'','b')+'</td><td>'+yno(r.lo==='Yes')+'</td><td>'+yno(r.po==='Yes')+'</td><td>'+yno(r.nc==='Yes')+'</td><td>'+(r.consultant||'')+'</td></tr>';}).join('');}
   else{em.style.display='';tb.innerHTML='';}
 }
 
@@ -1173,10 +1131,11 @@ function renderRecent(){
   var rows=allSubs().slice().reverse().slice(0,20);
   var tb=document.getElementById('recent-body'),em=document.getElementById('recent-e');
   if(!tb||!em)return;
-  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(normalizeOrg(r.org)||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+((r.submitted||'No')==='Yes'?bx('Yes','g'):bx('No','a'))+'</td></tr>';}).join('');}
+  if(rows.length){em.style.display='none';tb.innerHTML=rows.map(function(r,i){return '<tr><td style="text-align:center;color:var(--light)">'+(i+1)+'</td><td><b>'+(r.name||'')+'</b></td><td>'+(r.date||'')+'</td><td>'+bx(r.org||'','b')+'</td><td>'+(r.consultant||'')+'</td><td style="text-align:center">'+Number(r.gi||0).toLocaleString()+'</td><td>'+((r.submitted||'No')==='Yes'?bx('Yes','g'):bx('No','a'))+'</td></tr>';}).join('');}
   else{em.style.display='';tb.innerHTML='';}
 }
 
+// ── CLEAR FUNCTIONS ──
 function clrEntry(){['e-name','e-gi','e-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('e-date').value='2026-04-01';var s=document.getElementById('e-stat');if(s){s.textContent='';s.style.color='';}}
 function clrFH(){['fh-name','fh-notes'].forEach(function(id){document.getElementById(id).value='';});['fh-g1','fh-g2','fh-g3','fh-g4','fh-g5','fh-entries'].forEach(function(id){document.getElementById(id).value=0;});var s=document.getElementById('fh-stat');if(s)s.textContent='';}
 function clrMtg(){['m-name','m-topic','m-action','m-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('m-date').value='2026-04-01';var s=document.getElementById('m-stat');if(s)s.textContent='';}
