@@ -305,7 +305,7 @@ tr:hover td{background:#fffbeb}
         <div class="fg">
           <div class="fi"><label>Member Name</label><input id="e-name" placeholder="Sister / Bro. Name"></div>
           <div class="fi"><label>Date</label><input type="date" id="e-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
-          <div class="fi"><label>Organization</label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="e-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
           <div class="fi"><label>Your Name (Consultant)</label><select id="e-cons"></select></div>
           <div class="fi"><label>Get Involved # entries</label><input type="number" id="e-gi" placeholder="0" min="0"></div>
           <div class="fi"><label>Is New Member?</label><select id="e-new"><option>No</option><option>Yes</option></select></div>
@@ -327,7 +327,7 @@ tr:hover td{background:#fffbeb}
       <div class="cb">
         <div class="fg">
           <div class="fi"><label>Member Name</label><input id="fh-name" placeholder="Member name"></div>
-          <div class="fi"><label>Organization</label><select id="fh-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="fh-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
           <div class="fi"><label>Your Name (Consultant)</label><select id="fh-cons"></select></div>
           <div class="fi"><label>Is YSA?</label><select id="fh-ysa"><option>No</option><option>Yes</option></select></div>
           <div class="fi"><label>Gen 1 Parents (0-4)</label><input type="number" id="fh-g1" min="0" max="4" value="0"></div>
@@ -438,7 +438,7 @@ tr:hover td{background:#fffbeb}
       <div class="fg">
         <div class="fi"><label>Trip Date</label><input type="date" id="t-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
         <div class="fi"><label>Attendee Name</label><input id="t-name" placeholder="Full name"></div>
-        <div class="fi"><label>Organization</label><select id="t-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+        <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="t-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
         <div class="fi"><label>Consultant Assisting</label><select id="t-cons"></select></div>
         <div class="fi"><label>Is YSA?</label><select id="t-ysa"><option>No</option><option>Yes</option></select></div>
         <div class="fi"><label>Living Ordinance?</label><select id="t-lo"><option>No</option><option>Yes</option></select></div>
@@ -457,7 +457,7 @@ tr:hover td{background:#fffbeb}
   <div class="ystrip" id="sub-ystrip"></div>
   <div class="card"><div class="ch"><div class="ct" id="sub-tbl-t">Monthly breakdown</div></div>
   <div class="cb tw" style="padding-top:9px">
-    <table><thead><tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>New Members</th><th>Primary</th><th>YSA</th><th>Monthly Total</th><th>YTD Total</th><th>% of Target</th></tr></thead>
+    <table><thead><tr><th>Month</th><th>EQ</th><th>RS</th><th>Youth</th><th>Primary</th><th>Monthly Total</th><th>New Members 🆕</th><th>YSA ⭐</th><th>YTD Total</th><th>% of Target</th></tr></thead>
     <tbody id="sub-tbody"></tbody></table>
   </div></div>
 </section>
@@ -523,7 +523,7 @@ tr:hover td{background:#fffbeb}
         <div class="fg">
           <div class="fi"><label>Student Name</label><input id="tc-name" placeholder="Full name"></div>
           <div class="fi"><label>Date Started</label><input type="date" id="tc-date" min="2026-01-01" max="2026-12-31" value="2026-04-01"></div>
-          <div class="fi"><label>Organization</label><select id="tc-org"><option>EQ</option><option>RS</option><option>Youth</option><option>New Members</option><option>Primary</option><option>YSA</option></select></div>
+          <div class="fi"><label>Organization <span style="font-size:11px;color:#6b7280;font-weight:500">(main org only)</span></label><select id="tc-org"><option>EQ</option><option>RS</option><option>Youth</option><option>Primary</option></select></div>
           <div class="fi"><label>Assigned Consultant</label><select id="tc-cons"></select></div>
           <div class="fi"><label>Is New Member?</label><select id="tc-new"><option>No</option><option>Yes</option></select></div>
           <div class="fi"><label>Is YSA?</label><select id="tc-ysa"><option>No</option><option>Yes</option></select></div>
@@ -767,13 +767,13 @@ window.quickAll = async function(){
 <script>
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var MONS  =['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-// ORGS array — "New Members" is the canonical string used in data AND chart labels
-var ORGS  =['EQ','RS','Youth','New Members','Primary','YSA'];
-var GI_ORGS=['EQ','RS','Youth','Primary','New Members'];
+// ORGS = 4 main orgs for charts/tables. YSA and New Members are FLAGS (checkboxes), not orgs.
+var ORGS  =['EQ','RS','Youth','Primary'];
+var GI_ORGS=['EQ','RS','Youth','Primary'];
 var CONS  =['Alpha May','Claire','Junalyn','Marie Jean','May','Nelida','Rhea','Ricardo','Romeo','Stephanie'];
-var OC    =['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0d9488'];
+var OC    =['#2563eb','#16a34a','#d97706','#7c3aed'];
 var CC    =['#1B3A6B','#0d9488','#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#C9A84C','#e11d48','#0369a1'];
-var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed','New Members':'#dc2626'};
+var ORG_COLORS={'EQ':'#2563eb','RS':'#16a34a','Youth':'#d97706','Primary':'#7c3aed'};
 
 var M=3, V='monthly', CH={};
 window.__submitters=window.__submitters||[];
@@ -867,14 +867,20 @@ function allGILog(){return window.__giLog||[];}
 
 function sumTo(arr,mi){return arr.slice(0,mi+1).reduce(function(a,b){return a+b;},0);}
 
-// ── FIX: normalize org name so "New Member" (without s) also maps to "New Members"
+// ── Normalize: YSA and New Members are FLAGS not main orgs.
+// Main orgs are EQ, RS, Youth, Primary only.
+// Legacy records saved with org="New Members" or "YSA" are mapped to RS (most common).
 function normalizeOrg(raw){
   var s=(raw||'').trim();
-  // handle minor spelling differences
-  if(s==='New Member') return 'New Members';
-  return s;
+  if(s==='New Members'||s==='New Member') return 'RS';
+  if(s==='YSA') return 'EQ';
+  // valid main orgs
+  if(s==='EQ'||s==='RS'||s==='Youth'||s==='Primary') return s;
+  return s; // pass through anything else
 }
 
+// getOD: count ALL logged submitters by main org (for chart — regardless of submitted flag)
+// YSA flag and New Member flag are separate — they still count under their main org
 function getOD(){
   var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
   allSubs().forEach(function(r){
@@ -882,15 +888,12 @@ function getOD(){
     var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
     var mi=dt.getMonth();
     var org=normalizeOrg(r.org);
-    var sub=r.submitted||'No';
-    // count if submitted===Yes OR if the record exists (since we want ALL submitters per org in the chart)
-    // Per requirements: show org count in chart regardless of submitted flag
     if(d[org]!==undefined) d[org][mi]++;
   });
   return d;
 }
 
-// getOD_submitted: only counts where submitted==='Yes' (for the KPI numbers)
+// getOD_submitted: only submitted=Yes records (for KPI totals)
 function getOD_submitted(){
   var d={};ORGS.forEach(function(o){d[o]=new Array(12).fill(0);});
   allSubs().forEach(function(r){
@@ -898,10 +901,19 @@ function getOD_submitted(){
     var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return;
     var mi=dt.getMonth();
     var org=normalizeOrg(r.org);
-    var sub=r.submitted||'No';
-    if(sub==='Yes'&&d[org]!==undefined) d[org][mi]++;
+    if((r.submitted||'No')==='Yes'&&d[org]!==undefined) d[org][mi]++;
   });
   return d;
+}
+
+// Count New Member or YSA flags for a given month (mi) or YTD
+function countFlag(flag,mi,ytd){
+  return allSubs().filter(function(r){
+    var raw=r.date||'';if(!raw)return false;
+    var dt=new Date(raw);if(isNaN(dt)||dt.getFullYear()!==2026)return false;
+    var m=dt.getMonth();
+    return (ytd?m<=mi:m===mi)&&(r[flag]||'No')==='Yes';
+  }).length;
 }
 
 function getGD(){
@@ -971,6 +983,8 @@ function renderDash(){
     {l:'YTD Submitters',v:ySub,s:'Jan–'+MONS[mi]},
     {l:'YTD Get Involved',v:giY.toLocaleString(),s:'All consultants'},
     {l:'% of Annual Target',v:pct+'%',s:'vs 100 goal'},
+    {l:'New Members 🆕',v:countFlag('newMember',mi,true),s:'Flagged this YTD'},
+    {l:'YSA ⭐',v:countFlag('ysa',mi,true),s:'Flagged this YTD'},
     {l:'On Track?',v:ySub>=exp?'YES':'NO',s:'Need ≥'+exp},
     {l:'Months Elapsed',v:mi+1,s:'of 12'},
     {l:'Remaining',v:Math.max(0,100-ySub),s:'names needed'}
@@ -1068,9 +1082,22 @@ window.__renderGILogPage=renderGILogPage;
 
 function renderSub(){
   var od=getOD(),mi=M,exp=Math.round(100*(mi+1)/12);
-  document.getElementById('sub-ystrip').innerHTML=[{l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},{l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},{l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},{l:'On Track?',v:tY(od,mi)>=exp?'YES':'NO',s:'Based on pace'},{l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'},{l:'Months Left',v:12-mi,s:'of 12'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
+  document.getElementById('sub-ystrip').innerHTML=[{l:'YTD Submitters',v:tY(od,mi),s:'Jan–'+MONS[mi]},{l:'Monthly Total',v:tM(od,mi),s:MONTHS[mi]},{l:'New Members 🆕',v:countFlag('newMember',mi,false),s:MONTHS[mi]+' flagged'},{l:'YSA ⭐',v:countFlag('ysa',mi,false),s:MONTHS[mi]+' flagged'},{l:'% of Annual',v:Math.round(tY(od,mi)/100*100)+'%',s:'vs 100 goal'},{l:'Remaining',v:Math.max(0,100-tY(od,mi)),s:'names needed'}].map(function(x){return '<div class="ym"><div class="yml">'+x.l+'</div><div class="ymv">'+x.v+'</div><div class="yms">'+x.s+'</div></div>';}).join('');
   document.getElementById('sub-tbl-t').textContent='Monthly breakdown — '+MONTHS[mi]+' highlighted';
-  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;return '<tr style="'+(sel?'background:#eff6ff!important':'')+'"><td style="'+(sel?'font-weight:700;color:#1B3A6B':'')+'">'+(mn+(sel?' '+bx('selected','n'):''))+'</td>'+ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')+'<td style="text-align:center;font-weight:700;color:#2563eb">'+mT+'</td><td style="text-align:center;font-weight:700;color:#0d9488">'+yT+'</td><td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td></tr>';}).join('');
+  // build per-month New Member and YSA flag counts
+  document.getElementById('sub-tbody').innerHTML=MONS.map(function(mn,i){
+    var mT=tM(od,i),yT=tY(od,i),p=Math.round(yT/100*100),sel=i===mi;
+    var nm=countFlag('newMember',i,false), ysa=countFlag('ysa',i,false);
+    return '<tr style="'+(sel?'background:#eff6ff!important':'')+'">'+
+      '<td style="'+(sel?'font-weight:700;color:#1B3A6B':'')+'">'+(mn+(sel?' '+bx('selected','n'):''))+'</td>'+
+      ORGS.map(function(o){return '<td style="text-align:center">'+((od[o]||[])[i]||0)+'</td>';}).join('')+
+      '<td style="text-align:center;font-weight:700;color:#2563eb">'+mT+'</td>'+
+      '<td style="text-align:center">'+(nm>0?'<span style="font-weight:700;color:#dc2626">'+nm+'</span>':'—')+'</td>'+
+      '<td style="text-align:center">'+(ysa>0?'<span style="font-weight:700;color:#7c3aed">'+ysa+'</span>':'—')+'</td>'+
+      '<td style="text-align:center;font-weight:700;color:#0d9488">'+yT+'</td>'+
+      '<td style="text-align:center">'+(yT>=Math.round(100*(i+1)/12)?bx(p+'%','g'):bx(p+'%','a'))+'</td>'+
+      '</tr>';
+  }).join('');
 }
 
 function renderSL(){
